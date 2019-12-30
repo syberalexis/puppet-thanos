@@ -3,8 +3,8 @@
 # A description of what this class does
 #
 # @example
-#   include thanos::sidecar
-class thanos::sidecar (
+#   include thanos::config
+class thanos::config (
 
 ) {
 
