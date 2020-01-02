@@ -3,6 +3,6 @@
 # A description of what this class does
 #
 # @example
-#   include thanos::query
-class thanos::querier {
+#   include thanos::store
+class thanos::store {
 }

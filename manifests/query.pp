@@ -3,6 +3,6 @@
 # A description of what this class does
 #
 # @example
-#   include thanos::ruler
-class thanos::ruler {
+#   include thanos::query
+class thanos::query {
 }

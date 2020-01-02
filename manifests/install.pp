@@ -21,7 +21,7 @@ class thanos::install (
   Stdlib::Absolutepath            $tsdb_path          = $thanos::tsdb_path,
   Stdlib::Absolutepath            $config_dir         = $thanos::config_dir,
   Boolean                         $purge_config_dir   = $thanos::purge_config_dir,
-  Type[Resource]                  $notify_service     = $thanos::notify_service,
+  Array[Type[Resource]]           $notify_services    = $thanos::notify_services,
 
   # User Management
   Boolean                         $manage_user        = $thanos::manage_user,
@@ -60,14 +60,14 @@ class thanos::install (
           mode  => '0555';
         "${bin_dir}/thanos":
           ensure => link,
-          notify => $notify_service,
-          target => "${bin_dir}/thanos-${version}.${os}-${real_arch}/thanos";
+          notify => $notify_services,
+          target => "${base_dir}/thanos-${version}.${os}-${real_arch}/thanos";
       }
     }
     'package': {
       package { $package_name:
         ensure => $package_ensure,
-        notify => $notify_service,
+        notify => $notify_services,
       }
       if $manage_user {
         User[$user] -> Package[$package_name]
