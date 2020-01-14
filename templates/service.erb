@@ -4,7 +4,8 @@ After=network-online.target
 Wants=network-online.target
 
 [Service]
-ExecStart=<%= @bin_path %> <%= @title %> <%= @params %>
+ExecStart=<%= @bin_path %> <%= @title %> \
+<%= @parameters %>
 Restart=always
 
 [Install]

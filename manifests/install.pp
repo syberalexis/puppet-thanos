@@ -5,31 +5,31 @@
 # @example
 #   include thanos::install
 class thanos::install (
-  Pattern[/\d\.\d\.\d/]           $version            = $thanos::version,
-  String                          $package_name       = $thanos::package_name,
-  String                          $os                 = $thanos::os,
-  String                          $real_arch          = $thanos::real_arch,
+  Pattern[/\d\.\d\.\d/]          $version            = $thanos::version,
+  String                         $package_name       = $thanos::package_name,
+  String                         $os                 = $thanos::os,
+  String                         $real_arch          = $thanos::real_arch,
 
   # Installation
-  String                          $package_ensure     = $thanos::package_ensure,
-  Enum['url', 'package', 'none']  $install_method     = $thanos::install_method,
-  String                          $download_extension = $thanos::download_extension,
-  Stdlib::HTTPUrl                 $download_url       = $thanos::real_download_url,
-  Optional[String]                $extract_command    = $thanos::extract_command,
-  Stdlib::Absolutepath            $base_dir           = $thanos::base_dir,
-  Stdlib::Absolutepath            $bin_dir            = $thanos::bin_dir,
-  Stdlib::Absolutepath            $tsdb_path          = $thanos::tsdb_path,
-  Stdlib::Absolutepath            $config_dir         = $thanos::config_dir,
-  Boolean                         $purge_config_dir   = $thanos::purge_config_dir,
-  Array[Type[Resource]]           $notify_services    = $thanos::notify_services,
+  String                         $package_ensure     = $thanos::package_ensure,
+  Enum['url', 'package', 'none'] $install_method     = $thanos::install_method,
+  String                         $download_extension = $thanos::download_extension,
+  Stdlib::HTTPUrl                $download_url       = $thanos::real_download_url,
+  Optional[String]               $extract_command    = $thanos::extract_command,
+  Stdlib::Absolutepath           $base_dir           = $thanos::base_dir,
+  Stdlib::Absolutepath           $bin_dir            = $thanos::bin_dir,
+  Stdlib::Absolutepath           $tsdb_path          = $thanos::tsdb_path,
+  Stdlib::Absolutepath           $config_dir         = $thanos::config_dir,
+  Boolean                        $purge_config_dir   = $thanos::purge_config_dir,
+  Array[Type[Resource]]          $notify_services    = $thanos::notify_services,
 
   # User Management
-  Boolean                         $manage_user        = $thanos::manage_user,
-  Boolean                         $manage_group       = $thanos::manage_group,
-  String                          $user               = $thanos::user,
-  String                          $group              = $thanos::group,
-  Stdlib::Absolutepath            $usershell          = $thanos::usershell,
-  Array[String]                   $extra_groups       = $thanos::extra_groups,
+  Boolean                        $manage_user        = $thanos::manage_user,
+  Boolean                        $manage_group       = $thanos::manage_group,
+  String                         $user               = $thanos::user,
+  String                         $group              = $thanos::group,
+  Stdlib::Absolutepath           $usershell          = $thanos::usershell,
+  Array[String]                  $extra_groups       = $thanos::extra_groups,
 ) {
   assert_private()
 
@@ -41,6 +41,7 @@ class thanos::install (
       mode   => '0755',
     }
   }
+
   case $install_method {
     'url': {
       archive { "/tmp/thanos-${version}.${download_extension}":
@@ -78,6 +79,7 @@ class thanos::install (
       fail("The provided install method ${install_method} is invalid")
     }
   }
+
   if $manage_user {
     ensure_resource('user', [ $user ], {
       ensure => 'present',
@@ -96,6 +98,7 @@ class thanos::install (
       system => true,
     })
   }
+
   file { $config_dir:
     ensure  => 'directory',
     owner   => 'root',

@@ -5,7 +5,7 @@
 # @example
 #   include thanos
 class thanos (
-  Pattern[/\d\.\d\.\d/]                           $version,
+  Pattern[/\d+\.\d+\.\d+/]                        $version,
   Boolean                                         $manage_sidecar                = false,
   Boolean                                         $manage_query                  = false,
   Boolean                                         $manage_rule                   = false,
@@ -48,20 +48,18 @@ class thanos (
   Hash                                            $objstore_config               = {},
   Enum['debug', 'info', 'warn', 'error', 'fatal'] $log_level                     = 'info',
   Enum['logfmt', 'json']                          $log_format                    = 'logfmt',
-
-  $http_address = '0.0.0.0:10902',
-  $http_grace_period = '2m',
-  $grpc_address = '0.0.0.0:10901',
-  $grpc_grace_period = '2m',
-  $prometheus_url = 'http://127.0.0.1:9090',
-  $prometheus_ready_timeout = '10m',
-  $min_time = '0000-01-01T00:00:00Z',
 ) {
-  $_manage_services = {
+  $bin_path = "${bin_dir}/thanos"
+
+  $notify_services = {
     'sidecar' => $manage_sidecar,
     'query'   => $manage_query,
     'rule'    => $manage_rule,
     'store'   => $manage_store,
+  }.filter |String $key, Boolean $value| {
+    $value
+  }.map |String $key, Boolean $value| {
+    Service["thanos-${key}"]
   }
 
   case $facts['os']['architecture'] {
@@ -78,31 +76,28 @@ class thanos (
     $real_download_url = "${base_url}/v${version}/thanos-${version}.${os}-${real_arch}.${download_extension}"
   }
 
-  $notify_services = $_manage_services.filter |String $key, Boolean $value| {
-    $value
-  }.map |String $key, Boolean $value| {
-      Service["thanos-${key}"]
-  }
-
   include thanos::install
   include thanos::config
 
-  $_manage_services.each |String $key, Boolean $value| {
-    if $value {
-      class { "thanos::${key}": }
-      Class['thanos::install'] -> Class["thanos::${key}"] -> Service["thanos-${key}"]
-    }
+  Class['thanos::install'] -> Class['thanos::config']
 
-    $_service_ensure = $value ? {
-      true  => running,
-      false => absent,
-    }
-    thanos::service { "thanos-${key}" :
-      ensure   => $_service_ensure,
-      bin_path => "${bin_dir}/thanos",
-      params   => {}
-    }
+  if $manage_sidecar {
+    include thanos::sidecar
+    Class['thanos::install'] -> Class['thanos::sidecar']
   }
 
-  Class['thanos::install'] -> Class['thanos::config']
+  if $manage_query {
+    include thanos::query
+    Class['thanos::install'] -> Class['thanos::query']
+  }
+
+  if $manage_rule {
+    include thanos::rule
+    Class['thanos::install'] -> Class['thanos::rule']
+  }
+
+  if $manage_store {
+    include thanos::store
+    Class['thanos::install'] -> Class['thanos::store']
+  }
 }
