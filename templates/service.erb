@@ -1,0 +1,12 @@
+[Unit]
+Description=Thanos <%= @title %> module service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+ExecStart=<%= @bin_path %> <%= @title %> \
+<%= @parameters %>
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
