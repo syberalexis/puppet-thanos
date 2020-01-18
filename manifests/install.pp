@@ -5,7 +5,7 @@
 # @example
 #   include thanos::install
 class thanos::install (
-  Pattern[/\d\.\d\.\d/]          $version            = $thanos::version,
+  Pattern[/\d+\.\d+\.\d+/]       $version            = $thanos::version,
   String                         $package_name       = $thanos::package_name,
   String                         $os                 = $thanos::os,
   String                         $real_arch          = $thanos::real_arch,
@@ -18,7 +18,6 @@ class thanos::install (
   Optional[String]               $extract_command    = $thanos::extract_command,
   Stdlib::Absolutepath           $base_dir           = $thanos::base_dir,
   Stdlib::Absolutepath           $bin_dir            = $thanos::bin_dir,
-  Stdlib::Absolutepath           $tsdb_path          = $thanos::tsdb_path,
   Stdlib::Absolutepath           $config_dir         = $thanos::config_dir,
   Boolean                        $purge_config_dir   = $thanos::purge_config_dir,
   Array[Type[Resource]]          $notify_services    = $thanos::notify_services,
@@ -32,15 +31,6 @@ class thanos::install (
   Array[String]                  $extra_groups       = $thanos::extra_groups,
 ) {
   assert_private()
-
-  if $tsdb_path {
-    file { $tsdb_path:
-      ensure => 'directory',
-      owner  => $user,
-      group  => $group,
-      mode   => '0755',
-    }
-  }
 
   case $install_method {
     'url': {

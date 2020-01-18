@@ -6,12 +6,13 @@
 #   include thanos
 class thanos (
   Pattern[/\d+\.\d+\.\d+/]                        $version,
+  String                                          $os                            = downcase($facts['kernel']),
   Boolean                                         $manage_sidecar                = false,
   Boolean                                         $manage_query                  = false,
   Boolean                                         $manage_rule                   = false,
   Boolean                                         $manage_store                  = false,
-
-  String                                          $os                            = downcase($facts['kernel']),
+  Boolean                                         $manage_compact                = false,
+  Boolean                                         $manage_downsample             = false,
 
   # Installation
   Enum['url', 'package', 'none']                  $install_method                = 'url',
@@ -52,10 +53,12 @@ class thanos (
   $bin_path = "${bin_dir}/thanos"
 
   $notify_services = {
-    'sidecar' => $manage_sidecar,
-    'query'   => $manage_query,
-    'rule'    => $manage_rule,
-    'store'   => $manage_store,
+    'sidecar'    => $manage_sidecar,
+    'query'      => $manage_query,
+    'rule'       => $manage_rule,
+    'store'      => $manage_store,
+    'compact'    => $manage_compact,
+    'downsample' => $manage_downsample,
   }.filter |String $key, Boolean $value| {
     $value
   }.map |String $key, Boolean $value| {
@@ -99,5 +102,15 @@ class thanos (
   if $manage_store {
     include thanos::store
     Class['thanos::install'] -> Class['thanos::store']
+  }
+
+  if $manage_compact {
+    include thanos::compact
+    Class['thanos::install'] -> Class['thanos::compact']
+  }
+
+  if $manage_downsample {
+    include thanos::downsample
+    Class['thanos::install'] -> Class['thanos::downsample']
   }
 }

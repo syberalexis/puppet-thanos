@@ -21,16 +21,16 @@ define thanos::resources::service (
   }
 
   $parameters = $params.filter |String $key, Data $value| {
-    if $value {
+    if $value and ! empty($value) {
       $value
     }
   }.map |String $key, Data $value| {
     if $value.is_a(Array) {
-      $value.prefix("--${key}=").join(" \\\n")
+      $value.prefix("  --${key}=").join(" \\\n")
     } elsif $value.is_a(Boolean) {
-      "--${key}"
+      "  --${key}"
     } else {
-      "--${key}=${value}"
+      "  --${key}=${value}"
     }
   }.join(" \\\n")
 
