@@ -19,17 +19,17 @@ define thanos::resources::service (
 ) {
   $_service_name   = "thanos-${title}"
   $_service_ensure = $ensure ? {
-    running => running,
-    default => stopped,
+    'running' => running,
+    default   => stopped,
   }
   $_file_ensure    = $ensure ? {
-    running => file,
-    stopped => file,
-    default => absent,
+    'running' => file,
+    'stopped' => file,
+    default   => absent,
   }
 
   $parameters = $params.filter |String $key, Data $value| {
-    if $value and ! empty($value) {
+    if $value {
       $value
     }
   }.map |String $key, Data $value| {
@@ -39,6 +39,10 @@ define thanos::resources::service (
       "  --${key}"
     } else {
       "  --${key}=${value}"
+    }
+  }.filter |String $value| {
+    if $value {
+      $value
     }
   }.join(" \\\n")
 

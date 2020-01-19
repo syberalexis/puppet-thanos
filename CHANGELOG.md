@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## Release 0.1.3
+
+**Features**
+    Unit tests
+**Bug Fixes**
+    Boolean parameters in service resource creation.
+
 ## Release 0.1.2
 
 **Features**

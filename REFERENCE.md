@@ -318,7 +318,8 @@ Default value: `undef`
 
 Data type: `String`
 
-Minimum age of fresh (non-compacted) blocks before they are being processed. Malformed blocks older than the maximum of consistency-delay and 30m0s will be removed.
+Minimum age of fresh (non-compacted) blocks before they are being processed.
+  Malformed blocks older than the maximum of consistency-delay and 30m0s will be removed.
 
 Default value: '30m'
 
@@ -358,7 +359,8 @@ Default value: `false`
 
 Data type: `Boolean`
 
-Disables downsampling. This is not recommended as querying long time ranges without non-downsampled data is not efficient and useful e.g it is not possible to render all samples for a human eye anyway
+Disables downsampling. This is not recommended as querying long time ranges without non-downsampled data is
+  not efficient and useful e.g it is not possible to render all samples for a human eye anyway
 
 Default value: `false`
 
@@ -382,7 +384,8 @@ Default value: 1
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
-Path to YAML file that contains relabeling configuration that allows selecting blocks. It follows native Prometheus relabel-config syntax.
+Path to YAML file that contains relabeling configuration that allows selecting blocks.
+  It follows native Prometheus relabel-config syntax.
   See format details: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config
 
 Default value: `undef`
@@ -791,7 +794,8 @@ Default value: `undef`
 
 Data type: `Optional[String]`
 
-Prefix for API and UI endpoints. This allows thanos UI to be served on a sub-path. This option is analogous to --web.route-prefix of Promethus.
+Prefix for API and UI endpoints. This allows thanos UI to be served on a sub-path.
+  This option is analogous to --web.route-prefix of Promethus.
 
 Default value: `undef`
 
@@ -799,7 +803,9 @@ Default value: `undef`
 
 Data type: `Optional[String]`
 
-Static prefix for all HTML links and redirect URLs in the UI query web interface. Actual endpoints are still served on / or the web.route-prefix. This allows thanos UI to be served behind a reverse proxy that strips a URL sub-path.
+Static prefix for all HTML links and redirect URLs in the UI query web interface.
+  Actual endpoints are still served on / or the web.route-prefix.
+  This allows thanos UI to be served behind a reverse proxy that strips a URL sub-path.
 
 Default value: `undef`
 
@@ -807,9 +813,12 @@ Default value: `undef`
 
 Data type: `Optional[String]`
 
-Name of HTTP request header used for dynamic prefixing of UI links and redirects. This option is ignored if web.external-prefix argument is set. Security risk: enable this option only if a reverse proxy in front of thanos is
-  resetting the header. The --web.prefix-header=X-Forwarded-Prefix option can be useful, for example, if Thanos UI is served via Traefik reverse proxy with PathPrefixStrip option enabled, which sends the stripped prefix value in
-  X-Forwarded-Prefix header. This allows thanos UI to be served on a sub-path.
+Name of HTTP request header used for dynamic prefixing of UI links and redirects.
+  This option is ignored if web.external-prefix argument is set.
+  Security risk: enable this option only if a reverse proxy in front of thanos is resetting the header.
+  The --web.prefix-header=X-Forwarded-Prefix option can be useful, for example,
+  if Thanos UI is served via Traefik reverse proxy with PathPrefixStrip option enabled, which sends the stripped
+  prefix value in X-Forwarded-Prefix header. This allows thanos UI to be served on a sub-path.
 
 Default value: `undef`
 
@@ -833,7 +842,8 @@ Default value: 20
 
 Data type: `Optional[String]`
 
-Labels to treat as a replica indicator along which data is deduplicated. Still you will be able to query without deduplication using 'dedup=false' parameter.
+Labels to treat as a replica indicator along which data is deduplicated.
+  Still you will be able to query without deduplication using 'dedup=false' parameter.
 
 Default value: `undef`
 
@@ -849,7 +859,8 @@ Default value: []
 
 Data type: `Array[String]`
 
-Addresses of statically configured store API servers. The scheme may be prefixed with 'dns+' or 'dnssrv+' to detect store API servers through respective DNS lookups.
+Addresses of statically configured store API servers. The scheme may be prefixed with 'dns+' or 'dnssrv+'
+  to detect store API servers through respective DNS lookups.
 
 Default value: []
 
@@ -889,7 +900,8 @@ Default value: '30s'
 
 Data type: `Boolean`
 
-Enable automatic adjustment (step / 5) to what source of data should be used in store gateways if no max_source_resolution param is specified.
+Enable automatic adjustment (step / 5) to what source of data should be used in store gateways
+  if no max_source_resolution param is specified.
 
 Default value: `false`
 
@@ -913,13 +925,15 @@ Default value: '1m'
 
 Data type: `String`
 
-If a Store doesn't send any data in this specified duration then a Store will be ignored and partial data will be returned if it's enabled. 0 disables timeout.
+If a Store doesn't send any data in this specified duration then a Store will be ignored and partial data will be
+  returned if it's enabled. 0 disables timeout.
 
 Default value: '0ms'
 
 ### thanos::rule
 
-This class install Rule as service ruler evaluating Prometheus rules against given Query nodes, exposing Store API and storing old blocks in bucket.
+This class install Rule as service ruler evaluating Prometheus rules against given Query nodes,
+  exposing Store API and storing old blocks in bucket.
 
 #### Examples
 
@@ -1025,7 +1039,8 @@ Default value: `undef`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
-TLS CA to verify clients against. If no client CA is specified, there is no client verification on server side. (tls.NoClientCert)
+TLS CA to verify clients against. If no client CA is specified,
+  there is no client verification on server side. (tls.NoClientCert)
 
 Default value: `undef`
 
@@ -1033,7 +1048,8 @@ Default value: `undef`
 
 Data type: `Array[String]`
 
-Labels to be applied to all generated metrics. Similar to external labels for Prometheus, used to identify ruler and its blocks as unique source.
+Labels to be applied to all generated metrics. Similar to external labels for Prometheus,
+  used to identify ruler and its blocks as unique source.
 
 Default value: []
 
@@ -1089,8 +1105,11 @@ Default value: '48h'
 
 Data type: `Array[Stdlib::HTTPUrl]`
 
-Alertmanager replica URLs to push firing alerts. Ruler claims success if push to at least one alertmanager from discovered succeeds. The scheme may be prefixed with 'dns+' or 'dnssrv+' to detect Alertmanager IPs through respective
-DNS lookups. The port defaults to 9093 or the SRV record's value. The URL path is used as a prefix for the regular Alertmanager API path.
+Alertmanager replica URLs to push firing alerts.
+  Ruler claims success if push to at least one alertmanager from discovered succeeds.
+  The scheme may be prefixed with 'dns+' or 'dnssrv+' to detect Alertmanager IPs through respective DNS lookups.
+  The port defaults to 9093 or the SRV record's value.
+  The URL path is used as a prefix for the regular Alertmanager API path.
 
 Default value: []
 
@@ -1114,7 +1133,8 @@ Default value: `undef`
 
 Data type: `Array[String]`
 
-Labels by name to drop before sending to alertmanager. This allows alert to be deduplicated on replica label. Similar Prometheus alert relabelling
+Labels by name to drop before sending to alertmanager. This allows alert to be deduplicated on replica label.
+  Similar Prometheus alert relabelling
 
 Default value: []
 
@@ -1122,7 +1142,8 @@ Default value: []
 
 Data type: `Optional[String]`
 
-Prefix for API and UI endpoints. This allows thanos UI to be served on a sub-path. This option is analogous to --web.route-prefix of Prometheus.
+Prefix for API and UI endpoints. This allows thanos UI to be served on a sub-path.
+  This option is analogous to --web.route-prefix of Prometheus.
 
 Default value: `undef`
 
@@ -1130,7 +1151,9 @@ Default value: `undef`
 
 Data type: `Optional[String]`
 
-Static prefix for all HTML links and redirect URLs in the UI query web interface. Actual endpoints are still served on / or the web.route-prefix. This allows thanos UI to be served behind a reverse proxy that strips a URL sub-path.
+Static prefix for all HTML links and redirect URLs in the UI query web interface.
+  Actual endpoints are still served on / or the web.route-prefix.
+  This allows thanos UI to be served behind a reverse proxy that strips a URL sub-path.
 
 Default value: `undef`
 
@@ -1138,9 +1161,12 @@ Default value: `undef`
 
 Data type: `Optional[String]`
 
-Name of HTTP request header used for dynamic prefixing of UI links and redirects. This option is ignored if web.external-prefix argument is set. Security risk: enable this option only if a reverse proxy in front of thanos is
-  resetting the header. The --web.prefix-header=X-Forwarded-Prefix option can be useful, for example, if Thanos UI is served via Traefik reverse proxy with PathPrefixStrip option enabled, which sends the stripped prefix value in
-  X-Forwarded-Prefix header. This allows thanos UI to be served on a sub-path.
+Name of HTTP request header used for dynamic prefixing of UI links and redirects.
+  This option is ignored if web.external-prefix argument is set.
+  Security risk: enable this option only if a reverse proxy in front of thanos is resetting the header.
+  The --web.prefix-header=X-Forwarded-Prefix option can be useful, for example,
+  if Thanos UI is served via Traefik reverse proxy with PathPrefixStrip option enabled, hich sends the stripped
+  prefix value in  X-Forwarded-Prefix header. This allows thanos UI to be served on a sub-path.
 
 Default value: `undef`
 
@@ -1148,7 +1174,8 @@ Default value: `undef`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
-Path to YAML file that contains object store configuration. See format details: https://thanos.io/storage.md/#configuration
+Path to YAML file that contains object store configuration. See format details:
+  https://thanos.io/storage.md/#configuration
 
 Default value: `undef`
 
@@ -1156,7 +1183,8 @@ Default value: `undef`
 
 Data type: `Array[String]`
 
-Addresses of statically configured query API servers. The scheme may be prefixed with 'dns+' or 'dnssrv+' to detect query API servers through respective DNS lookups.
+Addresses of statically configured query API servers. The scheme may be prefixed with 'dns+' or
+  'dnssrv+' to detect query API servers through respective DNS lookups.
 
 Default value: []
 
@@ -1354,16 +1382,18 @@ Default value: `undef`
 
 ##### `min_time`
 
-Data type: `String`
+Data type: `Optional[String]`
 
-Start of time range limit to serve. Thanos sidecar will serve only metrics, which happened later than this value. Option can be a constant time in RFC3339 format or time duration relative to current time, such as -1d or 2h45m. Valid
+Start of time range limit to serve. Thanos sidecar will serve only metrics, which happened later than this value.
+  Option can be a constant time in RFC3339 format or time duration relative to current time, such as -1d or 2h45m. Valid
   duration units are ms, s, m, h, d, w, y.
 
-Default value: '0000-01-01T00:00:00Z'
+Default value: `undef`
 
 ### thanos::store
 
-This class install Store as service store node giving access to blocks in a bucket provider. Now supported GCS, S3, Azure, Swift and Tencent COS..
+This class install Store as service store node giving access to blocks in a bucket provider.
+   Now supported GCS, S3, Azure, Swift and Tencent COS..
 
 #### Examples
 
@@ -1501,7 +1531,9 @@ Default value: '2GB'
 
 Data type: `Integer`
 
-Maximum amount of samples returned via a single Series call. 0 means no limit. NOTE: for efficiency we take 120 as the number of samples in chunk (it cannot be bigger than that), so the actual number of samples might be lower, even
+Maximum amount of samples returned via a single Series call. 0 means no limit.
+  NOTE: for efficiency we take 120 as the number of samples in chunk (it cannot be bigger than that),
+  so the actual number of samples might be lower, even
   though the maximum could be hit.
 
 Default value: 0
@@ -1540,27 +1572,30 @@ Default value: 20
 
 ##### `min_time`
 
-Data type: `String`
+Data type: `Optional[String]`
 
-Start of time range limit to serve. Thanos Store will serve only metrics, which happened later than this value. Option can be a constant time in RFC3339 format or time duration relative to current time, such as -1d or 2h45m. Valid
+Start of time range limit to serve. Thanos Store will serve only metrics, which happened later than this value.
+  Option can be a constant time in RFC3339 format or time duration relative to current time, such as -1d or 2h45m. Valid
   duration units are ms, s, m, h, d, w, y.
 
-Default value: '0000-01-01T00:00:00Z'
+Default value: `undef`
 
 ##### `max_time`
 
-Data type: `String`
+Data type: `Optional[String]`
 
-End of time range limit to serve. Thanos Store will serve only blocks, which happened eariler than this value. Option can be a constant time in RFC3339 format or time duration relative to current time, such as -1d or 2h45m. Valid
+End of time range limit to serve. Thanos Store will serve only blocks, which happened eariler than this value.
+  Option can be a constant time in RFC3339 format or time duration relative to current time, such as -1d or 2h45m. Valid
   duration units are ms, s, m, h, d, w, y.
 
-Default value: '0000-01-01T00:00:00Z'
+Default value: `undef`
 
 ##### `selector_relabel_config_file`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
-Path to YAML file that contains relabeling configuration that allows selecting blocks. It follows native Prometheus relabel-config syntax.
+Path to YAML file that contains relabeling configuration that allows selecting blocks.
+  It follows native Prometheus relabel-config syntax.
   See format details: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config
 
 Default value: `undef`

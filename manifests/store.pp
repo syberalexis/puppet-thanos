@@ -1,6 +1,7 @@
 # @summary This class manages store service
 #
-# This class install Store as service store node giving access to blocks in a bucket provider. Now supported GCS, S3, Azure, Swift and Tencent COS..
+# This class install Store as service store node giving access to blocks in a bucket provider.
+#    Now supported GCS, S3, Azure, Swift and Tencent COS..
 #
 # @param ensure
 #  State ensured from compact service.
@@ -33,7 +34,9 @@
 # @param chunck_pool_size
 #  Maximum size of concurrently allocatable bytes for chunks.
 # @param store_grpc_series_sample_limit
-#  Maximum amount of samples returned via a single Series call. 0 means no limit. NOTE: for efficiency we take 120 as the number of samples in chunk (it cannot be bigger than that), so the actual number of samples might be lower, even
+#  Maximum amount of samples returned via a single Series call. 0 means no limit.
+#    NOTE: for efficiency we take 120 as the number of samples in chunk (it cannot be bigger than that),
+#    so the actual number of samples might be lower, even
 #    though the maximum could be hit.
 # @param store_grpc_series_max_concurrency
 #  Maximum number of concurrent Series calls.
@@ -44,13 +47,16 @@
 # @param block_sync_concurrency
 #  Number of goroutines to use when syncing blocks from object storage.
 # @param min_time
-#  Start of time range limit to serve. Thanos Store will serve only metrics, which happened later than this value. Option can be a constant time in RFC3339 format or time duration relative to current time, such as -1d or 2h45m. Valid
+#  Start of time range limit to serve. Thanos Store will serve only metrics, which happened later than this value.
+#    Option can be a constant time in RFC3339 format or time duration relative to current time, such as -1d or 2h45m. Valid
 #    duration units are ms, s, m, h, d, w, y.
 # @param max_time
-#  End of time range limit to serve. Thanos Store will serve only blocks, which happened eariler than this value. Option can be a constant time in RFC3339 format or time duration relative to current time, such as -1d or 2h45m. Valid
+#  End of time range limit to serve. Thanos Store will serve only blocks, which happened eariler than this value.
+#    Option can be a constant time in RFC3339 format or time duration relative to current time, such as -1d or 2h45m. Valid
 #    duration units are ms, s, m, h, d, w, y.
 # @param selector_relabel_config_file
-#  Path to YAML file that contains relabeling configuration that allows selecting blocks. It follows native Prometheus relabel-config syntax.
+#  Path to YAML file that contains relabeling configuration that allows selecting blocks.
+#    It follows native Prometheus relabel-config syntax.
 #    See format details: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config
 # @example
 #   include thanos::store
@@ -75,8 +81,8 @@ class thanos::store (
   Optional[Stdlib::Absolutepath]                  $objstore_config_file              = undef,
   String                                          $sync_block_duration               = '3m',
   Integer                                         $block_sync_concurrency            = 20,
-  String                                          $min_time                          = '0000-01-01T00:00:00Z',
-  String                                          $max_time                          = '0000-01-01T00:00:00Z',
+  Optional[String]                                $min_time                          = undef,
+  Optional[String]                                $max_time                          = undef,
   Optional[Stdlib::Absolutepath]                  $selector_relabel_config_file      = undef,
 ) {
   $_service_ensure = $ensure ? {
