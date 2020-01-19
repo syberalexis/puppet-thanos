@@ -1,87 +1,69 @@
-# thanos
+# puppet-thanos
 
-Welcome to your new module. A short overview of the generated parts can be found in the PDK documentation at https://puppet.com/pdk/latest/pdk_generating_modules.html .
+[![Build Status](https://travis-ci.com/syberalexis/puppet-thanos.svg?branch=master)](https://travis-ci.com/syberalexis/puppet-thanos)
+[![Puppet Forge](https://img.shields.io/puppetforge/v/maeq/thanos.svg)](https://forge.puppetlabs.com/maeq/thanos)
+[![Puppet Forge - downloads](https://img.shields.io/puppetforge/dt/maeq/thanos.svg)](https://forge.puppetlabs.com/maeq/thanos)
+[![Puppet Forge - endorsement](https://img.shields.io/puppetforge/e/maeq/thanos.svg)](https://forge.puppetlabs.com/maeq/thanos)
+[![Puppet Forge - scores](https://img.shields.io/puppetforge/f/maeq/thanos.svg)](https://forge.puppetlabs.com/maeq/thanos)
+[![Apache-2 License](https://img.shields.io/github/license/syberalexis/puppet-thanos.svg)](LICENSE)
 
-The README template below provides a starting point with details about what information to include in your README.
 
 #### Table of Contents
 
 1. [Description](#description)
-2. [Setup - The basics of getting started with thanos](#setup)
-    * [What thanos affects](#what-thanos-affects)
-    * [Setup requirements](#setup-requirements)
-    * [Beginning with thanos](#beginning-with-thanos)
-3. [Usage - Configuration options and additional functionality](#usage)
-4. [Limitations - OS compatibility, etc.](#limitations)
-5. [Development - Guide for contributing to the module](#development)
+2. [Usage](#usage)
+3. [Limitations](#limitations)
+4. [Development](#development)
 
 ## Description
 
-Briefly tell users why they might want to use your module. Explain what your module does and what kind of problems users can solve with it.
-
-This should be a fairly short description helps the user decide if your module is what they want.
-
-## Setup
-
-### What thanos affects **OPTIONAL**
-
-If it's obvious what your module touches, you can skip this section. For example, folks can probably figure out that your mysql_instance module affects their MySQL instances.
-
-If there's more that they should know about, though, this is the place to mention:
-
-* Files, packages, services, or operations that the module will alter, impact, or execute.
-* Dependencies that your module automatically installs.
-* Warnings or other important notices.
-
-### Setup Requirements **OPTIONAL**
-
-If your module requires anything extra before setting up (pluginsync enabled, another module, etc.), mention it here.
-
-If your most recent release breaks compatibility or requires particular steps for upgrading, you might want to include an additional "Upgrading" section here.
-
-### Beginning with thanos
-
-The very basic steps needed for a user to get the module up and running. This can include setup steps, if necessary, or it can be an example of the most basic use of the module.
+This module automates the install of [Thanos](https://github.com/thanos-io/thanos) and it's components into a service.  
 
 ## Usage
 
-Include usage examples for common use cases in the **Usage** section. Show your users how to use your module to solve problems, and be sure to include code examples. Include three to five examples of the most important or common tasks a user can accomplish with your module. Show users how to accomplish more complex tasks that involve different types, classes, and functions working in tandem.
+### Install Thanos
 
-## Reference
-
-This section is deprecated. Instead, add reference information to your code as Puppet Strings comments, and then use Strings to generate a REFERENCE.md in your module. For details on how to add code comments and generate documentation with Strings, see the Puppet Strings [documentation](https://puppet.com/docs/puppet/latest/puppet_strings.html) and [style guide](https://puppet.com/docs/puppet/latest/puppet_strings_style.html)
-
-If you aren't ready to use Strings yet, manually create a REFERENCE.md in the root of your module directory and list out each of your module's classes, defined types, facts, functions, Puppet tasks, task plans, and resource types and providers, along with the parameters for each.
-
-For each element (class, defined type, function, and so on), list:
-
-  * The data type, if applicable.
-  * A description of what the element does.
-  * Valid values, if the data type doesn't make it obvious.
-  * Default value, if any.
-
-For example:
-
+#### In Puppet Code
+```puppet
+    class { 'thanos':
+      version => '0.10.0'
+    }
 ```
-### `pet::cat`
 
-#### Parameters
-
-##### `meow`
-
-Enables vocalization in your cat. Valid options: 'string'.
-
-Default: 'medium-loud'.
+#### In Hiera Data (yaml)
+```puppet
+    include thanos
 ```
+```yaml
+    thanos::version: '0.10.0'
+```
+
+#### Full installation services
+```yaml
+    thanos::version: '0.10.0'
+    thanos::manage_sidecar: true
+    thanos::manage_query: true
+    thanos::manage_rule: true
+    thanos::manage_store: true
+    thanos::manage_compact: true
+    thanos::manage_downsample: true
+```
+
+For more information see [REFERENCE.md](REFERENCE.md).
 
 ## Limitations
 
-In the Limitations section, list any incompatibilities, known issues, or other warnings.
+Don't manage Thanos experimental features, like :
+- `thanos receive` command
+
+Only support, Thanos supported OS. See [Thanos releases page](https://github.com/thanos-io/thanos/releases)
 
 ## Development
 
-In the Development section, tell other users the ground rules for contributing to your project and how they should submit their work.
+This project contains tests for [rspec-puppet](http://rspec-puppet.com/).
 
-## Release Notes/Contributors/Etc. **Optional**
-
-If you aren't using changelog, put your release notes here (though you should consider using changelog). You can also add any additional sections you feel are necessary or important to include here. Please use the `## ` header.
+Quickstart to run all linter and unit tests:
+```ruby
+bundle install --path .vendor/ --without system_tests --without development --without release
+bundle exec rake test
+```
