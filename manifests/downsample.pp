@@ -1,7 +1,25 @@
-# @summary A short summary of the purpose of this class
+# @summary This class manages downsample service
 #
-# A description of what this class does
+# This class install Downsample as service continuously downsamples blocks in an object store bucket.
 #
+# @param ensure
+#  State ensured from compact service.
+# @param bin_path
+#  Path where binary is located.
+# @param log_level
+#  Only log messages with the given severity or above. One of: [debug, info, warn, error, fatal]
+# @param log_format
+#  Output format of log messages. One of: [logfmt, json]
+# @param tracing_config_file
+#  Path to YAML file with tracing configuration. See format details: https://thanos.io/tracing.md/#configuration
+# @param http_address
+#  Listen host:port for HTTP endpoints.
+# @param http_grace_period
+#  Time to wait after an interrupt received for HTTP Server.
+# @param data_dir
+#  Data directory in which to cache blocks and process downsamplings.
+# @param objstore_config_file
+#  Path to YAML file that contains object store configuration. See format details: https://thanos.io/storage.md/#configuration
 # @example
 #   include thanos::downsample
 class thanos::downsample (
@@ -15,8 +33,6 @@ class thanos::downsample (
   Optional[Stdlib::Absolutepath]                  $data_dir             = undef,
   Optional[Stdlib::Absolutepath]                  $objstore_config_file = undef,
 ) {
-  assert_private()
-
   $_service_ensure = $ensure ? {
     'present' => 'running',
     default   => 'stopped'

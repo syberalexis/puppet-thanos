@@ -1,7 +1,72 @@
-# @summary A short summary of the purpose of this class
+# @summary This class manages rule service
 #
-# A description of what this class does
+# This class install Rule as service ruler evaluating Prometheus rules against given Query nodes, exposing Store API and storing old blocks in bucket.
 #
+# @param ensure
+#  State ensured from compact service.
+# @param bin_path
+#  Path where binary is located.
+# @param log_level
+#  Only log messages with the given severity or above. One of: [debug, info, warn, error, fatal]
+# @param log_format
+#  Output format of log messages. One of: [logfmt, json]
+# @param tracing_config_file
+#  Path to YAML file with tracing configuration. See format details: https://thanos.io/tracing.md/#configuration
+# @param http_address
+#  Listen host:port for HTTP endpoints.
+# @param http_grace_period
+#  Time to wait after an interrupt received for HTTP Server.
+# @param grpc_address
+#  Listen ip:port address for gRPC endpoints (StoreAPI). Make sure this address is routable from other components.
+# @param grpc_grace_period
+#  Time to wait after an interrupt received for GRPC Server.
+# @param grpc_server_tls_cert
+#  TLS Certificate for gRPC server, leave blank to disable TLS
+# @param grpc_server_tls_key
+#  TLS Key for the gRPC server, leave blank to disable TLS
+# @param grpc_server_tls_client_ca
+#  TLS CA to verify clients against. If no client CA is specified, there is no client verification on server side. (tls.NoClientCert)
+# @param labels
+#  Labels to be applied to all generated metrics. Similar to external labels for Prometheus, used to identify ruler and its blocks as unique source.
+# @param data_dir
+#  Data directory.
+# @param rule_files
+#  Rule files that should be used by rule manager. Can be in glob format.
+# @param resend_delay
+#  Minimum amount of time to wait before resending an alert to Alertmanager.
+# @param eval_interval
+#  The default evaluation interval to use.
+# @param tsdb_block_duration
+#  Block duration for TSDB block.
+# @param tsdb_retention
+#  Block retention time on local disk.
+# @param alertmanagers_url
+#  Alertmanager replica URLs to push firing alerts. Ruler claims success if push to at least one alertmanager from discovered succeeds. The scheme may be prefixed with 'dns+' or 'dnssrv+' to detect Alertmanager IPs through respective
+#  DNS lookups. The port defaults to 9093 or the SRV record's value. The URL path is used as a prefix for the regular Alertmanager API path.
+# @param alertmanagers_send_timeout
+#  Timeout for sending alerts to alertmanager
+# @param alert_query_url
+#  The external Thanos Query URL that would be set in all alerts 'Source' field
+# @param alert_label_drop
+#  Labels by name to drop before sending to alertmanager. This allows alert to be deduplicated on replica label. Similar Prometheus alert relabelling
+# @param web_route_prefix
+#  Prefix for API and UI endpoints. This allows thanos UI to be served on a sub-path. This option is analogous to --web.route-prefix of Prometheus.
+# @param web_external_prefix
+#  Static prefix for all HTML links and redirect URLs in the UI query web interface. Actual endpoints are still served on / or the web.route-prefix. This allows thanos UI to be served behind a reverse proxy that strips a URL sub-path.
+# @param web_prefix_header
+#  Name of HTTP request header used for dynamic prefixing of UI links and redirects. This option is ignored if web.external-prefix argument is set. Security risk: enable this option only if a reverse proxy in front of thanos is
+#    resetting the header. The --web.prefix-header=X-Forwarded-Prefix option can be useful, for example, if Thanos UI is served via Traefik reverse proxy with PathPrefixStrip option enabled, which sends the stripped prefix value in
+#    X-Forwarded-Prefix header. This allows thanos UI to be served on a sub-path.
+# @param objstore_config_file
+#  Path to YAML file that contains object store configuration. See format details: https://thanos.io/storage.md/#configuration
+# @param queries
+#  Addresses of statically configured query API servers. The scheme may be prefixed with 'dns+' or 'dnssrv+' to detect query API servers through respective DNS lookups.
+# @param query_sd_files
+#  Path to file that contain addresses of query peers. The path can be a glob pattern.
+# @param query_sd_interval
+#  Refresh interval to re-read file SD files. (used as a fallback)
+# @param query_sd_dns_interval
+#  Interval between DNS resolutions.
 # @example
 #   include thanos::rule
 class thanos::rule (
@@ -37,8 +102,6 @@ class thanos::rule (
   String                                          $query_sd_interval          = '5m',
   String                                          $query_sd_dns_interval      = '30s',
 ) {
-  assert_private()
-
   $_service_ensure = $ensure ? {
     'present' => 'running',
     default   => 'stopped'

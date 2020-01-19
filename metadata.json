@@ -1,10 +1,11 @@
 {
   "name": "maeq-thanos",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "maeq",
   "summary": "This module install Thanos and can manage it's components",
   "license": "Apache-2.0",
   "source": "https://github.com/syberalexis/puppet-thanos",
+  "project_page": "https://github.com/syberalexis/puppet-thanos",
   "issues_url": "https://github.com/syberalexis/puppet-thanos/issues",
   "dependencies": [
     {

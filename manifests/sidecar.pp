@@ -1,7 +1,48 @@
-# @summary A short summary of the purpose of this class
+# @summary This class manages sidecar service
 #
-# A description of what this class does
+# This class install Sidecar as service sidecar for Prometheus server.
 #
+# @param ensure
+#  State ensured from compact service.
+# @param bin_path
+#  Path where binary is located.
+# @param log_level
+#  Only log messages with the given severity or above. One of: [debug, info, warn, error, fatal]
+# @param log_format
+#  Output format of log messages. One of: [logfmt, json]
+# @param tracing_config_file
+#  Path to YAML file with tracing configuration. See format details: https://thanos.io/tracing.md/#configuration
+# @param http_address
+#  Listen host:port for HTTP endpoints.
+# @param http_grace_period
+#  Time to wait after an interrupt received for HTTP Server.
+# @param grpc_address
+#  Listen ip:port address for gRPC endpoints (StoreAPI). Make sure this address is routable from other components.
+# @param grpc_grace_period
+#  Time to wait after an interrupt received for GRPC Server.
+# @param grpc_server_tls_cert
+#  TLS Certificate for gRPC server, leave blank to disable TLS
+# @param grpc_server_tls_key
+#  TLS Key for the gRPC server, leave blank to disable TLS
+# @param grpc_server_tls_client_ca
+#  TLS CA to verify clients against. If no client CA is specified, there is no client verification on server side. (tls.NoClientCert)
+# @param prometheus_url
+#  URL at which to reach Prometheus's API. For better performance use local network.
+# @param prometheus_ready_timeout
+#  Maximum time to wait for the Prometheus instance to start up
+# @param tsdb_path
+#  Data directory of TSDB.
+# @param reloader_config_file
+#  Config file watched by the reloader.
+# @param reloader_config_envsubst_file
+#  Output file for environment variable substituted config file.
+# @param reloader_rule_dirs
+#  Rule directories for the reloader to refresh.
+# @param objstore_config_file
+#  Path to YAML file that contains object store configuration. See format details: https://thanos.io/storage.md/#configuration
+# @param min_time
+#  Start of time range limit to serve. Thanos sidecar will serve only metrics, which happened later than this value. Option can be a constant time in RFC3339 format or time duration relative to current time, such as -1d or 2h45m. Valid
+#    duration units are ms, s, m, h, d, w, y.
 # @example
 #   include thanos::sidecar
 class thanos::sidecar (
@@ -26,8 +67,6 @@ class thanos::sidecar (
   Optional[Stdlib::Absolutepath]                  $objstore_config_file          = undef,
   String                                          $min_time                      = '0000-01-01T00:00:00Z'
 ) {
-  assert_private()
-
   $_service_ensure = $ensure ? {
     'present' => 'running',
     default   => 'stopped'

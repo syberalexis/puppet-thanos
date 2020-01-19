@@ -1,13 +1,21 @@
-# @summary A short summary of the purpose of this class
+# @summary This defined type create component's service.
 #
-# A description of what this class does
+# @param ensure
+#  State ensured from component service.
+# @param bin_path
+#  Path where binary is located.
+# @param params
+#  Parameters passed to the binary.
 #
 # @example
-#   include thanos::service
+#   thanos::resources::service { 'component_name':
+#     ensure => 'running',
+#     bin_path => '/usr/local/bin/thanos',
+#   }
 define thanos::resources::service (
   Variant[Stdlib::Ensure::Service, Enum['absent']] $ensure,
   Stdlib::Absolutepath                             $bin_path,
-  Hash                                             $params,
+  Hash                                             $params = {},
 ) {
   $_service_name   = "thanos-${title}"
   $_service_ensure = $ensure ? {

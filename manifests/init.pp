@@ -1,54 +1,86 @@
-# @summary A short summary of the purpose of this class
+# @summary This module manages Thanos
 #
-# A description of what this class does
+# Init class of Thanos module. It can installes Thanos binaries and manages components as single Service.
 #
+# @param version
+#  Thanos release. See https://github.com/thanos-io/thanos/releases
+# @param os
+#  Operating system.
+# @param manage_sidecar
+#  Whether to create a service to run Sidecar.
+# @param manage_query
+#  Whether to create a service to run Query.
+# @param manage_rule
+#  Whether to create a service to run Rule.
+# @param manage_store
+#  Whether to create a service to run Store.
+# @param manage_compact
+#  Whether to create a service to run Compact.
+# @param manage_downsample
+#  Whether to create a service to run Downsample.
+# @param install_method
+#  Installation method: url or package (only url is supported currently).
+# @param package_ensure
+#  If package, then use this for package ensurel default 'latest'.
+# @param package_name
+#  Thanos package name - not available yet.
+# @param base_url
+#  Base URL for thanos.
+# @param download_extension
+#  Extension of Thanos binaries archive.
+# @param download_url
+#  Complete URL corresponding to the Thanos release, default to undef.
+# @param base_dir
+#  Base directory where Thanos is extracted.
+# @param bin_dir
+#  Directory where binaries are located.
+# @param tsdb_path
+#  Data directory of TSDB.
+# @param manage_user
+#  Whether to create user for thanos or rely on external code for that.
+# @param manage_group
+#  Whether to create user for thanos or rely on external code for that.
+# @param user
+#  User running thanos.
+# @param group
+#  Group under which thanos is running.
+# @param usershell
+#  if requested, we create a user for thanos. The default shell is false. It can be overwritten to any valid path.
+# @param extra_groups
+#  Add other groups to the managed user.
+# @param extract_command
+#  Custom command passed to the archive resource to extract the downloaded archive.
 # @example
 #   include thanos
 class thanos (
-  Pattern[/\d+\.\d+\.\d+/]                        $version,
-  String                                          $os                            = downcase($facts['kernel']),
-  Boolean                                         $manage_sidecar                = false,
-  Boolean                                         $manage_query                  = false,
-  Boolean                                         $manage_rule                   = false,
-  Boolean                                         $manage_store                  = false,
-  Boolean                                         $manage_compact                = false,
-  Boolean                                         $manage_downsample             = false,
+  Pattern[/\d+\.\d+\.\d+/]       $version,
+  String                         $os                 = downcase($facts['kernel']),
+  Boolean                        $manage_sidecar     = false,
+  Boolean                        $manage_query       = false,
+  Boolean                        $manage_rule        = false,
+  Boolean                        $manage_store       = false,
+  Boolean                        $manage_compact     = false,
+  Boolean                        $manage_downsample  = false,
 
   # Installation
-  Enum['url', 'package', 'none']                  $install_method                = 'url',
-  Enum['present', 'absent']                       $package_ensure                = 'present',
-  String                                          $package_name                  = 'thanos',
-  Stdlib::HTTPUrl                                 $base_url                      = 'https://github.com/thanos-io/thanos/releases/download',
-  String                                          $download_extension            = 'tar.gz',
-  Optional[Stdlib::HTTPUrl]                       $download_url                  = undef,
-  Stdlib::Absolutepath                            $base_dir                      = '/opt',
-  Stdlib::Absolutepath                            $bin_dir                       = '/usr/local/bin',
-  Stdlib::Absolutepath                            $tsdb_path                     = '/opt/prometheus/data',
-  Stdlib::Absolutepath                            $config_dir                    = '/etc/thanos',
-  Boolean                                         $purge_config_dir              = true,
+  Enum['url', 'package', 'none'] $install_method     = 'url',
+  Enum['present', 'absent']      $package_ensure     = 'present',
+  String                         $package_name       = 'thanos',
+  Stdlib::HTTPUrl                $base_url           = 'https://github.com/thanos-io/thanos/releases/download',
+  String                         $download_extension = 'tar.gz',
+  Optional[Stdlib::HTTPUrl]      $download_url       = undef,
+  Stdlib::Absolutepath           $base_dir           = '/opt',
+  Stdlib::Absolutepath           $bin_dir            = '/usr/local/bin',
+  Stdlib::Absolutepath           $tsdb_path          = '/opt/prometheus/data',
 
   # User Management
-  Boolean                                         $manage_user                   = true,
-  Boolean                                         $manage_group                  = true,
-  String                                          $user                          = 'thanos',
-  String                                          $group                         = 'thanos',
-  Stdlib::Absolutepath                            $usershell                     = '/bin/false',
-  Array[String]                                   $extra_groups                  = [],
-  Optional[String]                                $extract_command               = undef,
-
-  # Configuration
-  Stdlib::Absolutepath                            $tracing_config_file           = "${config_dir}/tracing.config",
-  Hash                                            $tracing_config                = {},
-  Optional[Stdlib::Absolutepath]                  $grpc_server_tls_cert          = undef,
-  Optional[Stdlib::Absolutepath]                  $grpc_server_tls_key           = undef,
-  Optional[Stdlib::Absolutepath]                  $grpc_server_tls_client_ca     = undef,
-  Stdlib::Absolutepath                            $reloader_config_file          = "${config_dir}/reloader.config",
-  Stdlib::Absolutepath                            $reloader_config_envsubst_file = "${config_dir}/reloader-env.config",
-  Array[Stdlib::Absolutepath]                     $reloader_rule_dir             = [],
-  Stdlib::Absolutepath                            $objstore_config_file          = "${config_dir}/store.config",
-  Hash                                            $objstore_config               = {},
-  Enum['debug', 'info', 'warn', 'error', 'fatal'] $log_level                     = 'info',
-  Enum['logfmt', 'json']                          $log_format                    = 'logfmt',
+  Boolean                        $manage_user        = true,
+  Boolean                        $manage_group       = true,
+  String                         $user               = 'thanos',
+  String                         $group              = 'thanos',
+  Stdlib::Absolutepath           $usershell          = '/bin/false',
+  Array[String]                  $extra_groups       = [],
+  Optional[String]               $extract_command    = undef,
 ) {
   $bin_path = "${bin_dir}/thanos"
 
@@ -80,9 +112,6 @@ class thanos (
   }
 
   include thanos::install
-  include thanos::config
-
-  Class['thanos::install'] -> Class['thanos::config']
 
   if $manage_sidecar {
     include thanos::sidecar
