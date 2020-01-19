@@ -37,23 +37,31 @@
 # @param grpc_client_server_name
 #  Server name to verify the hostname on the returned gRPC certificates. See https://tools.ietf.org/html/rfc4366#section-3.1
 # @param web_route_prefix
-#  Prefix for API and UI endpoints. This allows thanos UI to be served on a sub-path. This option is analogous to --web.route-prefix of Promethus.
+#  Prefix for API and UI endpoints. This allows thanos UI to be served on a sub-path.
+#    This option is analogous to --web.route-prefix of Promethus.
 # @param web_external_prefix
-#  Static prefix for all HTML links and redirect URLs in the UI query web interface. Actual endpoints are still served on / or the web.route-prefix. This allows thanos UI to be served behind a reverse proxy that strips a URL sub-path.
+#  Static prefix for all HTML links and redirect URLs in the UI query web interface.
+#    Actual endpoints are still served on / or the web.route-prefix.
+#    This allows thanos UI to be served behind a reverse proxy that strips a URL sub-path.
 # @param web_prefix_header
-#  Name of HTTP request header used for dynamic prefixing of UI links and redirects. This option is ignored if web.external-prefix argument is set. Security risk: enable this option only if a reverse proxy in front of thanos is
-#    resetting the header. The --web.prefix-header=X-Forwarded-Prefix option can be useful, for example, if Thanos UI is served via Traefik reverse proxy with PathPrefixStrip option enabled, which sends the stripped prefix value in
-#    X-Forwarded-Prefix header. This allows thanos UI to be served on a sub-path.
+#  Name of HTTP request header used for dynamic prefixing of UI links and redirects.
+#    This option is ignored if web.external-prefix argument is set.
+#    Security risk: enable this option only if a reverse proxy in front of thanos is resetting the header.
+#    The --web.prefix-header=X-Forwarded-Prefix option can be useful, for example,
+#    if Thanos UI is served via Traefik reverse proxy with PathPrefixStrip option enabled, which sends the stripped
+#    prefix value in X-Forwarded-Prefix header. This allows thanos UI to be served on a sub-path.
 # @param query_timeout
 #  Maximum time to process query by query node.
 # @param query_max_concurrent
 #  Maximum number of queries processed concurrently by query node.
 # @param query_replica_label
-#  Labels to treat as a replica indicator along which data is deduplicated. Still you will be able to query without deduplication using 'dedup=false' parameter.
+#  Labels to treat as a replica indicator along which data is deduplicated.
+#    Still you will be able to query without deduplication using 'dedup=false' parameter.
 # @param selector_labels
 #  Query selector labels that will be exposed in info endpoint.
 # @param stores
-#  Addresses of statically configured store API servers. The scheme may be prefixed with 'dns+' or 'dnssrv+' to detect store API servers through respective DNS lookups.
+#  Addresses of statically configured store API servers. The scheme may be prefixed with 'dns+' or 'dnssrv+'
+#    to detect store API servers through respective DNS lookups.
 # @param store_sd_files
 #  Path to files that contain addresses of store API servers. The path can be a glob pattern.
 # @param store_sd_interval
@@ -63,13 +71,15 @@
 # @param store_unhealthy_timeout
 #  Timeout before an unhealthy store is cleaned from the store UI page.
 # @param query_auto_downsampling
-#  Enable automatic adjustment (step / 5) to what source of data should be used in store gateways if no max_source_resolution param is specified.
+#  Enable automatic adjustment (step / 5) to what source of data should be used in store gateways
+#    if no max_source_resolution param is specified.
 # @param query_partial_response
 #  Enable partial response for queries if no partial_response param is specified. --no-query.partial-response for disabling.
 # @param query_default_evaluation_interval
 #  Set default evaluation interval for sub queries.
 # @param store_response_timeout
-#  If a Store doesn't send any data in this specified duration then a Store will be ignored and partial data will be returned if it's enabled. 0 disables timeout.
+#  If a Store doesn't send any data in this specified duration then a Store will be ignored and partial data will be
+#    returned if it's enabled. 0 disables timeout.
 # @example
 #   include thanos::query
 class thanos::query (

@@ -21,7 +21,8 @@
 # @param objstore_config_file
 #  Path to YAML file that contains object store configuration. See format details: https://thanos.io/storage.md/#configuration
 # @param consistency_delay
-#  Minimum age of fresh (non-compacted) blocks before they are being processed. Malformed blocks older than the maximum of consistency-delay and 30m0s will be removed.
+#  Minimum age of fresh (non-compacted) blocks before they are being processed.
+#    Malformed blocks older than the maximum of consistency-delay and 30m0s will be removed.
 # @param retention_resolution_raw
 #  How long to retain raw samples in bucket. 0d - disables this retention
 # @param retention_resolution_5m
@@ -31,13 +32,15 @@
 # @param wait
 #  Do not exit after all compactions have been processed and wait for new work.
 # @param downsampling_disable
-#  Disables downsampling. This is not recommended as querying long time ranges without non-downsampled data is not efficient and useful e.g it is not possible to render all samples for a human eye anyway
+#  Disables downsampling. This is not recommended as querying long time ranges without non-downsampled data is
+#    not efficient and useful e.g it is not possible to render all samples for a human eye anyway
 # @param block_sync_concurrency
 #  Number of goroutines to use when syncing block metadata from object storage.
 # @param compact_concurrency
 #  Number of goroutines to use when compacting groups.
 # @param selector_relabel_config_file
-#  Path to YAML file that contains relabeling configuration that allows selecting blocks. It follows native Prometheus relabel-config syntax.
+#  Path to YAML file that contains relabeling configuration that allows selecting blocks.
+#    It follows native Prometheus relabel-config syntax.
 #    See format details: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config
 # @example
 #   include thanos::compact

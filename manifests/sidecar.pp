@@ -41,7 +41,8 @@
 # @param objstore_config_file
 #  Path to YAML file that contains object store configuration. See format details: https://thanos.io/storage.md/#configuration
 # @param min_time
-#  Start of time range limit to serve. Thanos sidecar will serve only metrics, which happened later than this value. Option can be a constant time in RFC3339 format or time duration relative to current time, such as -1d or 2h45m. Valid
+#  Start of time range limit to serve. Thanos sidecar will serve only metrics, which happened later than this value.
+#    Option can be a constant time in RFC3339 format or time duration relative to current time, such as -1d or 2h45m. Valid
 #    duration units are ms, s, m, h, d, w, y.
 # @example
 #   include thanos::sidecar
@@ -65,7 +66,7 @@ class thanos::sidecar (
   Optional[Stdlib::Absolutepath]                  $reloader_config_envsubst_file = undef,
   Array[Stdlib::Absolutepath]                     $reloader_rule_dirs            = [],
   Optional[Stdlib::Absolutepath]                  $objstore_config_file          = undef,
-  String                                          $min_time                      = '0000-01-01T00:00:00Z'
+  Optional[String]                                $min_time                      = undef,
 ) {
   $_service_ensure = $ensure ? {
     'present' => 'running',
