@@ -37,6 +37,10 @@ matrix:
     -
       env: DEPLOY_TO_FORGE=yes
       stage: deploy
+      provider: puppetforge
+      user: "maeq"
+      password:
+        secure: ${{ secrets.FORGE_API_KEY }}
 branches:
   only:
     - master
