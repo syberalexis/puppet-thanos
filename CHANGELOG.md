@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## Release 0.1.4
+
+**Bug Fixes**
+    Service file correction with useless new line returns
+
 ## Release 0.1.3
 
 **Features**
