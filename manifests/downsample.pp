@@ -31,7 +31,7 @@ class thanos::downsample (
   String                                          $http_address         = '0.0.0.0:10902',
   String                                          $http_grace_period    = '2m',
   Optional[Stdlib::Absolutepath]                  $data_dir             = undef,
-  Optional[Stdlib::Absolutepath]                  $objstore_config_file = undef,
+  Optional[Stdlib::Absolutepath]                  $objstore_config_file = $thanos::objstore_config_file,
 ) {
   $_service_ensure = $ensure ? {
     'present' => 'running',

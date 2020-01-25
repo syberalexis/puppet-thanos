@@ -22,6 +22,10 @@
 #  Base directory where Thanos is extracted.
 # @param bin_dir
 #  Directory where binaries are located.
+# @param config_dir
+#  Directory where configuration are located.
+# @param purge_config_dir
+#  Purge configuration directory.
 # @param notify_services
 #  Services to notify when binaries changed.
 # @param manage_user
@@ -52,6 +56,8 @@ class thanos::install (
   Optional[String]               $extract_command    = $thanos::extract_command,
   Stdlib::Absolutepath           $base_dir           = $thanos::base_dir,
   Stdlib::Absolutepath           $bin_dir            = $thanos::bin_dir,
+  Stdlib::Absolutepath           $config_dir         = $thanos::config_dir,
+  Boolean                        $purge_config_dir   = $thanos::purge_config_dir,
   Array[Type[Resource]]          $notify_services    = $thanos::notify_services,
 
   # User Management
@@ -119,5 +125,13 @@ class thanos::install (
       ensure => 'present',
       system => true,
     })
+  }
+
+  file { $config_dir:
+    ensure  => 'directory',
+    owner   => 'root',
+    group   => $group,
+    purge   => $purge_config_dir,
+    recurse => $purge_config_dir,
   }
 }
