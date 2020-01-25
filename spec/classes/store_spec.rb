@@ -7,6 +7,8 @@ describe 'thanos::store' do
       let(:params) do
         {
           bin_path: '/usr/local/bin/thanos',
+          tracing_config_file: '/etc/thanos/tracing.yaml',
+          objstore_config_file: '/etc/thanos/storage.yaml',
         }
       end
 
@@ -21,7 +23,7 @@ describe 'thanos::store' do
           'params'   => {
             'log.level'                         => 'info',
             'log.format'                        => 'logfmt',
-            'tracing.config-file'               => nil,
+            'tracing.config-file'               => '/etc/thanos/tracing.yaml',
             'http-address'                      => '0.0.0.0:10902',
             'http-grace-period'                 => '2m',
             'grpc-address'                      => '0.0.0.0:10901',
@@ -34,7 +36,7 @@ describe 'thanos::store' do
             'chunk-pool-size'                   => '2GB',
             'store.grpc.series-sample-limit'    => 0,
             'store.grpc.series-max-concurrency' => 20,
-            'objstore.config-file'              => nil,
+            'objstore.config-file'              => '/etc/thanos/storage.yaml',
             'sync-block-duration'               => '3m',
             'block-sync-concurrency'            => 20,
             'min-time'                          => nil,

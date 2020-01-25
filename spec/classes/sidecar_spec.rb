@@ -8,6 +8,7 @@ describe 'thanos::sidecar' do
         {
           bin_path: '/usr/local/bin/thanos',
           tsdb_path: '/opt/prometheus/data',
+          tracing_config_file: '/etc/thanos/tracing.yaml',
         }
       end
 
@@ -22,7 +23,7 @@ describe 'thanos::sidecar' do
           'params'   => {
             'log.level'                     => 'info',
             'log.format'                    => 'logfmt',
-            'tracing.config-file'           => nil,
+            'tracing.config-file'           => '/etc/thanos/tracing.yaml',
             'http-address'                  => '0.0.0.0:10902',
             'http-grace-period'             => '2m',
             'grpc-address'                  => '0.0.0.0:10901',

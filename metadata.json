@@ -1,6 +1,6 @@
 {
   "name": "maeq-thanos",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "author": "maeq",
   "summary": "This module install Thanos and can manage it's components",
   "license": "Apache-2.0",

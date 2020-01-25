@@ -7,6 +7,7 @@
 
 * [`thanos`](#thanos): This module manages Thanos
 * [`thanos::compact`](#thanoscompact): This class manages compact service
+* [`thanos::config`](#thanosconfig): This class manages configuration files
 * [`thanos::downsample`](#thanosdownsample): This class manages downsample service
 * [`thanos::install`](#thanosinstall): This class install Thanos requirements and binaries.
 * [`thanos::query`](#thanosquery): This class manages query service
@@ -16,6 +17,8 @@
 
 **Defined types**
 
+* [`thanos::config::storage`](#thanosconfigstorage): Manage Storage configuration file.
+* [`thanos::config::tracing`](#thanosconfigtracing): Manage Tracing configuration file.
 * [`thanos::resources::service`](#thanosresourcesservice): This defined type create component's service.
 
 ## Classes
@@ -108,11 +111,11 @@ Default value: 'url'
 
 ##### `package_ensure`
 
-Data type: `Enum['present', 'absent']`
+Data type: `Enum['present', 'absent', 'latest']`
 
-If package, then use this for package ensurel default 'latest'.
+If package, then use this for package ensure default 'latest'.
 
-Default value: 'present'
+Default value: 'latest'
 
 ##### `package_name`
 
@@ -162,13 +165,29 @@ Directory where binaries are located.
 
 Default value: '/usr/local/bin'
 
+##### `config_dir`
+
+Data type: `Stdlib::Absolutepath`
+
+Directory where configuration are located.
+
+Default value: '/etc/thanos'
+
+##### `purge_config_dir`
+
+Data type: `Boolean`
+
+Purge configuration directory.
+
+Default value: `true`
+
 ##### `tsdb_path`
 
 Data type: `Stdlib::Absolutepath`
 
 Data directory of TSDB.
 
-Default value: '/opt/prometheus/data'
+Default value: '/data'
 
 ##### `manage_user`
 
@@ -226,6 +245,58 @@ Custom command passed to the archive resource to extract the downloaded archive.
 
 Default value: `undef`
 
+##### `manage_storage_config`
+
+Data type: `Boolean`
+
+Whether to manage storage configuration file.
+
+Default value: `false`
+
+##### `storage_config_file`
+
+Data type: `Stdlib::Absolutepath`
+
+Path to storage configuration file.
+
+Default value: "${config_dir}/storage.yaml"
+
+##### `storage_config`
+
+Data type: `Hash[String, Data]`
+
+Storage configuration.
+   type: one of ['S3', 'GCS', 'AZURE', 'SWIFT', 'COS', 'ALIYUNOSS', 'FILESYSTEM']
+   config: storage typed configuration in Hash[String, Data]
+
+Default value: {}
+
+##### `manage_tracing_config`
+
+Data type: `Boolean`
+
+Whether to manage tracing configuration file
+
+Default value: `false`
+
+##### `tracing_config_file`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+Path to tracing configuration file.
+
+Default value: `undef`
+
+##### `tracing_config`
+
+Data type: `Hash[String, Data]`
+
+Tracing configuration.
+   type: one of ['JAEGER', 'STACKDRIVER', 'ELASTIC_APM', 'LIGHTSTEP']
+   config: tracing typed configuration in Hash[String, Data]
+
+Default value: {}
+
 ### thanos::compact
 
 This class install Compact as service to continuously compacts blocks in an object store bucket.
@@ -280,7 +351,7 @@ Data type: `Optional[Stdlib::Absolutepath]`
 
 Path to YAML file with tracing configuration. See format details: https://thanos.io/tracing.md/#configuration
 
-Default value: `undef`
+Default value: $thanos::tracing_config_file
 
 ##### `http_address`
 
@@ -312,7 +383,7 @@ Data type: `Optional[Stdlib::Absolutepath]`
 
 Path to YAML file that contains object store configuration. See format details: https://thanos.io/storage.md/#configuration
 
-Default value: `undef`
+Default value: $thanos::storage_config_file
 
 ##### `consistency_delay`
 
@@ -390,6 +461,74 @@ Path to YAML file that contains relabeling configuration that allows selecting b
 
 Default value: `undef`
 
+### thanos::config
+
+This class install and manage configuration files like object store and tracing.
+
+#### Examples
+
+##### 
+
+```puppet
+include thanos::config
+```
+
+#### Parameters
+
+The following parameters are available in the `thanos::config` class.
+
+##### `manage_storage_config`
+
+Data type: `Boolean`
+
+Whether to manage storage configuration file.
+
+Default value: $thanos::manage_storage_config
+
+##### `storage_config_file`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+Path to storage configuration file.
+
+Default value: $thanos::storage_config_file
+
+##### `storage_config`
+
+Data type: `Hash[String, Data]`
+
+Storage configuration.
+   type: one of ['S3', 'GCS', 'AZURE', 'SWIFT', 'COS', 'ALIYUNOSS', 'FILESYSTEM']
+   config: storage typed configuration in Hash[String, Data]
+
+Default value: $thanos::storage_config
+
+##### `manage_tracing_config`
+
+Data type: `Boolean`
+
+Whether to manage tracing configuration file
+
+Default value: $thanos::manage_tracing_config
+
+##### `tracing_config_file`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+Path to tracing configuration file.
+
+Default value: $thanos::tracing_config_file
+
+##### `tracing_config`
+
+Data type: `Hash[String, Data]`
+
+Tracing configuration.
+   type: one of ['JAEGER', 'STACKDRIVER', 'ELASTIC_APM', 'LIGHTSTEP']
+   config: tracing typed configuration in Hash[String, Data]
+
+Default value: $thanos::tracing_config
+
 ### thanos::downsample
 
 This class install Downsample as service continuously downsamples blocks in an object store bucket.
@@ -444,7 +583,7 @@ Data type: `Optional[Stdlib::Absolutepath]`
 
 Path to YAML file with tracing configuration. See format details: https://thanos.io/tracing.md/#configuration
 
-Default value: `undef`
+Default value: $thanos::tracing_config_file
 
 ##### `http_address`
 
@@ -476,7 +615,7 @@ Data type: `Optional[Stdlib::Absolutepath]`
 
 Path to YAML file that contains object store configuration. See format details: https://thanos.io/storage.md/#configuration
 
-Default value: `undef`
+Default value: $thanos::storage_config_file
 
 ### thanos::install
 
@@ -528,7 +667,7 @@ Default value: $thanos::real_arch
 
 ##### `package_ensure`
 
-Data type: `String`
+Data type: `Enum['present', 'absent', 'latest']`
 
 If package, then use this for package ensurel default 'latest'.
 
@@ -581,6 +720,22 @@ Data type: `Stdlib::Absolutepath`
 Directory where binaries are located.
 
 Default value: $thanos::bin_dir
+
+##### `config_dir`
+
+Data type: `Stdlib::Absolutepath`
+
+Directory where configuration are located.
+
+Default value: $thanos::config_dir
+
+##### `purge_config_dir`
+
+Data type: `Boolean`
+
+Purge configuration directory.
+
+Default value: $thanos::purge_config_dir
 
 ##### `notify_services`
 
@@ -692,7 +847,7 @@ Data type: `Optional[Stdlib::Absolutepath]`
 
 Path to YAML file with tracing configuration. See format details: https://thanos.io/tracing.md/#configuration
 
-Default value: `undef`
+Default value: $thanos::tracing_config_file
 
 ##### `http_address`
 
@@ -985,7 +1140,7 @@ Data type: `Optional[Stdlib::Absolutepath]`
 
 Path to YAML file with tracing configuration. See format details: https://thanos.io/tracing.md/#configuration
 
-Default value: `undef`
+Default value: $thanos::tracing_config_file
 
 ##### `http_address`
 
@@ -1266,7 +1421,7 @@ Data type: `Optional[Stdlib::Absolutepath]`
 
 Path to YAML file with tracing configuration. See format details: https://thanos.io/tracing.md/#configuration
 
-Default value: `undef`
+Default value: $thanos::tracing_config_file
 
 ##### `http_address`
 
@@ -1445,7 +1600,7 @@ Data type: `Optional[Stdlib::Absolutepath]`
 
 Path to YAML file with tracing configuration. See format details: https://thanos.io/tracing.md/#configuration
 
-Default value: `undef`
+Default value: $thanos::tracing_config_file
 
 ##### `http_address`
 
@@ -1552,7 +1707,7 @@ Data type: `Optional[Stdlib::Absolutepath]`
 
 Path to YAML file that contains object store configuration. See format details: https://thanos.io/storage.md/#configuration
 
-Default value: `undef`
+Default value: $thanos::storage_config_file
 
 ##### `sync_block_duration`
 
@@ -1601,6 +1756,86 @@ Path to YAML file that contains relabeling configuration that allows selecting b
 Default value: `undef`
 
 ## Defined types
+
+### thanos::config::storage
+
+Manage Storage configuration file.
+
+#### Examples
+
+##### 
+
+```puppet
+thanos::config::storage { '/etc/thanos/storage.yaml':
+  ensure => 'present',
+  type   => 'FILESYSTEM',
+  config => {
+    directory => '/data',
+  },
+}
+```
+
+#### Parameters
+
+The following parameters are available in the `thanos::config::storage` defined type.
+
+##### `ensure`
+
+Data type: `Enum['present', 'absent']`
+
+State ensured from configuration file.
+
+##### `type`
+
+Data type: `Enum['S3', 'GCS', 'AZURE', 'SWIFT', 'COS', 'ALIYUNOSS', 'FILESYSTEM']`
+
+Type of Storage configurarion.
+  One of ['S3', 'GCS', 'AZURE', 'SWIFT', 'COS', 'ALIYUNOSS', 'FILESYSTEM']
+
+##### `config`
+
+Data type: `Hash[String, Data]`
+
+Configuration to typed storage.
+
+### thanos::config::tracing
+
+Manage Tracing configuration file
+
+#### Examples
+
+##### 
+
+```puppet
+thanos::config::tracing { '/etc/thanos/tracing.yaml':
+  ensure => 'present',
+  type   => 'JAEGER',
+  config => {...},
+}
+```
+
+#### Parameters
+
+The following parameters are available in the `thanos::config::tracing` defined type.
+
+##### `ensure`
+
+Data type: `Enum['present', 'absent']`
+
+State ensured from configuration file.
+
+##### `type`
+
+Data type: `Enum['JAEGER', 'STACKDRIVER', 'ELASTIC_APM', 'LIGHTSTEP']`
+
+Type of Tracing configurarion.
+  One of ['JAEGER', 'STACKDRIVER', 'ELASTIC_APM', 'LIGHTSTEP']
+
+##### `config`
+
+Data type: `Hash[String, Data]`
+
+Configuration to typed tracing.
 
 ### thanos::resources::service
 

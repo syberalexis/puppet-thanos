@@ -36,6 +36,27 @@ describe 'thanos' do
           package_ensure: 'present',
           package_name: 'thanos',
         },
+        {
+          version: '0.10.0',
+          manage_storage_config: true,
+          storage_config_file: '/etc/thanos/bucket.yml',
+          storage_config: {
+            ensure: 'present',
+            type: 'FILESYSTEM',
+            config: {
+              directory: '/data',
+            },
+          },
+          manage_tracing_config: true,
+          tracing_config_file: '/etc/thanos/traces.yml',
+          tracing_config: {
+            ensure: 'present',
+            type: 'JAEGER',
+            config: {
+              directory: 'test',
+            },
+          },
+        },
       ].each do |parameters|
         context "with parameters #{parameters}" do
           let(:params) do
@@ -61,6 +82,12 @@ describe 'thanos' do
           thanos_user_shell = parameters[:usershell] || '/bin/false'
           thanos_extra_groups = parameters[:extra_groups] || []
           thanos_extract_command = parameters[:extract_command]
+          thanos_config_dir = parameters[:config_dir] || '/etc/thanos'
+          thanos_purge_config_dir = parameters[:purge_config_dir] || true
+          thanos_manage_storage_config = parameters[:manage_storage_config] || false
+          thanos_storage_config_file = parameters[:storage_config_file] || "#{thanos_config_dir}/storage.yaml"
+          thanos_manage_tracing_config = parameters[:manage_tracing_config] || false
+          thanos_tracing_config_file = parameters[:tracing_config_file] || "#{thanos_config_dir}/tracing.yaml"
 
           # Compilation
           it {
@@ -69,6 +96,8 @@ describe 'thanos' do
 
           # Install
           it {
+            is_expected.to contain_class('thanos::install')
+
             case thanos_install_method
             when 'url'
               is_expected.to contain_archive("/tmp/thanos-#{thanos_version}.tar.gz").with(
@@ -121,6 +150,14 @@ describe 'thanos' do
               is_expected.not_to contain_group(thanos_group)
             end
 
+            is_expected.to contain_file(thanos_config_dir).with(
+              'ensure'  => 'directory',
+              'owner'   => 'root',
+              'group'   => thanos_group,
+              'purge'   => thanos_purge_config_dir,
+              'recurse' => thanos_purge_config_dir,
+            )
+
             if thanos_manage_sidecar
               is_expected.to contain_class('thanos::sidecar')
             end
@@ -138,6 +175,22 @@ describe 'thanos' do
             end
             if thanos_manage_downsample
               is_expected.to contain_class('thanos::downsample')
+            end
+          }
+
+          # Configuration
+          it {
+            is_expected.to contain_class('thanos::config')
+
+            if thanos_manage_storage_config
+              is_expected.to contain_thanos__config__storage(thanos_storage_config_file)
+            else
+              is_expected.not_to contain_thanos__config__storage(thanos_storage_config_file)
+            end
+            if thanos_manage_tracing_config
+              is_expected.to contain_thanos__config__tracing(thanos_tracing_config_file)
+            else
+              is_expected.not_to contain_thanos__config__tracing(thanos_tracing_config_file)
             end
           }
         end
