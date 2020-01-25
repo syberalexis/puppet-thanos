@@ -78,7 +78,7 @@ class thanos::store (
   String                                          $chunck_pool_size                  = '2GB',
   Integer                                         $store_grpc_series_sample_limit    = 0,
   Integer                                         $store_grpc_series_max_concurrency = 20,
-  Optional[Stdlib::Absolutepath]                  $objstore_config_file              = $thanos::objstore_config_file,
+  Optional[Stdlib::Absolutepath]                  $objstore_config_file              = $thanos::storage_config_file,
   String                                          $sync_block_duration               = '3m',
   Integer                                         $block_sync_concurrency            = 20,
   Optional[String]                                $min_time                          = undef,

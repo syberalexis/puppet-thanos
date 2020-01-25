@@ -7,6 +7,8 @@ describe 'thanos::downsample' do
       let(:params) do
         {
           bin_path: '/usr/local/bin/thanos',
+          tracing_config_file: '/etc/thanos/tracing.yaml',
+          objstore_config_file: '/etc/thanos/storage.yaml',
         }
       end
 
@@ -21,11 +23,11 @@ describe 'thanos::downsample' do
           'params'   => {
             'log.level'                    => 'info',
             'log.format'                   => 'logfmt',
-            'tracing.config-file'          => nil,
+            'tracing.config-file'          => '/etc/thanos/tracing.yaml',
             'http-address'                 => '0.0.0.0:10902',
             'http-grace-period'            => '2m',
             'data-dir'                     => nil,
-            'objstore.config-file'         => nil,
+            'objstore.config-file'         => '/etc/thanos/storage.yaml',
           },
         )
       }

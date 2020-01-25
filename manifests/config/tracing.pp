@@ -1,9 +1,20 @@
-# @summary A short summary of the purpose of this defined type.
+# @summary Manage Tracing configuration file.
 #
-# A description of what this defined type does
+# Manage Tracing configuration file
 #
+# @param ensure
+#  State ensured from configuration file.
+# @param type
+#  Type of Tracing configurarion.
+#    One of ['JAEGER', 'STACKDRIVER', 'ELASTIC_APM', 'LIGHTSTEP']
+# @param config
+#  Configuration to typed tracing.
 # @example
-#   thanos::config::tracing { 'namevar': }
+#   thanos::config::tracing { '/etc/thanos/tracing.yaml':
+#     ensure => 'present',
+#     type   => 'JAEGER',
+#     config => {...},
+#   }
 define thanos::config::tracing (
   Enum['present', 'absent']                                 $ensure,
   Enum['JAEGER', 'STACKDRIVER', 'ELASTIC_APM', 'LIGHTSTEP'] $type,
@@ -14,8 +25,13 @@ define thanos::config::tracing (
     default   => 'absent'
   }
 
+  $configs = {
+    type   => $type,
+    config => $config,
+  }
+
   file { $title:
     ensure  => $_ensure,
-    content => template('thanos/config.erb'),
+    content => $configs.to_yaml(),
   }
 }

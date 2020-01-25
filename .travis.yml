@@ -27,16 +27,14 @@ matrix:
       env: CHECK="check:symlinks check:git_ignore check:dot_underscore check:test_file rubocop syntax lint metadata_lint"
       stage: static
     -
-      env: PUPPET_GEM_VERSION="~> 6.0" CHECK=parallel_spec
+      env: PUPPET_GEM_VERSION="~> 6.0" CHECK="parallel_spec spec/classes spec/defines"
       rvm: 2.5.3
       stage: spec
-    -
-      env: DEPLOY_TO_FORGE=yes
-      stage: deploy
-      provider: puppetforge
-      user: "maeq"
-      password:
-        secure: ${{ secrets.FORGE_API_KEY }}
+deploy:
+  provider: puppetforge
+  user: "maeq"
+  password:
+    secure: ${{ secrets.FORGE_API_KEY }}
 branches:
   only:
     - master

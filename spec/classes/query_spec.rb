@@ -7,6 +7,7 @@ describe 'thanos::query' do
       let(:params) do
         {
           bin_path: '/usr/local/bin/thanos',
+          tracing_config_file: '/etc/thanos/tracing.yaml',
         }
       end
 
@@ -21,7 +22,7 @@ describe 'thanos::query' do
           'params'   => {
             'log.level'                         => 'info',
             'log.format'                        => 'logfmt',
-            'tracing.config-file'               => nil,
+            'tracing.config-file'               => '/etc/thanos/tracing.yaml',
             'http-address'                      => '0.0.0.0:10902',
             'http-grace-period'                 => '2m',
             'grpc-address'                      => '0.0.0.0:10901',
