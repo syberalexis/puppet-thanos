@@ -87,7 +87,7 @@ class thanos::query (
   Stdlib::Absolutepath                            $bin_path                          = $thanos::bin_path,
   Enum['debug', 'info', 'warn', 'error', 'fatal'] $log_level                         = 'info',
   Enum['logfmt', 'json']                          $log_format                        = 'logfmt',
-  Optional[Stdlib::Absolutepath]                  $tracing_config_file               = undef,
+  Optional[Stdlib::Absolutepath]                  $tracing_config_file               = $thanos::tracing_config_file,
   String                                          $http_address                      = '0.0.0.0:10902',
   String                                          $http_grace_period                 = '2m',
   String                                          $grpc_address                      = '0.0.0.0:10901',
