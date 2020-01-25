@@ -41,7 +41,7 @@ define thanos::resources::service (
       "  --${key}=${value}"
     }
   }.filter |String $value| {
-    if $value {
+    if !empty($value) {
       $value
     }
   }.join(" \\\n")
