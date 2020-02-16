@@ -86,6 +86,8 @@
 #  Refresh interval to re-read file SD files. (used as a fallback)
 # @param query_sd_dns_interval
 #  Interval between DNS resolutions.
+# @param extra_params
+#  Parameters passed to the binary, ressently released in latest version of Thanos.
 # @example
 #   include thanos::rule
 class thanos::rule (
@@ -122,6 +124,7 @@ class thanos::rule (
   Array[Stdlib::Absolutepath]                     $query_sd_files             = [],
   String                                          $query_sd_interval          = '5m',
   String                                          $query_sd_dns_interval      = '30s',
+  Hash                                            $extra_params               = {},
 ) {
   $_service_ensure = $ensure ? {
     'present' => 'running',
@@ -129,11 +132,11 @@ class thanos::rule (
   }
 
   thanos::resources::service { 'rule':
-    ensure   => $_service_ensure,
-    bin_path => $bin_path,
-    user     => $user,
-    group    => $group,
-    params   => {
+    ensure       => $_service_ensure,
+    bin_path     => $bin_path,
+    user         => $user,
+    group        => $group,
+    params       => {
       'log.level'                  => $log_level,
       'log.format'                 => $log_format,
       'tracing.config-file'        => $tracing_config_file,
@@ -164,5 +167,6 @@ class thanos::rule (
       'query.sd-interval'          => $query_sd_interval,
       'query.sd-dns-interval'      => $query_sd_dns_interval,
     },
+    extra_params => $extra_params,
   }
 }

@@ -167,6 +167,62 @@ WantedBy=multi-user.target
           )
         }
       end
+
+      context 'ensure extra params' do
+        let(:params) do
+          {
+            ensure: 'running',
+            bin_path: '/usr/local/bin/thanos',
+            user: 'thanos',
+            group: 'thanos',
+            params: {
+              simple: 'test',
+              is_true: true,
+              is_false: false,
+              complex: [1, 2, 3],
+            },
+            extra_params: {
+              new: 'good',
+            },
+          }
+        end
+
+        it {
+          is_expected.to compile
+        }
+        it {
+          is_expected.to contain_file('/lib/systemd/system/thanos-component.service').with(
+            'ensure' => 'file',
+          ).with_content(
+            "# THIS FILE IS MANAGED BY PUPPET
+[Unit]
+Description=Thanos component module service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=thanos
+Group=thanos
+ExecStart=/usr/local/bin/thanos component \\
+  --simple=test \\
+  --is_true \\
+  --complex=1 \\
+  --complex=2 \\
+  --complex=3 \\
+  --new=good
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+",
+          )
+
+          is_expected.to contain_service('thanos-component').with(
+            'ensure' => 'running',
+            'enable' => true,
+          )
+        }
+      end
     end
   end
 end

@@ -84,6 +84,8 @@
 # @param store_response_timeout
 #  If a Store doesn't send any data in this specified duration then a Store will be ignored and partial data will be
 #    returned if it's enabled. 0 disables timeout.
+# @param extra_params
+#  Parameters passed to the binary, ressently released in latest version of Thanos.
 # @example
 #   include thanos::query
 class thanos::query (
@@ -122,6 +124,7 @@ class thanos::query (
   Boolean                                         $query_partial_response            = false,
   String                                          $query_default_evaluation_interval = '1m',
   String                                          $store_response_timeout            = '0ms',
+  Hash                                            $extra_params                      = {},
 ) {
   $_service_ensure = $ensure ? {
     'present' => 'running',
@@ -129,11 +132,11 @@ class thanos::query (
   }
 
   thanos::resources::service { 'query':
-    ensure   => $_service_ensure,
-    bin_path => $bin_path,
-    user     => $user,
-    group    => $group,
-    params   => {
+    ensure       => $_service_ensure,
+    bin_path     => $bin_path,
+    user         => $user,
+    group        => $group,
+    params       => {
       'log.level'                         => $log_level,
       'log.format'                        => $log_format,
       'tracing.config-file'               => $tracing_config_file,
@@ -166,5 +169,6 @@ class thanos::query (
       'query.default-evaluation-interval' => $query_default_evaluation_interval,
       'store.response-timeout'            => $store_response_timeout,
     },
+    extra_params => $extra_params,
   }
 }

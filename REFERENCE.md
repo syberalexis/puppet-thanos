@@ -477,6 +477,14 @@ Path to YAML file that contains relabeling configuration that allows selecting b
 
 Default value: `undef`
 
+##### `extra_params`
+
+Data type: `Hash`
+
+Parameters passed to the binary, ressently released in latest version of Thanos.
+
+Default value: {}
+
 ### thanos::config
 
 This class install and manage configuration files like object store and tracing.
@@ -648,6 +656,14 @@ Data type: `Optional[Stdlib::Absolutepath]`
 Path to YAML file that contains object store configuration. See format details: https://thanos.io/storage.md/#configuration
 
 Default value: $thanos::storage_config_file
+
+##### `extra_params`
+
+Data type: `Hash`
+
+Parameters passed to the binary, ressently released in latest version of Thanos.
+
+Default value: {}
 
 ### thanos::install
 
@@ -1133,6 +1149,14 @@ If a Store doesn't send any data in this specified duration then a Store will be
 
 Default value: '0ms'
 
+##### `extra_params`
+
+Data type: `Hash`
+
+Parameters passed to the binary, ressently released in latest version of Thanos.
+
+Default value: {}
+
 ### thanos::rule
 
 This class install Rule as service ruler evaluating Prometheus rules against given Query nodes,
@@ -1431,6 +1455,14 @@ Interval between DNS resolutions.
 
 Default value: '30s'
 
+##### `extra_params`
+
+Data type: `Hash`
+
+Parameters passed to the binary, ressently released in latest version of Thanos.
+
+Default value: {}
+
 ### thanos::sidecar
 
 This class install Sidecar as service sidecar for Prometheus server.
@@ -1624,6 +1656,14 @@ Start of time range limit to serve. Thanos sidecar will serve only metrics, whic
   duration units are ms, s, m, h, d, w, y.
 
 Default value: `undef`
+
+##### `extra_params`
+
+Data type: `Hash`
+
+Parameters passed to the binary, ressently released in latest version of Thanos.
+
+Default value: {}
 
 ### thanos::store
 
@@ -1851,6 +1891,14 @@ Path to YAML file that contains relabeling configuration that allows selecting b
 
 Default value: `undef`
 
+##### `extra_params`
+
+Data type: `Hash`
+
+Parameters passed to the binary, ressently released in latest version of Thanos.
+
+Default value: {}
+
 ## Defined types
 
 ### thanos::config::storage
@@ -1964,6 +2012,18 @@ Data type: `Stdlib::Absolutepath`
 
 Path where binary is located.
 
+##### `user`
+
+Data type: `String`
+
+User running thanos.
+
+##### `group`
+
+Data type: `String`
+
+Group under which thanos is running.
+
 ##### `params`
 
 Data type: `Hash`
@@ -1972,15 +2032,11 @@ Parameters passed to the binary.
 
 Default value: {}
 
-##### `user`
+##### `extra_params`
 
-Data type: `String`
+Data type: `Hash`
 
+Parameters passed to the binary, ressently released in latest version of Thanos.
 
-
-##### `group`
-
-Data type: `String`
-
-
+Default value: {}
 

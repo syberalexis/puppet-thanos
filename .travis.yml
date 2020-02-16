@@ -17,7 +17,6 @@ stages:
   - static
   - spec
   - acceptance
-  - deploy
 matrix:
   fast_finish: true
   include:
@@ -36,7 +35,7 @@ deploy:
     secure: ${{ secrets.FORGE_API_KEY }}
   on:
     branch: master
-    tags: true
+    tags: /^v\d/
 branches:
   only:
     - master

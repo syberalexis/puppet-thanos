@@ -46,6 +46,8 @@
 #  Path to YAML file that contains relabeling configuration that allows selecting blocks.
 #    It follows native Prometheus relabel-config syntax.
 #    See format details: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config
+# @param extra_params
+#  Parameters passed to the binary, ressently released in latest version of Thanos.
 # @example
 #   include thanos::compact
 class thanos::compact (
@@ -69,6 +71,7 @@ class thanos::compact (
   Integer                                         $block_sync_concurrency       = 20,
   Integer                                         $compact_concurrency          = 1,
   Optional[Stdlib::Absolutepath]                  $selector_relabel_config_file = undef,
+  Hash                                            $extra_params                 = {},
 ) {
   $_service_ensure = $ensure ? {
     'present' => 'running',
@@ -76,11 +79,11 @@ class thanos::compact (
   }
 
   thanos::resources::service { 'compact':
-    ensure   => $_service_ensure,
-    bin_path => $bin_path,
-    user     => $user,
-    group    => $group,
-    params   => {
+    ensure       => $_service_ensure,
+    bin_path     => $bin_path,
+    user         => $user,
+    group        => $group,
+    params       => {
       'log.level'                    => $log_level,
       'log.format'                   => $log_format,
       'tracing.config-file'          => $tracing_config_file,
@@ -98,5 +101,6 @@ class thanos::compact (
       'compact.concurrency'          => $compact_concurrency,
       'selector.relabel-config-file' => $selector_relabel_config_file,
     },
+    extra_params => $extra_params,
   }
 }
