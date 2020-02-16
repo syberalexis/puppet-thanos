@@ -48,6 +48,8 @@
 #  Start of time range limit to serve. Thanos sidecar will serve only metrics, which happened later than this value.
 #    Option can be a constant time in RFC3339 format or time duration relative to current time, such as -1d or 2h45m. Valid
 #    duration units are ms, s, m, h, d, w, y.
+# @param extra_params
+#  Parameters passed to the binary, ressently released in latest version of Thanos.
 # @example
 #   include thanos::sidecar
 class thanos::sidecar (
@@ -73,6 +75,7 @@ class thanos::sidecar (
   Array[Stdlib::Absolutepath]                     $reloader_rule_dirs            = [],
   Optional[Stdlib::Absolutepath]                  $objstore_config_file          = undef,
   Optional[String]                                $min_time                      = undef,
+  Hash                                            $extra_params                  = {},
 ) {
   $_service_ensure = $ensure ? {
     'present' => 'running',
@@ -80,11 +83,11 @@ class thanos::sidecar (
   }
 
   thanos::resources::service { 'sidecar':
-    ensure   => $_service_ensure,
-    bin_path => $bin_path,
-    user     => $user,
-    group    => $group,
-    params   => {
+    ensure       => $_service_ensure,
+    bin_path     => $bin_path,
+    user         => $user,
+    group        => $group,
+    params       => {
       'log.level'                     => $log_level,
       'log.format'                    => $log_format,
       'tracing.config-file'           => $tracing_config_file,
@@ -104,5 +107,6 @@ class thanos::sidecar (
       'objstore.config-file'          => $objstore_config_file,
       'min-time'                      => $min_time,
     },
+    extra_params => $extra_params,
   }
 }

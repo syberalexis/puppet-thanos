@@ -24,6 +24,8 @@
 #  Data directory in which to cache blocks and process downsamplings.
 # @param objstore_config_file
 #  Path to YAML file that contains object store configuration. See format details: https://thanos.io/storage.md/#configuration
+# @param extra_params
+#  Parameters passed to the binary, ressently released in latest version of Thanos.
 # @example
 #   include thanos::downsample
 class thanos::downsample (
@@ -38,6 +40,7 @@ class thanos::downsample (
   String                                          $http_grace_period    = '2m',
   Optional[Stdlib::Absolutepath]                  $data_dir             = undef,
   Optional[Stdlib::Absolutepath]                  $objstore_config_file = $thanos::storage_config_file,
+  Hash                                            $extra_params         = {},
 ) {
   $_service_ensure = $ensure ? {
     'present' => 'running',
@@ -45,11 +48,11 @@ class thanos::downsample (
   }
 
   thanos::resources::service { 'downsample':
-    ensure   => $_service_ensure,
-    user     => $user,
-    group    => $group,
-    bin_path => $bin_path,
-    params   => {
+    ensure       => $_service_ensure,
+    user         => $user,
+    group        => $group,
+    bin_path     => $bin_path,
+    params       => {
       'log.level'            => $log_level,
       'log.format'           => $log_format,
       'tracing.config-file'  => $tracing_config_file,
@@ -58,5 +61,6 @@ class thanos::downsample (
       'data-dir'             => $data_dir,
       'objstore.config-file' => $objstore_config_file,
     },
+    extra_params => $extra_params,
   }
 }

@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## Release 0.3.0
+
+**Features**
+
+- Add extra parameters to do compatible with future versions of Thanos binary.
+
 ## Release 0.2.1
 
 **Bug Fixes**

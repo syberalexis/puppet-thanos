@@ -4,8 +4,14 @@
 #  State ensured from component service.
 # @param bin_path
 #  Path where binary is located.
+# @param user
+#  User running thanos.
+# @param group
+#  Group under which thanos is running.
 # @param params
 #  Parameters passed to the binary.
+# @param extra_params
+#  Parameters passed to the binary, ressently released in latest version of Thanos.
 #
 # @example
 #   thanos::resources::service { 'component_name':
@@ -17,7 +23,8 @@ define thanos::resources::service (
   Stdlib::Absolutepath                             $bin_path,
   String                                           $user,
   String                                           $group,
-  Hash                                             $params = {},
+  Hash                                             $params       = {},
+  Hash                                             $extra_params = {},
 ) {
   $_service_name   = "thanos-${title}"
   $_service_ensure = $ensure ? {
@@ -30,7 +37,7 @@ define thanos::resources::service (
     default   => absent,
   }
 
-  $parameters = $params.filter |String $key, Data $value| {
+  $parameters = merge($params, $extra_params).filter |String $key, Data $value| {
     if $value {
       $value
     }
