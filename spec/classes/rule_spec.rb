@@ -8,6 +8,8 @@ describe 'thanos::rule' do
         {
           bin_path: '/usr/local/bin/thanos',
           tracing_config_file: '/etc/thanos/tracing.yaml',
+          user: 'thanos',
+          group: 'thanos',
         }
       end
 
@@ -19,6 +21,8 @@ describe 'thanos::rule' do
         is_expected.to contain_thanos__resources__service('rule').with(
           'ensure'   => 'running',
           'bin_path' => '/usr/local/bin/thanos',
+          'user'     => 'thanos',
+          'group'    => 'thanos',
           'params'   => {
             'log.level'                  => 'info',
             'log.format'                 => 'logfmt',

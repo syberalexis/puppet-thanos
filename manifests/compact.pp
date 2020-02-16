@@ -4,6 +4,10 @@
 #
 # @param ensure
 #  State ensured from compact service.
+# @param user
+#  User running thanos.
+# @param group
+#  Group under which thanos is running.
 # @param bin_path
 #  Path where binary is located.
 # @param log_level
@@ -46,6 +50,8 @@
 #   include thanos::compact
 class thanos::compact (
   Enum['present', 'absent']                       $ensure                       = 'present',
+  String                                          $user                         = $thanos::user,
+  String                                          $group                        = $thanos::group,
   Stdlib::Absolutepath                            $bin_path                     = $thanos::bin_path,
   Enum['debug', 'info', 'warn', 'error', 'fatal'] $log_level                    = 'info',
   Enum['logfmt', 'json']                          $log_format                   = 'logfmt',
@@ -72,6 +78,8 @@ class thanos::compact (
   thanos::resources::service { 'compact':
     ensure   => $_service_ensure,
     bin_path => $bin_path,
+    user     => $user,
+    group    => $group,
     params   => {
       'log.level'                    => $log_level,
       'log.format'                   => $log_format,

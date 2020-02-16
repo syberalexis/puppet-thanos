@@ -15,6 +15,8 @@
 define thanos::resources::service (
   Variant[Stdlib::Ensure::Service, Enum['absent']] $ensure,
   Stdlib::Absolutepath                             $bin_path,
+  String                                           $user,
+  String                                           $group,
   Hash                                             $params = {},
 ) {
   $_service_name   = "thanos-${title}"
@@ -49,6 +51,7 @@ define thanos::resources::service (
   file { "/lib/systemd/system/${_service_name}.service":
     ensure  => $_file_ensure,
     content => template('thanos/service.erb'),
+    notify  => Service[$_service_name]
   }
   service { $_service_name:
     ensure => $_service_ensure,

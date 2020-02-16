@@ -22,35 +22,251 @@ This module automates the install of [Thanos](https://github.com/thanos-io/thano
 
 ## Usage
 
+For more information see [REFERENCE.md](REFERENCE.md).
+
 ### Install Thanos
 
-#### In Puppet Code
+#### Puppet
 ```puppet
     class { 'thanos':
-      version => '0.10.0'
+      version => '0.10.1'
     }
 ```
 
-#### In Hiera Data (yaml)
+#### Hiera Data
+
 ```puppet
     include thanos
 ```
 ```yaml
-    thanos::version: '0.10.0'
+    thanos::version: '0.10.1'
 ```
 
-#### Full installation services
+### Thanos Sidecar
+
+#### Puppet
+```puppet
+    class { 'thanos':
+      version        => '0.10.1',
+      manage_sidecar => true,
+    }
+```
+OR
+```puppet
+    class { 'thanos':
+      version => '0.10.1'
+    }
+    class { 'thanos-sidecar':
+      bin_path => '/usr/local/bin/thanos',
+    }
+```
+
+#### Hiera Data
+```puppet
+    include thanos
+```
 ```yaml
-    thanos::version: '0.10.0'
     thanos::manage_sidecar: true
+```
+OR
+```puppet
+    include thanos
+    include thanos::sidecar
+```
+```yaml
+    thanos::version: '0.10.1'
+    thanos::bin_path: '/usr/local/bin/thanos'
+```
+
+### Thanos Query
+
+#### Puppet
+```puppet
+    class { 'thanos-query':
+      bin_path => '/usr/local/bin/thanos',
+      stores   => [
+        'sidecar:10901',
+        'store:10901',
+      ]
+    }
+```
+
+#### Hiera Data
+```puppet
+    include thanos
+```
+```yaml
     thanos::manage_query: true
+    thanos::query::stores:
+      - 'sidecar:10901'
+      - 'store:10901'
+```
+
+### Thanos Rule
+
+#### Puppet
+```puppet
+    class { 'thanos-rule':
+      bin_path => '/usr/local/bin/thanos',
+      queries  => [
+        'query:10901',
+      ]
+    }
+```
+
+#### Hiera Data
+```puppet
+    include thanos
+```
+```yaml
     thanos::manage_rule: true
+    thanos::rule::queries:
+      - 'query:10901'
+```
+
+### Thanos Store
+
+#### Puppet
+```puppet
+    class { 'thanos-store':
+      bin_path             => '/usr/local/bin/thanos',
+      objstore_config_file => '/etc/thanos/storage.yaml',
+    }
+```
+
+#### Hiera Data
+```puppet
+    include thanos
+```
+```yaml
     thanos::manage_store: true
+```
+
+### Thanos Compact
+
+#### Puppet
+```puppet
+    class { 'thanos-compact':
+      bin_path             => '/usr/local/bin/thanos',
+      objstore_config_file => '/etc/thanos/storage.yaml',
+    }
+```
+
+#### Hiera Data
+```puppet
+    include thanos
+```
+```yaml
     thanos::manage_compact: true
+```
+
+### Thanos Downsample
+
+#### Puppet
+```puppet
+    class { 'thanos-downsample':
+      bin_path             => '/usr/local/bin/thanos',
+      objstore_config_file => '/etc/thanos/storage.yaml',
+    }
+```
+
+#### Hiera Data
+```puppet
+    include thanos
+```
+```yaml
     thanos::manage_downsample: true
 ```
 
-For more information see [REFERENCE.md](REFERENCE.md).
+### Manage Storage config
+
+For more configuration information see [Thasos Storage configuration page](https://thanos.io/storage.md/#configuration).
+
+#### Puppet
+```puppet
+    thanos::storage { '/etc/thanos/storage.yaml':
+      ensure => 'present',
+      type   => 'FILESYSTEM',
+      config => {
+        directory => '/data'
+      }
+    }
+```
+
+### Yaml
+```puppet
+    include thanos
+```
+```yaml
+    thanos::manage_storage_config: true
+    thanos::storage_config_file: '/etc/thanos/storage.yaml'
+    thanos::storage_config:
+      ensure: 'present'
+      type: 'FILESYSTEM'
+      config:
+        directory: '/data'
+```
+
+### Manage Tracing config
+
+For more configuration information see [Thasos Tracing configuration page](https://thanos.io/tracing.md/#configuration).
+
+#### Puppet
+```puppet
+    thanos::tracing { '/etc/thanos/tracing.yaml':
+      ensure => 'present',
+      type   => 'JAEGER',
+      config => {
+        service_name              => '',
+        disabled                  => false,
+        rpc_metrics               => false,
+        tags                      => '',
+        sampler_type              => '',
+        sampler_param             => 0,
+        sampler_manager_host_port => '',
+        sampler_max_operations    => 0,
+        sampler_refresh_interval  => '0s',
+        reporter_max_queue_size   => 0,
+        reporter_flush_interval   => '0s',
+        reporter_log_spans        => false,
+        endpoint                  => '',
+        user                      => '',
+        password                  => '',
+        agent_host                => '',
+        agent_port                => 0,
+      }
+    }
+```
+
+### Yaml
+```puppet
+    include thanos
+```
+```yaml
+    thanos::manage_tracing_config: true
+    thanos::tracing_config_file: '/etc/thanos/tracing.yaml'
+    thanos::tracing_config:
+      ensure: 'present'
+      type: 'JAEGER'
+      config:
+        service_name: ''
+        disabled: false
+        rpc_metrics: false
+        tags: ''
+        sampler_type: ''
+        sampler_param: 0
+        sampler_manager_host_port: ''
+        sampler_max_operations: 0
+        sampler_refresh_interval: '0s'
+        reporter_max_queue_size: 0
+        reporter_flush_interval: '0s'
+        reporter_log_spans: false
+        endpoint: ''
+        user: ''
+        password: ''
+        agent_host: ''
+        agent_port: 0
+```
 
 ## Limitations
 

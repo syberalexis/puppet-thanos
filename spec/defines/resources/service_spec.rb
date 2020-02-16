@@ -12,6 +12,8 @@ describe 'thanos::resources::service' do
           {
             ensure: 'running',
             bin_path: '/usr/local/bin/thanos',
+            user: 'thanos',
+            group: 'thanos',
           }
         end
 
@@ -22,12 +24,15 @@ describe 'thanos::resources::service' do
           is_expected.to contain_file('/lib/systemd/system/thanos-component.service').with(
             'ensure' => 'file',
           ).with_content(
-            "[Unit]
+            "# THIS FILE IS MANAGED BY PUPPET
+[Unit]
 Description=Thanos component module service
 After=network-online.target
 Wants=network-online.target
 
 [Service]
+User=thanos
+Group=thanos
 ExecStart=/usr/local/bin/thanos component \\
 
 Restart=always
@@ -49,6 +54,8 @@ WantedBy=multi-user.target
           {
             ensure: 'running',
             bin_path: '/usr/local/bin/thanos',
+            user: 'thanos',
+            group: 'thanos',
             params: {
               simple: 'test',
               is_true: true,
@@ -65,12 +72,15 @@ WantedBy=multi-user.target
           is_expected.to contain_file('/lib/systemd/system/thanos-component.service').with(
             'ensure' => 'file',
           ).with_content(
-            "[Unit]
+            "# THIS FILE IS MANAGED BY PUPPET
+[Unit]
 Description=Thanos component module service
 After=network-online.target
 Wants=network-online.target
 
 [Service]
+User=thanos
+Group=thanos
 ExecStart=/usr/local/bin/thanos component \\
   --simple=test \\
   --is_true \\
@@ -96,6 +106,8 @@ WantedBy=multi-user.target
           {
             ensure: 'stopped',
             bin_path: '/usr/local/bin/thanos',
+            user: 'thanos',
+            group: 'thanos',
           }
         end
 
@@ -106,12 +118,15 @@ WantedBy=multi-user.target
           is_expected.to contain_file('/lib/systemd/system/thanos-component.service').with(
             'ensure' => 'file',
           ).with_content(
-            "[Unit]
+            "# THIS FILE IS MANAGED BY PUPPET
+[Unit]
 Description=Thanos component module service
 After=network-online.target
 Wants=network-online.target
 
 [Service]
+User=thanos
+Group=thanos
 ExecStart=/usr/local/bin/thanos component \\
 
 Restart=always
@@ -133,6 +148,8 @@ WantedBy=multi-user.target
           {
             ensure: 'absent',
             bin_path: '/usr/local/bin/thanos',
+            user: 'thanos',
+            group: 'thanos',
           }
         end
 
