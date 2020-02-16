@@ -9,6 +9,8 @@ describe 'thanos::downsample' do
           bin_path: '/usr/local/bin/thanos',
           tracing_config_file: '/etc/thanos/tracing.yaml',
           objstore_config_file: '/etc/thanos/storage.yaml',
+          user: 'thanos',
+          group: 'thanos',
         }
       end
 
@@ -20,6 +22,8 @@ describe 'thanos::downsample' do
         is_expected.to contain_thanos__resources__service('downsample').with(
           'ensure'   => 'running',
           'bin_path' => '/usr/local/bin/thanos',
+          'user'     => 'thanos',
+          'group'    => 'thanos',
           'params'   => {
             'log.level'                    => 'info',
             'log.format'                   => 'logfmt',

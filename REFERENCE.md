@@ -321,6 +321,22 @@ State ensured from compact service.
 
 Default value: 'present'
 
+##### `user`
+
+Data type: `String`
+
+User running thanos.
+
+Default value: $thanos::user
+
+##### `group`
+
+Data type: `String`
+
+Group under which thanos is running.
+
+Default value: $thanos::group
+
 ##### `bin_path`
 
 Data type: `Stdlib::Absolutepath`
@@ -552,6 +568,22 @@ Data type: `Enum['present', 'absent']`
 State ensured from compact service.
 
 Default value: 'present'
+
+##### `user`
+
+Data type: `String`
+
+User running thanos.
+
+Default value: $thanos::user
+
+##### `group`
+
+Data type: `String`
+
+Group under which thanos is running.
+
+Default value: $thanos::group
 
 ##### `bin_path`
 
@@ -816,6 +848,22 @@ Data type: `Enum['present', 'absent']`
 State ensured from compact service.
 
 Default value: 'present'
+
+##### `user`
+
+Data type: `String`
+
+User running thanos.
+
+Default value: $thanos::user
+
+##### `group`
+
+Data type: `String`
+
+Group under which thanos is running.
+
+Default value: $thanos::group
 
 ##### `bin_path`
 
@@ -1110,6 +1158,22 @@ State ensured from compact service.
 
 Default value: 'present'
 
+##### `user`
+
+Data type: `String`
+
+User running thanos.
+
+Default value: $thanos::user
+
+##### `group`
+
+Data type: `String`
+
+Group under which thanos is running.
+
+Default value: $thanos::group
+
 ##### `bin_path`
 
 Data type: `Stdlib::Absolutepath`
@@ -1391,6 +1455,22 @@ State ensured from compact service.
 
 Default value: 'present'
 
+##### `user`
+
+Data type: `String`
+
+User running thanos.
+
+Default value: $thanos::user
+
+##### `group`
+
+Data type: `String`
+
+Group under which thanos is running.
+
+Default value: $thanos::group
+
 ##### `bin_path`
 
 Data type: `Stdlib::Absolutepath`
@@ -1569,6 +1649,22 @@ Data type: `Enum['present', 'absent']`
 State ensured from compact service.
 
 Default value: 'present'
+
+##### `user`
+
+Data type: `String`
+
+User running thanos.
+
+Default value: $thanos::user
+
+##### `group`
+
+Data type: `String`
+
+Group under which thanos is running.
+
+Default value: $thanos::group
 
 ##### `bin_path`
 
@@ -1875,4 +1971,16 @@ Data type: `Hash`
 Parameters passed to the binary.
 
 Default value: {}
+
+##### `user`
+
+Data type: `String`
+
+
+
+##### `group`
+
+Data type: `String`
+
+
 

@@ -17,9 +17,7 @@ stages:
   - static
   - spec
   - acceptance
-  -
-    if: tag =~ ^v\d
-    name: deploy
+  - deploy
 matrix:
   fast_finish: true
   include:
@@ -31,10 +29,14 @@ matrix:
       rvm: 2.5.3
       stage: spec
 deploy:
+  skip_cleanup: true
   provider: puppetforge
   user: "maeq"
   password:
     secure: ${{ secrets.FORGE_API_KEY }}
+  on:
+    branch: master
+    tags: true
 branches:
   only:
     - master
