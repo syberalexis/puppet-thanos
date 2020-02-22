@@ -6,6 +6,7 @@
 **Classes**
 
 * [`thanos`](#thanos): This module manages Thanos
+* [`thanos::bucket_web`](#thanosbucket_web): This class manages bucket web interface service
 * [`thanos::compact`](#thanoscompact): This class manages compact service
 * [`thanos::config`](#thanosconfig): This class manages configuration files
 * [`thanos::downsample`](#thanosdownsample): This class manages downsample service
@@ -17,9 +18,17 @@
 
 **Defined types**
 
+* [`thanos::config::index_cache`](#thanosconfigindex_cache): Manage Index cache configuration file.
 * [`thanos::config::storage`](#thanosconfigstorage): Manage Storage configuration file.
 * [`thanos::config::tracing`](#thanosconfigtracing): Manage Tracing configuration file.
 * [`thanos::resources::service`](#thanosresourcesservice): This defined type create component's service.
+
+**Data types**
+
+* [`Thanos::Index_cache_type`](#thanosindex_cache_type): Thanos index cache type
+* [`Thanos::Log_level`](#thanoslog_level): Thanos Log Level type
+* [`Thanos::Storage_type`](#thanosstorage_type): Thanos Storage type
+* [`Thanos::Tracing_type`](#thanostracing_type): Thanos Tracing type
 
 ## Classes
 
@@ -98,6 +107,14 @@ Default value: `false`
 Data type: `Boolean`
 
 Whether to create a service to run Downsample.
+
+Default value: `false`
+
+##### `manage_bucket_web`
+
+Data type: `Boolean`
+
+Whether to create a service to run Bucket Web interface.
 
 Default value: `false`
 
@@ -297,6 +314,183 @@ Tracing configuration.
 
 Default value: {}
 
+##### `manage_index_cache_config`
+
+Data type: `Boolean`
+
+Whether to manage index cache configuration file
+
+Default value: `false`
+
+##### `index_cache_config_file`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+Path to index cache configuration file.
+
+Default value: `undef`
+
+##### `index_cache_config`
+
+Data type: `Hash[String, Data]`
+
+Index cache configuration.
+   type: one of ['IN-MEMORY', 'MEMCACHED']
+   config: index cache typed configuration in Hash[String, Data]
+
+Default value: {}
+
+### thanos::bucket_web
+
+This class install Web interface for remote storage bucket.
+
+#### Examples
+
+##### 
+
+```puppet
+include thanos::bucket_web
+```
+
+#### Parameters
+
+The following parameters are available in the `thanos::bucket_web` class.
+
+##### `ensure`
+
+Data type: `Enum['present', 'absent']`
+
+State ensured from compact service.
+
+Default value: 'present'
+
+##### `user`
+
+Data type: `String`
+
+User running thanos.
+
+Default value: $thanos::user
+
+##### `group`
+
+Data type: `String`
+
+Group under which thanos is running.
+
+Default value: $thanos::group
+
+##### `bin_path`
+
+Data type: `Stdlib::Absolutepath`
+
+Path where binary is located.
+
+Default value: $thanos::bin_path
+
+##### `log_level`
+
+Data type: `Thanos::Log_level`
+
+Only log messages with the given severity or above. One of: [debug, info, warn, error, fatal]
+
+Default value: 'info'
+
+##### `log_format`
+
+Data type: `Enum['logfmt', 'json']`
+
+Output format of log messages. One of: [logfmt, json]
+
+Default value: 'logfmt'
+
+##### `tracing_config_file`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+Path to YAML file with tracing configuration. See format details: https://thanos.io/tracing.md/#configuration
+
+Default value: $thanos::tracing_config_file
+
+##### `objstore_config_file`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+Path to YAML file that contains object store configuration. See format details: https://thanos.io/storage.md/#configuration
+
+Default value: $thanos::storage_config_file
+
+##### `http_address`
+
+Data type: `String`
+
+Listen host:port for HTTP endpoints.
+
+Default value: '0.0.0.0:10902'
+
+##### `http_grace_period`
+
+Data type: `String`
+
+Time to wait after an interrupt received for HTTP Server.
+
+Default value: '2m'
+
+##### `web_external_prefix`
+
+Data type: `String`
+
+Static prefix for all HTML links and redirect URLs in the bucket web UI interface.
+Actual endpoints are still served on / or the web.route-prefix.
+This allows thanos bucket web UI to be served behind a reverse proxy that strips a URL sub-path.
+
+Default value: ''
+
+##### `web_prefix_header`
+
+Data type: `String`
+
+Name of HTTP request header used for dynamic prefixing of UI links and redirects.
+This option is ignored if web.external-prefix argument is set.
+Security risk: enable this option only if a reverse proxy in front of thanos is resetting the header.
+The --web.prefix-header=X-Forwarded-Prefix option can be useful, for example, if Thanos UI is served via Traefik
+  reverse proxy with PathPrefixStrip option enabled, which sends the stripped prefix value in X-Forwarded-Prefix header.
+This allows thanos UI to be served on a sub-path.
+
+Default value: ''
+
+##### `refresh`
+
+Data type: `String`
+
+Refresh interval to download metadata from remote storage
+
+Default value: '30m'
+
+##### `timeout`
+
+Data type: `String`
+
+Timeout to download metadata from remote storage
+
+Default value: '5m'
+
+##### `label`
+
+Data type: `String`
+
+Prometheus label to use as timeline title
+
+Default value: ''
+
+##### `extra_params`
+
+Data type: `Hash`
+
+Parameters passed to the binary, ressently released in latest version of Thanos.
+
+Default value: {}
+
 ### thanos::compact
 
 This class install Compact as service to continuously compacts blocks in an object store bucket.
@@ -347,7 +541,7 @@ Default value: $thanos::bin_path
 
 ##### `log_level`
 
-Data type: `Enum['debug', 'info', 'warn', 'error', 'fatal']`
+Data type: `Thanos::Log_level`
 
 Only log messages with the given severity or above. One of: [debug, info, warn, error, fatal]
 
@@ -553,6 +747,32 @@ Tracing configuration.
 
 Default value: $thanos::tracing_config
 
+##### `manage_index_cache_config`
+
+Data type: `Boolean`
+
+Whether to manage index cache configuration file
+
+Default value: $thanos::manage_index_cache_config
+
+##### `index_cache_config_file`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+Path to index cache configuration file.
+
+Default value: $thanos::index_cache_config_file
+
+##### `index_cache_config`
+
+Data type: `Hash[String, Data]`
+
+Index cache configuration.
+   type: one of ['IN-MEMORY', 'MEMCACHED']
+   config: index cache typed configuration in Hash[String, Data]
+
+Default value: $thanos::index_cache_config
+
 ### thanos::downsample
 
 This class install Downsample as service continuously downsamples blocks in an object store bucket.
@@ -603,7 +823,7 @@ Default value: $thanos::bin_path
 
 ##### `log_level`
 
-Data type: `Enum['debug', 'info', 'warn', 'error', 'fatal']`
+Data type: `Thanos::Log_level`
 
 Only log messages with the given severity or above. One of: [debug, info, warn, error, fatal]
 
@@ -891,7 +1111,7 @@ Default value: $thanos::bin_path
 
 ##### `log_level`
 
-Data type: `Enum['debug', 'info', 'warn', 'error', 'fatal']`
+Data type: `Thanos::Log_level`
 
 Only log messages with the given severity or above. One of: [debug, info, warn, error, fatal]
 
@@ -1208,7 +1428,7 @@ Default value: $thanos::bin_path
 
 ##### `log_level`
 
-Data type: `Enum['debug', 'info', 'warn', 'error', 'fatal']`
+Data type: `Thanos::Log_level`
 
 Only log messages with the given severity or above. One of: [debug, info, warn, error, fatal]
 
@@ -1344,6 +1564,14 @@ Block retention time on local disk.
 
 Default value: '48h'
 
+##### `tsdb_wal_compression`
+
+Data type: `Boolean`
+
+Compress the tsdb WAL.
+
+Default value: `false`
+
 ##### `alertmanagers_url`
 
 Data type: `Array[Stdlib::HTTPUrl]`
@@ -1363,6 +1591,24 @@ Data type: `String`
 Timeout for sending alerts to alertmanager
 
 Default value: '10s'
+
+##### `alertmanagers_config_file`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+Path to YAML file that contains alerting configuration.
+See format details: https://thanos.io/components/rule.md/#configuration.
+If defined, it takes precedence over the alertmanagers_url and alertmanagers_send_timeout options.
+
+Default value: `undef`
+
+##### `alertmanagers_sd_dns_interval`
+
+Data type: `String`
+
+Interval between DNS resolutions of Alertmanager hosts.
+
+Default value: '30s'
 
 ##### `alert_query_url`
 
@@ -1430,6 +1676,16 @@ Addresses of statically configured query API servers. The scheme may be prefixed
   'dnssrv+' to detect query API servers through respective DNS lookups.
 
 Default value: []
+
+##### `query_config_file`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+Path to YAML file that contains query API servers configuration.
+See format details: https://thanos.io/components/rule.md/#configuration.
+If defined, it takes precedence over the queries and query.sd-files options.
+
+Default value: `undef`
 
 ##### `query_sd_files`
 
@@ -1513,7 +1769,7 @@ Default value: $thanos::bin_path
 
 ##### `log_level`
 
-Data type: `Enum['debug', 'info', 'warn', 'error', 'fatal']`
+Data type: `Thanos::Log_level`
 
 Only log messages with the given severity or above. One of: [debug, info, warn, error, fatal]
 
@@ -1607,6 +1863,22 @@ Maximum time to wait for the Prometheus instance to start up
 
 Default value: '10m'
 
+##### `receive_connection_pool_size`
+
+Data type: `Optional[Integer]`
+
+Controls the http MaxIdleConns. Default is 0, which is unlimited
+
+Default value: `undef`
+
+##### `receive_connection_pool_size_per_host`
+
+Data type: `Integer`
+
+Controls the http MaxIdleConnsPerHost
+
+Default value: 100
+
 ##### `tsdb_path`
 
 Data type: `Stdlib::Absolutepath`
@@ -1646,6 +1918,15 @@ Data type: `Optional[Stdlib::Absolutepath]`
 Path to YAML file that contains object store configuration. See format details: https://thanos.io/storage.md/#configuration
 
 Default value: `undef`
+
+##### `shipper_upload_compacted`
+
+Data type: `Boolean`
+
+If true sidecar will try to upload compacted blocks as well. Useful for migration purposes.
+Works only if compaction is disabled on Prometheus. Do it once and then disable the flag when done.
+
+Default value: `false`
 
 ##### `min_time`
 
@@ -1716,7 +1997,7 @@ Default value: $thanos::bin_path
 
 ##### `log_level`
 
-Data type: `Enum['debug', 'info', 'warn', 'error', 'fatal']`
+Data type: `Thanos::Log_level`
 
 Only log messages with the given severity or above. One of: [debug, info, warn, error, fatal]
 
@@ -1799,6 +2080,15 @@ Default value: `undef`
 Data type: `Optional[Stdlib::Absolutepath]`
 
 Data directory in which to cache remote blocks.
+
+Default value: `undef`
+
+##### `index_cache_config_file`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+Path to YAML file that contains index cache configuration.
+  See format details: https://thanos.io/components/store.md/#index-cache
 
 Default value: `undef`
 
@@ -1891,6 +2181,14 @@ Path to YAML file that contains relabeling configuration that allows selecting b
 
 Default value: `undef`
 
+##### `consistency_delay`
+
+Data type: `String`
+
+Minimum age of all blocks before they are being read.
+
+Default value: '30m'
+
 ##### `extra_params`
 
 Data type: `Hash`
@@ -1900,6 +2198,48 @@ Parameters passed to the binary, ressently released in latest version of Thanos.
 Default value: {}
 
 ## Defined types
+
+### thanos::config::index_cache
+
+Manage Index cache configuration file.
+
+#### Examples
+
+##### 
+
+```puppet
+thanos::config::index_cache { '/etc/thanos/index_cache.yaml':
+  ensure => 'present',
+  type   => 'IN-MEMORY',
+  config => {
+    max_size      => 0,
+    max_item_size => 0,
+  },
+}
+```
+
+#### Parameters
+
+The following parameters are available in the `thanos::config::index_cache` defined type.
+
+##### `ensure`
+
+Data type: `Enum['present', 'absent']`
+
+State ensured from configuration file.
+
+##### `type`
+
+Data type: `Thanos::Index_cache_type`
+
+Type of Index cache.
+  One of ['IN-MEMORY', 'MEMCACHED']
+
+##### `config`
+
+Data type: `Hash[String, Data]`
+
+Configuration to typed index cache.
 
 ### thanos::config::storage
 
@@ -1931,7 +2271,7 @@ State ensured from configuration file.
 
 ##### `type`
 
-Data type: `Enum['S3', 'GCS', 'AZURE', 'SWIFT', 'COS', 'ALIYUNOSS', 'FILESYSTEM']`
+Data type: `Thanos::Storage_type`
 
 Type of Storage configurarion.
   One of ['S3', 'GCS', 'AZURE', 'SWIFT', 'COS', 'ALIYUNOSS', 'FILESYSTEM']
@@ -1970,7 +2310,7 @@ State ensured from configuration file.
 
 ##### `type`
 
-Data type: `Enum['JAEGER', 'STACKDRIVER', 'ELASTIC_APM', 'LIGHTSTEP']`
+Data type: `Thanos::Tracing_type`
 
 Type of Tracing configurarion.
   One of ['JAEGER', 'STACKDRIVER', 'ELASTIC_APM', 'LIGHTSTEP']
@@ -2039,4 +2379,30 @@ Data type: `Hash`
 Parameters passed to the binary, ressently released in latest version of Thanos.
 
 Default value: {}
+
+## Data types
+
+### Thanos::Index_cache_type
+
+Thanos index cache type
+
+Alias of `Enum['IN-MEMORY', 'MEMCACHED']`
+
+### Thanos::Log_level
+
+Thanos Log Level type
+
+Alias of `Enum['debug', 'info', 'warn', 'error', 'fatal']`
+
+### Thanos::Storage_type
+
+Thanos Storage type
+
+Alias of `Enum['S3', 'GCS', 'AZURE', 'SWIFT', 'COS', 'ALIYUNOSS', 'FILESYSTEM']`
+
+### Thanos::Tracing_type
+
+Thanos Tracing type
+
+Alias of `Enum['JAEGER', 'STACKDRIVER', 'ELASTIC_APM', 'LIGHTSTEP']`
 

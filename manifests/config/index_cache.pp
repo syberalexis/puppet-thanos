@@ -1,25 +1,26 @@
-# @summary Manage Storage configuration file.
+# @summary Manage Index cache configuration file.
 #
-# Manage Storage configuration file.
+# Manage Index cache configuration file.
 #
 # @param ensure
 #  State ensured from configuration file.
 # @param type
-#  Type of Storage configurarion.
-#    One of ['S3', 'GCS', 'AZURE', 'SWIFT', 'COS', 'ALIYUNOSS', 'FILESYSTEM']
+#  Type of Index cache.
+#    One of ['IN-MEMORY', 'MEMCACHED']
 # @param config
-#  Configuration to typed storage.
+#  Configuration to typed index cache.
 # @example
-#   thanos::config::storage { '/etc/thanos/storage.yaml':
+#   thanos::config::index_cache { '/etc/thanos/index_cache.yaml':
 #     ensure => 'present',
-#     type   => 'FILESYSTEM',
+#     type   => 'IN-MEMORY',
 #     config => {
-#       directory => '/data',
+#       max_size      => 0,
+#       max_item_size => 0,
 #     },
 #   }
-define thanos::config::storage (
+define thanos::config::index_cache (
   Enum['present', 'absent'] $ensure,
-  Thanos::Storage_type      $type,
+  Thanos::Index_cache_type  $type,
   Hash[String, Data]        $config,
 ) {
   $_ensure = $ensure ? {

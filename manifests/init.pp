@@ -18,6 +18,8 @@
 #  Whether to create a service to run Compact.
 # @param manage_downsample
 #  Whether to create a service to run Downsample.
+# @param manage_bucket_web
+#  Whether to create a service to run Bucket Web interface.
 # @param install_method
 #  Installation method: url or package (only url is supported currently).
 # @param package_ensure
@@ -70,47 +72,59 @@
 #  Tracing configuration.
 #     type: one of ['JAEGER', 'STACKDRIVER', 'ELASTIC_APM', 'LIGHTSTEP']
 #     config: tracing typed configuration in Hash[String, Data]
+# @param manage_index_cache_config
+#  Whether to manage index cache configuration file
+# @param index_cache_config_file
+#  Path to index cache configuration file.
+# @param index_cache_config
+#  Index cache configuration.
+#     type: one of ['IN-MEMORY', 'MEMCACHED']
+#     config: index cache typed configuration in Hash[String, Data]
 # @example
 #   include thanos
 class thanos (
   Pattern[/\d+\.\d+\.\d+/]            $version,
-  String                              $os                     = downcase($facts['kernel']),
-  Boolean                             $manage_sidecar         = false,
-  Boolean                             $manage_query           = false,
-  Boolean                             $manage_rule            = false,
-  Boolean                             $manage_store           = false,
-  Boolean                             $manage_compact         = false,
-  Boolean                             $manage_downsample      = false,
+  String                              $os                        = downcase($facts['kernel']),
+  Boolean                             $manage_sidecar            = false,
+  Boolean                             $manage_query              = false,
+  Boolean                             $manage_rule               = false,
+  Boolean                             $manage_store              = false,
+  Boolean                             $manage_compact            = false,
+  Boolean                             $manage_downsample         = false,
+  Boolean                             $manage_bucket_web         = false,
 
   # Installation
-  Enum['url', 'package', 'none']      $install_method         = 'url',
-  Enum['present', 'absent', 'latest'] $package_ensure         = 'latest',
-  String                              $package_name           = 'thanos',
-  Stdlib::HTTPUrl                     $base_url               = 'https://github.com/thanos-io/thanos/releases/download',
-  String                              $download_extension     = 'tar.gz',
-  Optional[Stdlib::HTTPUrl]           $download_url           = undef,
-  Stdlib::Absolutepath                $base_dir               = '/opt',
-  Stdlib::Absolutepath                $bin_dir                = '/usr/local/bin',
-  Stdlib::Absolutepath                $config_dir             = '/etc/thanos',
-  Boolean                             $purge_config_dir       = true,
-  Stdlib::Absolutepath                $tsdb_path              = '/data',
+  Enum['url', 'package', 'none']      $install_method            = 'url',
+  Enum['present', 'absent', 'latest'] $package_ensure            = 'latest',
+  String                              $package_name              = 'thanos',
+  Stdlib::HTTPUrl                     $base_url                  = 'https://github.com/thanos-io/thanos/releases/download',
+  String                              $download_extension        = 'tar.gz',
+  Optional[Stdlib::HTTPUrl]           $download_url              = undef,
+  Stdlib::Absolutepath                $base_dir                  = '/opt',
+  Stdlib::Absolutepath                $bin_dir                   = '/usr/local/bin',
+  Stdlib::Absolutepath                $config_dir                = '/etc/thanos',
+  Boolean                             $purge_config_dir          = true,
+  Stdlib::Absolutepath                $tsdb_path                 = '/data',
 
   # User Management
-  Boolean                             $manage_user            = true,
-  Boolean                             $manage_group           = true,
-  String                              $user                   = 'thanos',
-  String                              $group                  = 'thanos',
-  Stdlib::Absolutepath                $usershell              = '/bin/false',
-  Array[String]                       $extra_groups           = [],
-  Optional[String]                    $extract_command        = undef,
+  Boolean                             $manage_user               = true,
+  Boolean                             $manage_group              = true,
+  String                              $user                      = 'thanos',
+  String                              $group                     = 'thanos',
+  Stdlib::Absolutepath                $usershell                 = '/bin/false',
+  Array[String]                       $extra_groups              = [],
+  Optional[String]                    $extract_command           = undef,
 
   # Configuration
-  Boolean                             $manage_storage_config  = false,
-  Stdlib::Absolutepath                $storage_config_file    = "${config_dir}/storage.yaml",
-  Hash[String, Data]                  $storage_config         = {},
-  Boolean                             $manage_tracing_config  = false,
-  Optional[Stdlib::Absolutepath]      $tracing_config_file    = undef,
-  Hash[String, Data]                  $tracing_config         = {},
+  Boolean                             $manage_storage_config     = false,
+  Stdlib::Absolutepath                $storage_config_file       = "${config_dir}/storage.yaml",
+  Hash[String, Data]                  $storage_config            = {},
+  Boolean                             $manage_tracing_config     = false,
+  Optional[Stdlib::Absolutepath]      $tracing_config_file       = undef,
+  Hash[String, Data]                  $tracing_config            = {},
+  Boolean                             $manage_index_cache_config = false,
+  Optional[Stdlib::Absolutepath]      $index_cache_config_file   = undef,
+  Hash[String, Data]                  $index_cache_config        = {},
 ) {
   $bin_path = "${bin_dir}/thanos"
 
@@ -121,6 +135,7 @@ class thanos (
     'store'      => $manage_store,
     'compact'    => $manage_compact,
     'downsample' => $manage_downsample,
+    'bucket web' => $manage_bucket_web,
   }.filter |String $key, Boolean $value| {
     $value
   }.map |String $key, Boolean $value| {
@@ -174,5 +189,10 @@ class thanos (
   if $manage_downsample {
     include thanos::downsample
     Class['thanos::config'] -> Class['thanos::downsample']
+  }
+
+  if $manage_bucket_web {
+    include thanos::bucket_web
+    Class['thanos::config'] -> Class['thanos::bucket_web']
   }
 }

@@ -47,6 +47,8 @@
 #  Block duration for TSDB block.
 # @param tsdb_retention
 #  Block retention time on local disk.
+# @param tsdb_wal_compression
+#  Compress the tsdb WAL.
 # @param alertmanagers_url
 #  Alertmanager replica URLs to push firing alerts.
 #    Ruler claims success if push to at least one alertmanager from discovered succeeds.
@@ -55,6 +57,12 @@
 #    The URL path is used as a prefix for the regular Alertmanager API path.
 # @param alertmanagers_send_timeout
 #  Timeout for sending alerts to alertmanager
+# @param alertmanagers_config_file
+#  Path to YAML file that contains alerting configuration.
+#  See format details: https://thanos.io/components/rule.md/#configuration.
+#  If defined, it takes precedence over the alertmanagers_url and alertmanagers_send_timeout options.
+# @param alertmanagers_sd_dns_interval
+#  Interval between DNS resolutions of Alertmanager hosts.
 # @param alert_query_url
 #  The external Thanos Query URL that would be set in all alerts 'Source' field
 # @param alert_label_drop
@@ -80,6 +88,10 @@
 # @param queries
 #  Addresses of statically configured query API servers. The scheme may be prefixed with 'dns+' or
 #    'dnssrv+' to detect query API servers through respective DNS lookups.
+# @param query_config_file
+#  Path to YAML file that contains query API servers configuration.
+#  See format details: https://thanos.io/components/rule.md/#configuration.
+#  If defined, it takes precedence over the queries and query.sd-files options.
 # @param query_sd_files
 #  Path to file that contain addresses of query peers. The path can be a glob pattern.
 # @param query_sd_interval
@@ -91,40 +103,44 @@
 # @example
 #   include thanos::rule
 class thanos::rule (
-  Enum['present', 'absent']                       $ensure                     = 'present',
-  String                                          $user                       = $thanos::user,
-  String                                          $group                      = $thanos::group,
-  Stdlib::Absolutepath                            $bin_path                   = $thanos::bin_path,
-  Enum['debug', 'info', 'warn', 'error', 'fatal'] $log_level                  = 'info',
-  Enum['logfmt', 'json']                          $log_format                 = 'logfmt',
-  Optional[Stdlib::Absolutepath]                  $tracing_config_file        = $thanos::tracing_config_file,
-  String                                          $http_address               = '0.0.0.0:10902',
-  String                                          $http_grace_period          = '2m',
-  String                                          $grpc_address               = '0.0.0.0:10901',
-  String                                          $grpc_grace_period          = '2m',
-  Optional[Stdlib::Absolutepath]                  $grpc_server_tls_cert       = undef,
-  Optional[Stdlib::Absolutepath]                  $grpc_server_tls_key        = undef,
-  Optional[Stdlib::Absolutepath]                  $grpc_server_tls_client_ca  = undef,
-  Array[String]                                   $labels                     = [],
-  Optional[Stdlib::Absolutepath]                  $data_dir                   = undef,
-  Array[Stdlib::Absolutepath]                     $rule_files                 = [],
-  String                                          $resend_delay               = '1m',
-  String                                          $eval_interval              = '30s',
-  String                                          $tsdb_block_duration        = '2h',
-  String                                          $tsdb_retention             = '48h',
-  Array[Stdlib::HTTPUrl]                          $alertmanagers_url          = [],
-  String                                          $alertmanagers_send_timeout = '10s',
-  Optional[Stdlib::HTTPUrl]                       $alert_query_url            = undef,
-  Array[String]                                   $alert_label_drop           = [],
-  Optional[String]                                $web_route_prefix           = undef,
-  Optional[String]                                $web_external_prefix        = undef,
-  Optional[String]                                $web_prefix_header          = undef,
-  Optional[Stdlib::Absolutepath]                  $objstore_config_file       = undef,
-  Array[String]                                   $queries                    = [],
-  Array[Stdlib::Absolutepath]                     $query_sd_files             = [],
-  String                                          $query_sd_interval          = '5m',
-  String                                          $query_sd_dns_interval      = '30s',
-  Hash                                            $extra_params               = {},
+  Enum['present', 'absent']      $ensure                        = 'present',
+  String                         $user                          = $thanos::user,
+  String                         $group                         = $thanos::group,
+  Stdlib::Absolutepath           $bin_path                      = $thanos::bin_path,
+  Thanos::Log_level              $log_level                     = 'info',
+  Enum['logfmt', 'json']         $log_format                    = 'logfmt',
+  Optional[Stdlib::Absolutepath] $tracing_config_file           = $thanos::tracing_config_file,
+  String                         $http_address                  = '0.0.0.0:10902',
+  String                         $http_grace_period             = '2m',
+  String                         $grpc_address                  = '0.0.0.0:10901',
+  String                         $grpc_grace_period             = '2m',
+  Optional[Stdlib::Absolutepath] $grpc_server_tls_cert          = undef,
+  Optional[Stdlib::Absolutepath] $grpc_server_tls_key           = undef,
+  Optional[Stdlib::Absolutepath] $grpc_server_tls_client_ca     = undef,
+  Array[String]                  $labels                        = [],
+  Optional[Stdlib::Absolutepath] $data_dir                      = undef,
+  Array[Stdlib::Absolutepath]    $rule_files                    = [],
+  String                         $resend_delay                  = '1m',
+  String                         $eval_interval                 = '30s',
+  String                         $tsdb_block_duration           = '2h',
+  String                         $tsdb_retention                = '48h',
+  Boolean                        $tsdb_wal_compression          = false,
+  Array[Stdlib::HTTPUrl]         $alertmanagers_url             = [],
+  String                         $alertmanagers_send_timeout    = '10s',
+  Optional[Stdlib::Absolutepath] $alertmanagers_config_file     = undef,
+  String                         $alertmanagers_sd_dns_interval = '30s',
+  Optional[Stdlib::HTTPUrl]      $alert_query_url               = undef,
+  Array[String]                  $alert_label_drop              = [],
+  Optional[String]               $web_route_prefix              = undef,
+  Optional[String]               $web_external_prefix           = undef,
+  Optional[String]               $web_prefix_header             = undef,
+  Optional[Stdlib::Absolutepath] $objstore_config_file          = undef,
+  Array[String]                  $queries                       = [],
+  Optional[Stdlib::Absolutepath] $query_config_file             = undef,
+  Array[Stdlib::Absolutepath]    $query_sd_files                = [],
+  String                         $query_sd_interval             = '5m',
+  String                         $query_sd_dns_interval         = '30s',
+  Hash                           $extra_params                  = {},
 ) {
   $_service_ensure = $ensure ? {
     'present' => 'running',
@@ -137,35 +153,39 @@ class thanos::rule (
     user         => $user,
     group        => $group,
     params       => {
-      'log.level'                  => $log_level,
-      'log.format'                 => $log_format,
-      'tracing.config-file'        => $tracing_config_file,
-      'http-address'               => $http_address,
-      'http-grace-period'          => $http_grace_period,
-      'grpc-address'               => $grpc_address,
-      'grpc-grace-period'          => $grpc_grace_period,
-      'grpc-server-tls-cert'       => $grpc_server_tls_cert,
-      'grpc-server-tls-key'        => $grpc_server_tls_key,
-      'grpc-server-tls-client-ca'  => $grpc_server_tls_client_ca,
-      'label'                      => $labels,
-      'data-dir'                   => $data_dir,
-      'rule-file'                  => $rule_files,
-      'resend-delay'               => $resend_delay,
-      'eval-interval'              => $eval_interval,
-      'tsdb.block-duration'        => $tsdb_block_duration,
-      'tsdb.retention'             => $tsdb_retention,
-      'alertmanagers.url'          => $alertmanagers_url,
-      'alertmanagers.send-timeout' => $alertmanagers_send_timeout,
-      'alert.query-url'            => $alert_query_url,
-      'alert.label-drop'           => $alert_label_drop,
-      'web.route-prefix'           => $web_route_prefix,
-      'web.external-prefix'        => $web_external_prefix,
-      'web.prefix-header'          => $web_prefix_header,
-      'objstore.config-file'       => $objstore_config_file,
-      'query'                      => $queries,
-      'query.sd-files'             => $query_sd_files,
-      'query.sd-interval'          => $query_sd_interval,
-      'query.sd-dns-interval'      => $query_sd_dns_interval,
+      'log.level'                     => $log_level,
+      'log.format'                    => $log_format,
+      'tracing.config-file'           => $tracing_config_file,
+      'http-address'                  => $http_address,
+      'http-grace-period'             => $http_grace_period,
+      'grpc-address'                  => $grpc_address,
+      'grpc-grace-period'             => $grpc_grace_period,
+      'grpc-server-tls-cert'          => $grpc_server_tls_cert,
+      'grpc-server-tls-key'           => $grpc_server_tls_key,
+      'grpc-server-tls-client-ca'     => $grpc_server_tls_client_ca,
+      'label'                         => $labels,
+      'data-dir'                      => $data_dir,
+      'rule-file'                     => $rule_files,
+      'resend-delay'                  => $resend_delay,
+      'eval-interval'                 => $eval_interval,
+      'tsdb.block-duration'           => $tsdb_block_duration,
+      'tsdb.retention'                => $tsdb_retention,
+      'tsdb.wal-compression'          => $tsdb_wal_compression,
+      'alertmanagers.url'             => $alertmanagers_url,
+      'alertmanagers.send-timeout'    => $alertmanagers_send_timeout,
+      'alertmanagers.config-file'     => $alertmanagers_config_file,
+      'alertmanagers.sd-dns-interval' => $alertmanagers_sd_dns_interval,
+      'alert.query-url'               => $alert_query_url,
+      'alert.label-drop'              => $alert_label_drop,
+      'web.route-prefix'              => $web_route_prefix,
+      'web.external-prefix'           => $web_external_prefix,
+      'web.prefix-header'             => $web_prefix_header,
+      'objstore.config-file'          => $objstore_config_file,
+      'query'                         => $queries,
+      'query.config-file'             => $query_config_file,
+      'query.sd-files'                => $query_sd_files,
+      'query.sd-interval'             => $query_sd_interval,
+      'query.sd-dns-interval'         => $query_sd_dns_interval,
     },
     extra_params => $extra_params,
   }

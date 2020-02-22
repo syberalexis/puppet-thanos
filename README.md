@@ -78,9 +78,14 @@ thanos::manage_compact: true
 thanos::manage_downsample: true
 ```
 
+### Thanos Bucket Web
+```yaml
+thanos::manage_bucket_web: true
+```
+
 ### Manage Storage config
 
-For more configuration information see [Thasos Storage configuration page](https://thanos.io/storage.md/#configuration).
+For more configuration information see [Thanos Storage configuration page](https://thanos.io/storage.md/#configuration).
 
 #### Puppet
 ```puppet
@@ -109,7 +114,7 @@ thanos::storage_config:
 
 ### Manage Tracing config
 
-For more configuration information see [Thasos Tracing configuration page](https://thanos.io/tracing.md/#configuration).
+For more configuration information see [Thanos Tracing configuration page](https://thanos.io/tracing.md/#configuration).
 
 #### Puppet
 ```puppet
