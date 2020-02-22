@@ -135,7 +135,7 @@ class thanos (
     'store'      => $manage_store,
     'compact'    => $manage_compact,
     'downsample' => $manage_downsample,
-    'bucket web' => $manage_bucket_web,
+    'bucket-web' => $manage_bucket_web,
   }.filter |String $key, Boolean $value| {
     $value
   }.map |String $key, Boolean $value| {

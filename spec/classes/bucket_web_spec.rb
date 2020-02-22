@@ -19,7 +19,7 @@ describe 'thanos::bucket_web' do
       }
 
       it {
-        is_expected.to contain_thanos__resources__service('bucket web').with(
+        is_expected.to contain_thanos__resources__service('bucket-web').with(
           'ensure'   => 'running',
           'bin_path' => '/usr/local/bin/thanos',
           'user'     => 'thanos',
