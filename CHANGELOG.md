@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## Release 0.4.0
+
+**Features**
+
+- Add Bucket Web service.
+- Add Index Cache.
+- Add new Query, Rule, Sidecar and Store parameters
+
 ## Release 0.3.0
 
 **Features**

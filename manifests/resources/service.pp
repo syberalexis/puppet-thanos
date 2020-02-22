@@ -26,7 +26,7 @@ define thanos::resources::service (
   Hash                                             $params       = {},
   Hash                                             $extra_params = {},
 ) {
-  $_service_name   = "thanos-${title}"
+  $_service_name   = "thanos-${name}"
   $_service_ensure = $ensure ? {
     'running' => running,
     default   => stopped,

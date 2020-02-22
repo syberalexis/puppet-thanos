@@ -36,6 +36,7 @@ describe 'thanos::store' do
             'grpc-server-tls-key'               => nil,
             'grpc-server-tls-client-ca'         => nil,
             'data-dir'                          => nil,
+            'index-cache.config-file'           => nil,
             'index-cache-size'                  => '250MB',
             'chunk-pool-size'                   => '2GB',
             'store.grpc.series-sample-limit'    => 0,
@@ -46,6 +47,7 @@ describe 'thanos::store' do
             'min-time'                          => nil,
             'max-time'                          => nil,
             'selector.relabel-config-file'      => nil,
+            'consistency-delay'                 => '30m',
           },
         )
       }

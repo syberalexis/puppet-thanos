@@ -16,9 +16,9 @@
 #     config => {...},
 #   }
 define thanos::config::tracing (
-  Enum['present', 'absent']                                 $ensure,
-  Enum['JAEGER', 'STACKDRIVER', 'ELASTIC_APM', 'LIGHTSTEP'] $type,
-  Hash[String, Data]                                        $config,
+  Enum['present', 'absent'] $ensure,
+  Thanos::Tracing_type      $type,
+  Hash[String, Data]        $config,
 ) {
   $_ensure = $ensure ? {
     'present' => 'file',

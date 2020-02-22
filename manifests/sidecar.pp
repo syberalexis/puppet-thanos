@@ -34,6 +34,10 @@
 #  URL at which to reach Prometheus's API. For better performance use local network.
 # @param prometheus_ready_timeout
 #  Maximum time to wait for the Prometheus instance to start up
+# @param receive_connection_pool_size
+#  Controls the http MaxIdleConns. Default is 0, which is unlimited
+# @param receive_connection_pool_size_per_host
+#  Controls the http MaxIdleConnsPerHost
 # @param tsdb_path
 #  Data directory of TSDB.
 # @param reloader_config_file
@@ -44,6 +48,9 @@
 #  Rule directories for the reloader to refresh.
 # @param objstore_config_file
 #  Path to YAML file that contains object store configuration. See format details: https://thanos.io/storage.md/#configuration
+# @param shipper_upload_compacted
+#  If true sidecar will try to upload compacted blocks as well. Useful for migration purposes.
+#  Works only if compaction is disabled on Prometheus. Do it once and then disable the flag when done.
 # @param min_time
 #  Start of time range limit to serve. Thanos sidecar will serve only metrics, which happened later than this value.
 #    Option can be a constant time in RFC3339 format or time duration relative to current time, such as -1d or 2h45m. Valid
@@ -53,29 +60,32 @@
 # @example
 #   include thanos::sidecar
 class thanos::sidecar (
-  Enum['present', 'absent']                       $ensure                        = 'present',
-  String                                          $user                          = $thanos::user,
-  String                                          $group                         = $thanos::group,
-  Stdlib::Absolutepath                            $bin_path                      = $thanos::bin_path,
-  Enum['debug', 'info', 'warn', 'error', 'fatal'] $log_level                     = 'info',
-  Enum['logfmt', 'json']                          $log_format                    = 'logfmt',
-  Optional[Stdlib::Absolutepath]                  $tracing_config_file           = $thanos::tracing_config_file,
-  String                                          $http_address                  = '0.0.0.0:10902',
-  String                                          $http_grace_period             = '2m',
-  String                                          $grpc_address                  = '0.0.0.0:10901',
-  String                                          $grpc_grace_period             = '2m',
-  Optional[Stdlib::Absolutepath]                  $grpc_server_tls_cert          = undef,
-  Optional[Stdlib::Absolutepath]                  $grpc_server_tls_key           = undef,
-  Optional[Stdlib::Absolutepath]                  $grpc_server_tls_client_ca     = undef,
-  Stdlib::HTTPUrl                                 $prometheus_url                = 'http://localhost:9090',
-  String                                          $prometheus_ready_timeout      = '10m',
-  Stdlib::Absolutepath                            $tsdb_path                     = $thanos::tsdb_path,
-  Optional[Stdlib::Absolutepath]                  $reloader_config_file          = undef,
-  Optional[Stdlib::Absolutepath]                  $reloader_config_envsubst_file = undef,
-  Array[Stdlib::Absolutepath]                     $reloader_rule_dirs            = [],
-  Optional[Stdlib::Absolutepath]                  $objstore_config_file          = undef,
-  Optional[String]                                $min_time                      = undef,
-  Hash                                            $extra_params                  = {},
+  Enum['present', 'absent']      $ensure                                = 'present',
+  String                         $user                                  = $thanos::user,
+  String                         $group                                 = $thanos::group,
+  Stdlib::Absolutepath           $bin_path                              = $thanos::bin_path,
+  Thanos::Log_level              $log_level                             = 'info',
+  Enum['logfmt', 'json']         $log_format                            = 'logfmt',
+  Optional[Stdlib::Absolutepath] $tracing_config_file                   = $thanos::tracing_config_file,
+  String                         $http_address                          = '0.0.0.0:10902',
+  String                         $http_grace_period                     = '2m',
+  String                         $grpc_address                          = '0.0.0.0:10901',
+  String                         $grpc_grace_period                     = '2m',
+  Optional[Stdlib::Absolutepath] $grpc_server_tls_cert                  = undef,
+  Optional[Stdlib::Absolutepath] $grpc_server_tls_key                   = undef,
+  Optional[Stdlib::Absolutepath] $grpc_server_tls_client_ca             = undef,
+  Stdlib::HTTPUrl                $prometheus_url                        = 'http://localhost:9090',
+  String                         $prometheus_ready_timeout              = '10m',
+  Optional[Integer]              $receive_connection_pool_size          = undef,
+  Integer                        $receive_connection_pool_size_per_host = 100,
+  Stdlib::Absolutepath           $tsdb_path                             = $thanos::tsdb_path,
+  Optional[Stdlib::Absolutepath] $reloader_config_file                  = undef,
+  Optional[Stdlib::Absolutepath] $reloader_config_envsubst_file         = undef,
+  Array[Stdlib::Absolutepath]    $reloader_rule_dirs                    = [],
+  Optional[Stdlib::Absolutepath] $objstore_config_file                  = undef,
+  Boolean                        $shipper_upload_compacted              = false,
+  Optional[String]               $min_time                              = undef,
+  Hash                           $extra_params                          = {},
 ) {
   $_service_ensure = $ensure ? {
     'present' => 'running',
@@ -88,24 +98,27 @@ class thanos::sidecar (
     user         => $user,
     group        => $group,
     params       => {
-      'log.level'                     => $log_level,
-      'log.format'                    => $log_format,
-      'tracing.config-file'           => $tracing_config_file,
-      'http-address'                  => $http_address,
-      'http-grace-period'             => $http_grace_period,
-      'grpc-address'                  => $grpc_address,
-      'grpc-grace-period'             => $grpc_grace_period,
-      'grpc-server-tls-cert'          => $grpc_server_tls_cert,
-      'grpc-server-tls-key'           => $grpc_server_tls_key,
-      'grpc-server-tls-client-ca'     => $grpc_server_tls_client_ca,
-      'prometheus.url'                => $prometheus_url,
-      'prometheus.ready_timeout'      => $prometheus_ready_timeout,
-      'tsdb.path'                     => $tsdb_path,
-      'reloader.config-file'          => $reloader_config_file,
-      'reloader.config-envsubst-file' => $reloader_config_envsubst_file,
-      'reloader.rule-dir'             => $reloader_rule_dirs,
-      'objstore.config-file'          => $objstore_config_file,
-      'min-time'                      => $min_time,
+      'log.level'                             => $log_level,
+      'log.format'                            => $log_format,
+      'tracing.config-file'                   => $tracing_config_file,
+      'http-address'                          => $http_address,
+      'http-grace-period'                     => $http_grace_period,
+      'grpc-address'                          => $grpc_address,
+      'grpc-grace-period'                     => $grpc_grace_period,
+      'grpc-server-tls-cert'                  => $grpc_server_tls_cert,
+      'grpc-server-tls-key'                   => $grpc_server_tls_key,
+      'grpc-server-tls-client-ca'             => $grpc_server_tls_client_ca,
+      'prometheus.url'                        => $prometheus_url,
+      'prometheus.ready_timeout'              => $prometheus_ready_timeout,
+      'receive.connection-pool-size'          => $receive_connection_pool_size,
+      'receive.connection-pool-size-per-host' => $receive_connection_pool_size_per_host,
+      'tsdb.path'                             => $tsdb_path,
+      'reloader.config-file'                  => $reloader_config_file,
+      'reloader.config-envsubst-file'         => $reloader_config_envsubst_file,
+      'reloader.rule-dir'                     => $reloader_rule_dirs,
+      'objstore.config-file'                  => $objstore_config_file,
+      'shipper.upload-compacted'              => $shipper_upload_compacted,
+      'min-time'                              => $min_time,
     },
     extra_params => $extra_params,
   }

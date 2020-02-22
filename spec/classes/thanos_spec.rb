@@ -18,6 +18,7 @@ describe 'thanos' do
           manage_store: true,
           manage_compact: true,
           manage_downsample: true,
+          manage_bucket_web: true,
           download_url: 'https://my-custom-dropbox.com/thanos/releases/thanos-0.9.0.linux.amd64.tar.gz',
           user: 'wheel',
           group: 'wheel',
@@ -56,6 +57,15 @@ describe 'thanos' do
               directory: 'test',
             },
           },
+          manage_index_cache_config: true,
+          index_cache_config_file: '/etc/thanos/index_cache.yml',
+          index_cache_config: {
+            ensure: 'present',
+            type: 'IN-MEMORY',
+            config: {
+              max_size: 0,
+            },
+          },
         },
       ].each do |parameters|
         context "with parameters #{parameters}" do
@@ -72,6 +82,7 @@ describe 'thanos' do
           thanos_manage_store = parameters[:manage_store] || false
           thanos_manage_compact = parameters[:manage_compact] || false
           thanos_manage_downsample = parameters[:manage_downsample] || false
+          thanos_manage_bucket_web = parameters[:manage_bucket_web] || false
           thanos_install_method = parameters[:install_method] || 'url'
           thanos_download_url = parameters[:download_url] || "https://github.com/thanos-io/thanos/releases/download/v#{thanos_version}/thanos-#{thanos_version}.#{thanos_os}-#{thanos_arch}.tar.gz"
           thanos_package_ensure = parameters[:package_ensure] || 'present'
@@ -88,6 +99,8 @@ describe 'thanos' do
           thanos_storage_config_file = parameters[:storage_config_file] || "#{thanos_config_dir}/storage.yaml"
           thanos_manage_tracing_config = parameters[:manage_tracing_config] || false
           thanos_tracing_config_file = parameters[:tracing_config_file] || "#{thanos_config_dir}/tracing.yaml"
+          thanos_manage_index_cache_config = parameters[:manage_index_cache_config] || false
+          thanos_index_cache_config_file = parameters[:index_cache_config_file] || "#{thanos_config_dir}/index_cache.yaml"
 
           # Compilation
           it {
@@ -176,6 +189,9 @@ describe 'thanos' do
             if thanos_manage_downsample
               is_expected.to contain_class('thanos::downsample')
             end
+            if thanos_manage_bucket_web
+              is_expected.to contain_class('thanos::bucket_web')
+            end
           }
 
           # Configuration
@@ -191,6 +207,11 @@ describe 'thanos' do
               is_expected.to contain_thanos__config__tracing(thanos_tracing_config_file)
             else
               is_expected.not_to contain_thanos__config__tracing(thanos_tracing_config_file)
+            end
+            if thanos_manage_index_cache_config
+              is_expected.to contain_thanos__config__index_cache(thanos_index_cache_config_file)
+            else
+              is_expected.not_to contain_thanos__config__index_cache(thanos_index_cache_config_file)
             end
           }
         end
