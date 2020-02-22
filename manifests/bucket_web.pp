@@ -66,8 +66,9 @@ class thanos::bucket_web (
     default   => 'stopped'
   }
 
-  thanos::resources::service { 'bucket web':
+  thanos::resources::service { 'bucket-web':
     ensure       => $_service_ensure,
+    name         => 'bucket web',
     bin_path     => $bin_path,
     user         => $user,
     group        => $group,

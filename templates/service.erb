@@ -1,13 +1,13 @@
 # THIS FILE IS MANAGED BY PUPPET
 [Unit]
-Description=Thanos <%= @title %> module service
+Description=Thanos <%= @name %> module service
 After=network-online.target
 Wants=network-online.target
 
 [Service]
 User=<%= @user %>
 Group=<%= @group %>
-ExecStart=<%= @bin_path %> <%= @title %> \
+ExecStart=<%= @bin_path %> <%= @name %> \
 <%= @parameters %>
 Restart=always
 
