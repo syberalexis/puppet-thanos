@@ -17,25 +17,28 @@ stages:
   - static
   - spec
   - acceptance
-matrix:
+  - name: deploy
+    if: tag =~ ^v\d
+jobs:
   fast_finish: true
   include:
-    -
+    - stage: static
       env: CHECK="check:symlinks check:git_ignore check:dot_underscore check:test_file rubocop syntax lint metadata_lint"
-      stage: static
-    -
+
+    - stage: spec
       env: PUPPET_GEM_VERSION="~> 6.0" CHECK="parallel_spec spec/classes spec/defines"
-      rvm: 2.5.3
-      stage: spec
-deploy:
-  skip_cleanup: true
-  provider: puppetforge
-  user: "maeq"
-  password:
-    secure: ${{ secrets.FORGE_API_KEY }}
-  on:
-    branch: master
-    tags: /^v\d/
+
+    - stage: acceptance
+      env: PUPPET_GEM_VERSION="~> 6.0" CHECK="spec/acceptance"
+
+    - stage: deploy
+      script: skip
+      env: DEPLOY_TO_FORGE=yes
+      deploy:
+        provider: puppetforge
+        username: "maeq"
+        password:
+          secure: ${{ secrets.FORGE_API_KEY }}
 branches:
   only:
     - master
