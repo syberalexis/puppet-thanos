@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## Release 0.4.2
+
+- Acceptance tests.
+- Automatic deploy via the CI.
+
 ## Release 0.4.1
 
 **Bug Fixes**

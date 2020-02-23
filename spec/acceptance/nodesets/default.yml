@@ -1,0 +1,17 @@
+---
+HOSTS:
+  debian9-64-1:
+    box: debian/stretch64
+    synced_folder: disabled
+    platform: debian-9-amd64
+    packaging_platform: debian-9-amd64
+    hypervisor: vagrant
+    roles:
+      - master
+      - database
+      - dashboard
+      - agent
+CONFIG:
+  nfs_server: none
+  consoleport: 443
+  type: aio

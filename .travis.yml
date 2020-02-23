@@ -1,5 +1,5 @@
 ---
-dist: xenial
+dist: bionic
 language: ruby
 cache: bundler
 before_install:
@@ -10,7 +10,6 @@ before_install:
   - bundle -v
 script:
   - 'bundle exec rake $CHECK'
-bundler_args: --without system_tests
 rvm:
   - 2.5.3
 stages:
@@ -23,25 +22,84 @@ jobs:
   fast_finish: true
   include:
     - stage: static
+      bundler_args: --without system_tests
       env: CHECK="check:symlinks check:git_ignore check:dot_underscore check:test_file rubocop syntax lint metadata_lint"
 
     - stage: spec
+      bundler_args: --without system_tests
       env: PUPPET_GEM_VERSION="~> 6.0" CHECK="parallel_spec spec/classes spec/defines"
 
     - stage: acceptance
-      env: PUPPET_GEM_VERSION="~> 6.0" CHECK="spec/acceptance"
+      env: PUPPET_INSTALL_TYPE=agent BEAKER_PUPPET_COLLECTION="puppet5" BEAKER_setfile=centos7-64 BEAKER_debug=true BEAKER_HYPERVISOR=docker CHECK="beaker"
+      services: docker
+    - stage: acceptance
+      env: PUPPET_INSTALL_TYPE=agent BEAKER_PUPPET_COLLECTION="puppet6" BEAKER_setfile=centos7-64 BEAKER_debug=true BEAKER_HYPERVISOR=docker CHECK="beaker"
+      services: docker
+
+    - stage: acceptance
+      env: PUPPET_INSTALL_TYPE=agent BEAKER_PUPPET_COLLECTION="puppet5" BEAKER_setfile=centos8-64 BEAKER_debug=true BEAKER_HYPERVISOR=docker CHECK="beaker"
+      services: docker
+    - stage: acceptance
+      env: PUPPET_INSTALL_TYPE=agent BEAKER_PUPPET_COLLECTION="puppet6" BEAKER_setfile=centos8-64 BEAKER_debug=true BEAKER_HYPERVISOR=docker CHECK="beaker"
+      services: docker
+
+    - stage: acceptance
+      env: PUPPET_INSTALL_TYPE=agent BEAKER_PUPPET_COLLECTION="puppet5" BEAKER_setfile=debian9-64 BEAKER_debug=true BEAKER_HYPERVISOR=docker CHECK="beaker"
+      services: docker
+    - stage: acceptance
+      env: PUPPET_INSTALL_TYPE=agent BEAKER_PUPPET_COLLECTION="puppet6" BEAKER_setfile=debian9-64 BEAKER_debug=true BEAKER_HYPERVISOR=docker CHECK="beaker"
+      services: docker
+
+    - stage: acceptance
+      env: PUPPET_INSTALL_TYPE=agent BEAKER_PUPPET_COLLECTION="puppet5" BEAKER_setfile=debian10-64 BEAKER_debug=true BEAKER_HYPERVISOR=docker CHECK="beaker"
+      services: docker
+    - stage: acceptance
+      env: PUPPET_INSTALL_TYPE=agent BEAKER_PUPPET_COLLECTION="puppet6" BEAKER_setfile=debian10-64 BEAKER_debug=true BEAKER_HYPERVISOR=docker CHECK="beaker"
+      services: docker
+
+    - stage: acceptance
+      env: PUPPET_INSTALL_TYPE=agent BEAKER_PUPPET_COLLECTION="puppet5" BEAKER_setfile=fedora29-64 BEAKER_debug=true BEAKER_HYPERVISOR=docker CHECK="beaker"
+      services: docker
+    - stage: acceptance
+      env: PUPPET_INSTALL_TYPE=agent BEAKER_PUPPET_COLLECTION="puppet6" BEAKER_setfile=fedora29-64 BEAKER_debug=true BEAKER_HYPERVISOR=docker CHECK="beaker"
+      services: docker
+
+    - stage: acceptance
+      env: PUPPET_INSTALL_TYPE=agent BEAKER_PUPPET_COLLECTION="puppet5" BEAKER_setfile=fedora30-64 BEAKER_debug=true BEAKER_HYPERVISOR=docker CHECK="beaker"
+      services: docker
+    - stage: acceptance
+      env: PUPPET_INSTALL_TYPE=agent BEAKER_PUPPET_COLLECTION="puppet6" BEAKER_setfile=fedora30-64 BEAKER_debug=true BEAKER_HYPERVISOR=docker CHECK="beaker"
+      services: docker
+
+    - stage: acceptance
+      env: PUPPET_INSTALL_TYPE=agent BEAKER_PUPPET_COLLECTION="puppet5" BEAKER_setfile=fedora31-64 BEAKER_debug=true BEAKER_HYPERVISOR=docker CHECK="beaker"
+      services: docker
+    - stage: acceptance
+      env: PUPPET_INSTALL_TYPE=agent BEAKER_PUPPET_COLLECTION="puppet6" BEAKER_setfile=fedora31-64 BEAKER_debug=true BEAKER_HYPERVISOR=docker CHECK="beaker"
+      services: docker
+
+    - stage: acceptance
+      env: PUPPET_INSTALL_TYPE=agent BEAKER_PUPPET_COLLECTION="puppet5" BEAKER_setfile=ubuntu1804-64 BEAKER_debug=true BEAKER_HYPERVISOR=docker CHECK="beaker"
+      services: docker
+    - stage: acceptance
+      env: PUPPET_INSTALL_TYPE=agent BEAKER_PUPPET_COLLECTION="puppet6" BEAKER_setfile=ubuntu1804-64 BEAKER_debug=true BEAKER_HYPERVISOR=docker CHECK="beaker"
+      services: docker
 
     - stage: deploy
-      script: skip
-      env: DEPLOY_TO_FORGE=yes
-      deploy:
-        provider: puppetforge
-        username: "maeq"
-        password:
-          secure: ${{ secrets.FORGE_API_KEY }}
+      bundler_args: --without system_tests development
+      env: PUPPET_GEM_VERSION="~> 6.0" CHECK=build DEPLOY_TO_FORGE=yes
 branches:
   only:
     - master
     - /^v\d/
 notifications:
   email: false
+deploy:
+  provider: puppetforge
+  user: maeq
+  password:
+    secure: ${{ secrets.FORGE_API_KEY }}
+  on:
+    tags: true
+    # Only publish the build marked with "DEPLOY_TO_FORGE"
+    condition: "$DEPLOY_TO_FORGE = yes"

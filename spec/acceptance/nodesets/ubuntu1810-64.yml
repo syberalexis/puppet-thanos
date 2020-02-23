@@ -1,0 +1,19 @@
+---
+HOSTS:
+  ubuntu1810-64-1:
+    pe_dir: 
+    pe_ver: 
+    pe_upgrade_dir: 
+    pe_upgrade_ver: 
+    box: generic/ubuntu1810
+    synced_folder: disabled
+    platform: ubuntu-18.10-amd64
+    packaging_platform: ubuntu-18.10-amd64
+    hypervisor: vagrant
+    roles:
+    - agent
+CONFIG:
+  nfs_server: none
+  consoleport: 443
+  type: aio
+  BEAKER_PUPPET_COLLECTION: puppet6

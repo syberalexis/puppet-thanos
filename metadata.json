@@ -1,6 +1,6 @@
 {
   "name": "maeq-thanos",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "author": "maeq",
   "summary": "This module install Thanos and can manage it's components",
   "license": "Apache-2.0",
@@ -25,21 +25,9 @@
       ]
     },
     {
-      "operatingsystem": "OracleLinux",
-      "operatingsystemrelease": [
-        "7"
-      ]
-    },
-    {
       "operatingsystem": "RedHat",
       "operatingsystemrelease": [
         "8"
-      ]
-    },
-    {
-      "operatingsystem": "Scientific",
-      "operatingsystemrelease": [
-        "7"
       ]
     },
     {
