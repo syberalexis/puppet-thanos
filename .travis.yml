@@ -98,7 +98,7 @@ deploy:
   provider: puppetforge
   user: maeq
   password:
-    secure: "hkn1EqTMHrVhSBs5++Sj5dZW18cJ1TRt1jekFGO2wsbp/0oI6R5B+szhOSCLrT/JoL0I6ZsvnEtWYP8GSwQSaOnD66ZB7nTU/MaQ1UP1jBwT2gnytQXqxiZ2dfXx7C9iPZbPORc9M8s4wxQCYa4ydr3ZX64qPBgLDTPE+bL0WGBCx6zn0Nr9WPjNDtdPJ1uW0iZgi/6DACQdBc9nWY5CPl3cYmL1llvnNyfn0bEpXn3Ouhletg3h0Ti3qlaNzHg9n1QWjEo1xRh0t/EKhcU7+1NoJVcNlbc8Vr/JqsGMW6ab0D5Wh8fyBZdwwX7V9pax91pN41tA8H7m++OsuOs2h7bvkmdX2w2AcVYnOCFDGo73DHmWrxiEGo/3/PA54RZzTXEzmjrEoafBzMBZVa4vl8khZFuhvIBEDEdqed3JA2eP8GvSYChInE5CXkXBXq5VFN7/AMqhOpL5SLe4brEitJsP1FideeFRk8I+knfhW54UVGRd2K2G7uzon6KSpDfvjLYPS/sNprGRzA8R8L+fd6B2HofLof+WXZgEM8MLdiMP8tEUj3Sm/G7i1OX8EkPtGbBMC78dsWK0VnjATPRpe/s4E89rRfbodpwEEAHZJ53q4tgBo0XfzWDsC6ckLaZ7xYLIc7pIgy+3LFkAQPsbzFaahXLRetuSGw9ZftOsdgE="
+    secure: ${{ secrets.FORGE_API_KEY }}
   on:
     tags: true
     # all_branches is required to use tags
