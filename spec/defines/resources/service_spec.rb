@@ -61,6 +61,7 @@ WantedBy=multi-user.target
               is_true: true,
               is_false: false,
               complex: [1, 2, 3],
+              is_undef: :undef,
             },
           }
         end
