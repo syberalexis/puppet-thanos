@@ -9,6 +9,7 @@ describe 'thanos::sidecar' do
           bin_path: '/usr/local/bin/thanos',
           tsdb_path: '/opt/prometheus/data',
           tracing_config_file: '/etc/thanos/tracing.yaml',
+          objstore_config_file: '/etc/thanos/storage.yaml',
           user: 'thanos',
           group: 'thanos',
         }
@@ -43,7 +44,7 @@ describe 'thanos::sidecar' do
             'reloader.config-file'                  => nil,
             'reloader.config-envsubst-file'         => nil,
             'reloader.rule-dir'                     => [],
-            'objstore.config-file'                  => nil,
+            'objstore.config-file'                  => '/etc/thanos/storage.yaml',
             'shipper.upload-compacted'              => false,
             'min-time'                              => nil,
           },

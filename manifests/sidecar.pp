@@ -82,7 +82,7 @@ class thanos::sidecar (
   Optional[Stdlib::Absolutepath] $reloader_config_file                  = undef,
   Optional[Stdlib::Absolutepath] $reloader_config_envsubst_file         = undef,
   Array[Stdlib::Absolutepath]    $reloader_rule_dirs                    = [],
-  Optional[Stdlib::Absolutepath] $objstore_config_file                  = undef,
+  Optional[Stdlib::Absolutepath] $objstore_config_file                  = $thanos::storage_config_file,
   Boolean                        $shipper_upload_compacted              = false,
   Optional[String]               $min_time                              = undef,
   Hash                           $extra_params                          = {},

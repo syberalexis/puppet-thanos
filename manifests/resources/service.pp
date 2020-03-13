@@ -38,9 +38,7 @@ define thanos::resources::service (
   }
 
   $parameters = merge($params, $extra_params).filter |String $key, Data $value| {
-    if $value {
-      $value
-    }
+    !!$value
   }.map |String $key, Data $value| {
     if $value.is_a(Array) {
       $value.prefix("  --${key}=").join(" \\\n")
@@ -50,9 +48,7 @@ define thanos::resources::service (
       "  --${key}=${value}"
     }
   }.filter |String $value| {
-    if !empty($value) {
-      $value
-    }
+    !empty($value)
   }.join(" \\\n")
 
   file { "/lib/systemd/system/${_service_name}.service":

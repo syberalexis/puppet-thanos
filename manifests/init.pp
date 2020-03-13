@@ -142,11 +142,11 @@ class thanos (
     Service["thanos-${key}"]
   }
 
-  case $facts['os']['architecture'] {
+  case $facts['architecture'] {
     'x86_64', 'amd64': { $real_arch = 'amd64' }
     'aarch64':         { $real_arch = 'arm64' }
     default:           {
-      fail("Unsupported kernel architecture: ${facts['os']['architecture']}")
+      fail("Unsupported kernel architecture: ${facts['architecture']}")
     }
   }
 
