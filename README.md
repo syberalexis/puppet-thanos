@@ -250,10 +250,17 @@ Only support, Thanos supported OS. See [Thanos releases page](https://github.com
 
 ## Development
 
+See [Contributing](CONTRIBUTING.md).
+
 This project contains tests for [rspec-puppet](http://rspec-puppet.com/).
 
 Quickstart to run all linter and unit tests:
 ```bash
 bundle install --path .vendor/
 bundle exec rake test
+```
+Or
+```bash
+pdk validate
+pdk test unit
 ```
