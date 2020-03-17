@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## Release 1.0.1
+
+**Bug Fixes**
+
+- Fix a bug into Sidecar default parameters
+- Code optimization
+
 ## Release 1.0.0
 
 - First major release
