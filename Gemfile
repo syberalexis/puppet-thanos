@@ -55,6 +55,10 @@ group :system_tests do
   gem 'ed25519',                            :require => false
 end
 
+group :build do
+  gem 'pdk', '1.16.0'
+end
+
 puppet_version = ENV['PUPPET_GEM_VERSION']
 facter_version = ENV['FACTER_GEM_VERSION']
 hiera_version = ENV['HIERA_GEM_VERSION']
