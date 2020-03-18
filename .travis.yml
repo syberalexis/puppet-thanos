@@ -114,7 +114,7 @@ deploy:
   provider: puppetforge
   user: maeq
   password:
-    secure: "$FORGE_PASSWORD"
+    secure: "pckRWQgpry7EholF461nYXQEjhD4hMoXrPTDHhoNJrblqFZVd2hsBFHFufFyqV3kzfnSPYdJDHmpVO8xbuQhH7Jxl1nGBZI+dIJzx2lO2HUasDzjyGMHmxXl47x+4k4MVLoOtYQel4PGBBh7SpOKqj9XNSvQXj1ELx2ze92XkPEw5q1zRI8VuCi/SmWh83GIjmsypk8K2n3ek48KSRL5Sd9EhlMxVGK/4L6oZ/AmuyQ+g1jzV/nwX7F6OS7zSfHZxuNHYIDw8l42n9hZxp3isKoWixASyUFhGA8s2FfUlPSW3t8opQa5Pqa3LrnzK9L9WOBKnu2kPUTmxoP6aGDldbbVfwt7DmbCm52fBI7+2E4dU/28iIIOL/nKipwh81Zg9/khManZrr9w4/26n1zoPG6I2Snq29z4jYEYcKi4UBpo8MpnFcRQL8OHh4NSOA93kIeydzo7+tCsLjhupM+0xIfQLEixVNzcfNvwmv/D48bXDDblDbPdRhf7NkTNf6KidtA6lXd+9GpgrJMA0CRFsCngY5TfEWIl5rFAomk+TCZYj2k/tVexBQrpsN5LpCi0csubmAhFS2NQZjUbuM1go6XzLeFhodx2zsle8KzlLpoHE+EkYtI3VvG91J5phQyPa3ccsRoqiR4D8f3nQ/hD/zIMTI/dtLF3C8musKyhB08="
   on:
     tags: true
     all_branches: true
