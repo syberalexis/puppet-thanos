@@ -6,15 +6,16 @@
 **Classes**
 
 * [`thanos`](#thanos): This module manages Thanos
-* [`thanos::bucket_web`](#thanosbucket_web): This class manages bucket web interface service
 * [`thanos::compact`](#thanoscompact): This class manages compact service
 * [`thanos::config`](#thanosconfig): This class manages configuration files
-* [`thanos::downsample`](#thanosdownsample): This class manages downsample service
 * [`thanos::install`](#thanosinstall): This class install Thanos requirements and binaries.
 * [`thanos::query`](#thanosquery): This class manages query service
+* [`thanos::query_frontend`](#thanosquery_frontend): This class manages query frontend service
+* [`thanos::receive`](#thanosreceive): This class manages receiver service
 * [`thanos::rule`](#thanosrule): This class manages rule service
 * [`thanos::sidecar`](#thanossidecar): This class manages sidecar service
 * [`thanos::store`](#thanosstore): This class manages store service
+* [`thanos::tools::bucket_web`](#thanostoolsbucket_web): This class manages bucket web interface service
 
 **Defined types**
 
@@ -78,6 +79,14 @@ Whether to create a service to run Query.
 
 Default value: `false`
 
+##### `manage_query_frontend`
+
+Data type: `Boolean`
+
+Whether to create a service to run Query Frontend.
+
+Default value: `false`
+
 ##### `manage_rule`
 
 Data type: `Boolean`
@@ -102,15 +111,11 @@ Whether to create a service to run Compact.
 
 Default value: `false`
 
-##### `manage_downsample`
+##### `manage_receiver`
 
-Data type: `Boolean`
+Whether to create a service to run Receiver.
 
-Whether to create a service to run Downsample.
-
-Default value: `false`
-
-##### `manage_bucket_web`
+##### `manage_tools_bucket_web`
 
 Data type: `Boolean`
 
@@ -340,156 +345,13 @@ Index cache configuration.
 
 Default value: {}
 
-### thanos::bucket_web
+##### `manage_receive`
 
-This class install Web interface for remote storage bucket.
+Data type: `Boolean`
 
-#### Examples
 
-##### 
 
-```puppet
-include thanos::bucket_web
-```
-
-#### Parameters
-
-The following parameters are available in the `thanos::bucket_web` class.
-
-##### `ensure`
-
-Data type: `Enum['present', 'absent']`
-
-State ensured from compact service.
-
-Default value: 'present'
-
-##### `user`
-
-Data type: `String`
-
-User running thanos.
-
-Default value: $thanos::user
-
-##### `group`
-
-Data type: `String`
-
-Group under which thanos is running.
-
-Default value: $thanos::group
-
-##### `bin_path`
-
-Data type: `Stdlib::Absolutepath`
-
-Path where binary is located.
-
-Default value: $thanos::bin_path
-
-##### `log_level`
-
-Data type: `Thanos::Log_level`
-
-Only log messages with the given severity or above. One of: [debug, info, warn, error, fatal]
-
-Default value: 'info'
-
-##### `log_format`
-
-Data type: `Enum['logfmt', 'json']`
-
-Output format of log messages. One of: [logfmt, json]
-
-Default value: 'logfmt'
-
-##### `tracing_config_file`
-
-Data type: `Optional[Stdlib::Absolutepath]`
-
-Path to YAML file with tracing configuration. See format details: https://thanos.io/tracing.md/#configuration
-
-Default value: $thanos::tracing_config_file
-
-##### `objstore_config_file`
-
-Data type: `Optional[Stdlib::Absolutepath]`
-
-Path to YAML file that contains object store configuration. See format details: https://thanos.io/storage.md/#configuration
-
-Default value: $thanos::storage_config_file
-
-##### `http_address`
-
-Data type: `String`
-
-Listen host:port for HTTP endpoints.
-
-Default value: '0.0.0.0:10902'
-
-##### `http_grace_period`
-
-Data type: `String`
-
-Time to wait after an interrupt received for HTTP Server.
-
-Default value: '2m'
-
-##### `web_external_prefix`
-
-Data type: `String`
-
-Static prefix for all HTML links and redirect URLs in the bucket web UI interface.
-Actual endpoints are still served on / or the web.route-prefix.
-This allows thanos bucket web UI to be served behind a reverse proxy that strips a URL sub-path.
-
-Default value: ''
-
-##### `web_prefix_header`
-
-Data type: `String`
-
-Name of HTTP request header used for dynamic prefixing of UI links and redirects.
-This option is ignored if web.external-prefix argument is set.
-Security risk: enable this option only if a reverse proxy in front of thanos is resetting the header.
-The --web.prefix-header=X-Forwarded-Prefix option can be useful, for example, if Thanos UI is served via Traefik
-  reverse proxy with PathPrefixStrip option enabled, which sends the stripped prefix value in X-Forwarded-Prefix header.
-This allows thanos UI to be served on a sub-path.
-
-Default value: ''
-
-##### `refresh`
-
-Data type: `String`
-
-Refresh interval to download metadata from remote storage
-
-Default value: '30m'
-
-##### `timeout`
-
-Data type: `String`
-
-Timeout to download metadata from remote storage
-
-Default value: '5m'
-
-##### `label`
-
-Data type: `String`
-
-Prometheus label to use as timeline title
-
-Default value: ''
-
-##### `extra_params`
-
-Data type: `Hash`
-
-Parameters passed to the binary, ressently released in latest version of Thanos.
-
-Default value: {}
+Default value: `false`
 
 ### thanos::compact
 
@@ -636,6 +498,15 @@ Do not exit after all compactions have been processed and wait for new work.
 
 Default value: `false`
 
+##### `wait_interval`
+
+Data type: `String`
+
+Wait interval between consecutive compaction runs and bucket refreshes.
+  Only works when --wait flag specified.
+
+Default value: '5m'
+
 ##### `downsampling_disable`
 
 Data type: `Boolean`
@@ -653,6 +524,14 @@ Number of goroutines to use when syncing block metadata from object storage.
 
 Default value: 20
 
+##### `block_viewer_global_sync_block_interval`
+
+Data type: `String`
+
+Repeat interval for syncing the blocks between local and remote view for /global Block Viewer UI.
+
+Default value: '1m'
+
 ##### `compact_concurrency`
 
 Data type: `Integer`
@@ -661,6 +540,18 @@ Number of goroutines to use when compacting groups.
 
 Default value: 1
 
+##### `delete_delay`
+
+Data type: `String`
+
+Time before a block marked for deletion is deleted from bucket.
+  If delete-delay is non zero, blocks will be marked for deletion and compactor component will
+  delete blocks marked for deletion from the bucket. If delete-delay is 0, blocks will be deleted straight away.
+  Note that deleting blocks immediately can cause query failures, if store gateway still has the block loaded,
+  or compactor is ignoring the deletion because it's compacting the block at the same time.
+
+Default value: '48h'
+
 ##### `selector_relabel_config_file`
 
 Data type: `Optional[Stdlib::Absolutepath]`
@@ -668,6 +559,37 @@ Data type: `Optional[Stdlib::Absolutepath]`
 Path to YAML file that contains relabeling configuration that allows selecting blocks.
   It follows native Prometheus relabel-config syntax.
   See format details: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config
+
+Default value: `undef`
+
+##### `web_external_prefix`
+
+Data type: `Optional[String]`
+
+Static prefix for all HTML links and redirect URLs in the bucket web UI interface.
+  Actual endpoints are still served on / or the web.route-prefix.
+  This allows thanos bucket web UI to be served behind a reverse proxy that strips a URL sub-path.
+
+Default value: `undef`
+
+##### `web_prefix_header`
+
+Data type: `Optional[String]`
+
+Name of HTTP request header used for dynamic prefixing of UI links and redirects.
+  This option is ignored if web.external-prefix argument is set.
+  Security risk: enable this option only if a reverse proxy in front of thanos is resetting the header.
+  The --web.prefix-header=X-Forwarded-Prefix option can be useful, for example,
+  if Thanos UI is served via Traefik reverse proxy with PathPrefixStrip option enabled,
+  which sends the stripped prefix value in X-Forwarded-Prefix header. This allows thanos UI to be served on a sub-path.
+
+Default value: `undef`
+
+##### `bucket_web_label`
+
+Data type: `Optional[String]`
+
+Prometheus label to use as timeline title in the bucket web UI
 
 Default value: `undef`
 
@@ -772,118 +694,6 @@ Index cache configuration.
    config: index cache typed configuration in Hash[String, Data]
 
 Default value: $thanos::index_cache_config
-
-### thanos::downsample
-
-This class install Downsample as service continuously downsamples blocks in an object store bucket.
-
-#### Examples
-
-##### 
-
-```puppet
-include thanos::downsample
-```
-
-#### Parameters
-
-The following parameters are available in the `thanos::downsample` class.
-
-##### `ensure`
-
-Data type: `Enum['present', 'absent']`
-
-State ensured from compact service.
-
-Default value: 'present'
-
-##### `user`
-
-Data type: `String`
-
-User running thanos.
-
-Default value: $thanos::user
-
-##### `group`
-
-Data type: `String`
-
-Group under which thanos is running.
-
-Default value: $thanos::group
-
-##### `bin_path`
-
-Data type: `Stdlib::Absolutepath`
-
-Path where binary is located.
-
-Default value: $thanos::bin_path
-
-##### `log_level`
-
-Data type: `Thanos::Log_level`
-
-Only log messages with the given severity or above. One of: [debug, info, warn, error, fatal]
-
-Default value: 'info'
-
-##### `log_format`
-
-Data type: `Enum['logfmt', 'json']`
-
-Output format of log messages. One of: [logfmt, json]
-
-Default value: 'logfmt'
-
-##### `tracing_config_file`
-
-Data type: `Optional[Stdlib::Absolutepath]`
-
-Path to YAML file with tracing configuration. See format details: https://thanos.io/tracing.md/#configuration
-
-Default value: $thanos::tracing_config_file
-
-##### `http_address`
-
-Data type: `String`
-
-Listen host:port for HTTP endpoints.
-
-Default value: '0.0.0.0:10902'
-
-##### `http_grace_period`
-
-Data type: `String`
-
-Time to wait after an interrupt received for HTTP Server.
-
-Default value: '2m'
-
-##### `data_dir`
-
-Data type: `Optional[Stdlib::Absolutepath]`
-
-Data directory in which to cache blocks and process downsamplings.
-
-Default value: `undef`
-
-##### `objstore_config_file`
-
-Data type: `Optional[Stdlib::Absolutepath]`
-
-Path to YAML file that contains object store configuration. See format details: https://thanos.io/storage.md/#configuration
-
-Default value: $thanos::storage_config_file
-
-##### `extra_params`
-
-Data type: `Hash`
-
-Parameters passed to the binary, ressently released in latest version of Thanos.
-
-Default value: {}
 
 ### thanos::install
 
@@ -1261,6 +1071,17 @@ Name of HTTP request header used for dynamic prefixing of UI links and redirects
 
 Default value: `undef`
 
+##### `log_request_decision`
+
+Data type: `Optional[String]`
+
+Request Logging for logging the start and end of requests. LogFinishCall is enabled by default.
+  LogFinishCall : Logs the finish call of the requests.
+  LogStartAndFinishCall : Logs the start and finish call of the requests.
+  NoLogCall : Disable request logging.
+
+Default value: `undef`
+
 ##### `query_timeout`
 
 Data type: `String`
@@ -1276,6 +1097,27 @@ Data type: `Integer`
 Maximum number of queries processed concurrently by query node.
 
 Default value: 20
+
+##### `query_loopback_delta`
+
+Data type: `Optional[String]`
+
+The maximum lookback duration for retrieving metrics during expression evaluations.
+  PromQL always evaluates the query for the certain timestamp (query range timestamps are deduced by step).
+  Since scrape intervals might be different, PromQL looks back for given amount of time to get latest sample.
+  If it exceeds the maximum lookback delta it assumes series is stale and returns none (a gap).
+  This is why lookback delta should be set to at least 2 times of the slowest scrape interval.
+  If unset it will use the promql default of 5m.
+
+Default value: `undef`
+
+##### `query_max_concurrent_select`
+
+Data type: `Integer`
+
+Maximum number of select requests made concurrently per a query.
+
+Default value: 4
 
 ##### `query_replica_label`
 
@@ -1302,6 +1144,15 @@ Addresses of statically configured store API servers. The scheme may be prefixed
   to detect store API servers through respective DNS lookups.
 
 Default value: []
+
+##### `store_strict`
+
+Data type: `Optional[String]`
+
+Addresses of only statically configured store API servers that are always used, even if the health check fails.
+  Useful if you have a caching layer on top.
+
+Default value: `undef`
 
 ##### `store_sd_files`
 
@@ -1368,6 +1219,498 @@ If a Store doesn't send any data in this specified duration then a Store will be
   returned if it's enabled. 0 disables timeout.
 
 Default value: '0ms'
+
+##### `extra_params`
+
+Data type: `Hash`
+
+Parameters passed to the binary, ressently released in latest version of Thanos.
+
+Default value: {}
+
+### thanos::query_frontend
+
+This class install Query Frontend as service that can be put in front of Thanos Queriers to improve the read path.
+
+#### Examples
+
+##### 
+
+```puppet
+include thanos::query
+```
+
+#### Parameters
+
+The following parameters are available in the `thanos::query_frontend` class.
+
+##### `ensure`
+
+Data type: `Enum['present', 'absent']`
+
+State ensured from compact service.
+
+Default value: 'present'
+
+##### `user`
+
+Data type: `String`
+
+User running thanos.
+
+Default value: $thanos::user
+
+##### `group`
+
+Data type: `String`
+
+Group under which thanos is running.
+
+Default value: $thanos::group
+
+##### `bin_path`
+
+Data type: `Stdlib::Absolutepath`
+
+Path where binary is located.
+
+Default value: $thanos::bin_path
+
+##### `log_level`
+
+Data type: `Thanos::Log_level`
+
+Only log messages with the given severity or above. One of: [debug, info, warn, error, fatal]
+
+Default value: 'info'
+
+##### `log_format`
+
+Data type: `Enum['logfmt', 'json']`
+
+Output format of log messages. One of: [logfmt, json]
+
+Default value: 'logfmt'
+
+##### `tracing_config_file`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+Path to YAML file with tracing configuration. See format details: https://thanos.io/tracing.md/#configuration
+
+Default value: $thanos::tracing_config_file
+
+##### `query_range_split_interval`
+
+Data type: `String`
+
+Split queries by an interval and execute in parallel, 0 disables it.
+
+Default value: '24h'
+
+##### `query_range_max_retries_per_request`
+
+Data type: `Integer`
+
+Maximum number of retries for a single request; beyond this, the downstream error is returned.
+
+Default value: 5
+
+##### `query_range_max_query_length`
+
+Data type: `Integer`
+
+Limit the query time range (end - start time) in the query-frontend, 0 disables it.
+
+Default value: 0
+
+##### `query_range_max_query_parrallelism`
+
+Data type: `Integer`
+
+Maximum number of queries will be scheduled in parallel by the frontend.
+
+Default value: 14
+
+##### `query_range_response_cache_max_freshness`
+
+Data type: `String`
+
+Most recent allowed cacheable result, to prevent caching very recent results that might still be in flux.
+
+Default value: '1m'
+
+##### `query_range_partial_response`
+
+Data type: `Boolean`
+
+Enable partial response for queries if no partial_response param is specified. --no-query-range.partial-response for disabling.
+
+Default value: `false`
+
+##### `query_range_response_cache_config_file`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+Path to YAML file that contains response cache configuration.
+
+Default value: `undef`
+
+##### `http_address`
+
+Data type: `String`
+
+Listen host:port for HTTP endpoints.
+
+Default value: '0.0.0.0:10902'
+
+##### `http_grace_period`
+
+Data type: `String`
+
+Time to wait after an interrupt received for HTTP Server.
+
+Default value: '2m'
+
+##### `query_frontend_downstream_url`
+
+Data type: `Stdlib::HTTPUrl`
+
+URL of downstream Prometheus Query compatible API.
+
+Default value: 'http://localhost:9090'
+
+##### `query_frontend_compress_responses`
+
+Data type: `Boolean`
+
+Compress HTTP responses.
+
+Default value: `false`
+
+##### `query_frontend_log_queries_longer_than`
+
+Data type: `Integer`
+
+Log queries that are slower than the specified duration. Set to 0 to disable. Set to < 0 to enable on all queries.
+
+Default value: 0
+
+##### `log_request_decision`
+
+Data type: `Optional[String]`
+
+Request Logging for logging the start and end of requests. LogFinishCall is enabled by default.
+  LogFinishCall : Logs the finish call of the requests.
+  LogStartAndFinishCall : Logs the start and finish call of the requests.
+  NoLogCall : Disable request logging.
+
+Default value: `undef`
+
+##### `extra_params`
+
+Data type: `Hash`
+
+Parameters passed to the binary, ressently released in latest version of Thanos.
+
+Default value: {}
+
+### thanos::receive
+
+This class install Receiver as service that implements the Prometheus Remote Write API.
+
+#### Examples
+
+##### 
+
+```puppet
+include thanos::downsample
+```
+
+#### Parameters
+
+The following parameters are available in the `thanos::receive` class.
+
+##### `ensure`
+
+Data type: `Enum['present', 'absent']`
+
+State ensured from compact service.
+
+Default value: 'present'
+
+##### `user`
+
+Data type: `String`
+
+User running thanos.
+
+Default value: $thanos::user
+
+##### `group`
+
+Data type: `String`
+
+Group under which thanos is running.
+
+Default value: $thanos::group
+
+##### `bin_path`
+
+Data type: `Stdlib::Absolutepath`
+
+Path where binary is located.
+
+Default value: $thanos::bin_path
+
+##### `log_level`
+
+Data type: `Thanos::Log_level`
+
+Only log messages with the given severity or above. One of: [debug, info, warn, error, fatal]
+
+Default value: 'info'
+
+##### `log_format`
+
+Data type: `Enum['logfmt', 'json']`
+
+Output format of log messages. One of: [logfmt, json]
+
+Default value: 'logfmt'
+
+##### `tracing_config_file`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+Path to YAML file with tracing configuration. See format details: https://thanos.io/tracing.md/#configuration
+
+Default value: $thanos::tracing_config_file
+
+##### `http_address`
+
+Data type: `String`
+
+Listen host:port for HTTP endpoints.
+
+Default value: '0.0.0.0:10902'
+
+##### `http_grace_period`
+
+Data type: `String`
+
+Time to wait after an interrupt received for HTTP Server.
+
+Default value: '2m'
+
+##### `grpc_address`
+
+Data type: `String`
+
+Listen ip:port address for gRPC endpoints (StoreAPI). Make sure this address is routable from other components.
+
+Default value: '0.0.0.0:10901'
+
+##### `grpc_grace_period`
+
+Data type: `String`
+
+Time to wait after an interrupt received for GRPC Server.
+
+Default value: '2m'
+
+##### `grpc_server_tls_cert`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+TLS Certificate for gRPC server, leave blank to disable TLS
+
+Default value: `undef`
+
+##### `grpc_server_tls_key`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+TLS Key for the gRPC server, leave blank to disable TLS
+
+Default value: `undef`
+
+##### `grpc_server_tls_client_ca`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+TLS CA to verify clients against. If no client CA is specified, there is no client verification on server side. (tls.NoClientCert)
+
+Default value: `undef`
+
+##### `remote_write_address`
+
+Data type: `String`
+
+Address to listen on for remote write requests.
+
+Default value: '0.0.0.0:19291'
+
+##### `remote_write_server_tls_cert`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+TLS Certificate for HTTP server, leave blank to disable TLS.
+
+Default value: `undef`
+
+##### `remote_write_server_tls_key`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+TLS Key for the HTTP server, leave blank to disable TLS.
+
+Default value: `undef`
+
+##### `remote_write_server_tls_client_ca`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+TLS CA to verify clients against. If no client CA is specified, there is no client verification on server side. (tls.NoClientCert)
+
+Default value: `undef`
+
+##### `remote_write_client_tls_cert`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+TLS Certificates to use to identify this client to the server.
+
+Default value: `undef`
+
+##### `remote_write_client_tls_key`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+TLS Key for the client's certificate.
+
+Default value: `undef`
+
+##### `remote_write_client_tls_ca`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+TLS CA Certificates to use to verify servers.
+
+Default value: `undef`
+
+##### `remote_write_client_server_name`
+
+Data type: `Optional[String]`
+
+Server name to verify the hostname on the returned gRPC certificates. See https://tools.ietf.org/html/rfc4366#section-3.1
+
+Default value: `undef`
+
+##### `data_dir`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+Data directory in which to cache blocks and process downsamplings.
+
+Default value: `undef`
+
+##### `objstore_config_file`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+Path to YAML file that contains object store configuration. See format details: https://thanos.io/storage.md/#configuration
+
+Default value: $thanos::storage_config_file
+
+##### `tsdb_retention`
+
+Data type: `String`
+
+How long to retain raw samples on local storage. 0d - disables this retention.
+
+Default value: '15d'
+
+##### `receive_hashrings_file`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+Path to file that contains the hashring configuration.
+
+Default value: `undef`
+
+##### `receive_hashrings_file_refresh_interval`
+
+Data type: `String`
+
+Refresh interval to re-read the hashring configuration file. (used as a fallback)
+
+Default value: '5m'
+
+##### `receive_local_endpoint`
+
+Data type: `Optional[String]`
+
+Endpoint of local receive node. Used to identify the local node in the hashring configuration.
+
+Default value: `undef`
+
+##### `receive_tenant_header`
+
+Data type: `String`
+
+HTTP header to determine tenant for write requests.
+
+Default value: 'THANOS-TENANT'
+
+##### `receive_default_tenant_id`
+
+Data type: `String`
+
+HDefault tenant ID to use when none is provided via a header.
+
+Default value: 'default-tenant'
+
+##### `receive_tenant_label_name`
+
+Data type: `String`
+
+Label name through which the tenant will be announced.
+
+Default value: 'tenant_id'
+
+##### `receive_replica_header`
+
+Data type: `String`
+
+HTTP header specifying the replica number of a write request.
+
+Default value: 'THANOS-REPLICA'
+
+##### `receive_replication_factor`
+
+Data type: `Integer`
+
+How many times to replicate incoming write requests.
+
+Default value: 1
+
+##### `tsdb_wal_compression`
+
+Data type: `Boolean`
+
+Compress the tsdb WAL.
+
+Default value: `false`
+
+##### `tsdb_no_lockfile`
+
+Data type: `Boolean`
+
+Do not create lockfile in TSDB data directory.
+  In any case, the lockfiles will be deleted on next startup.
+
+Default value: `false`
 
 ##### `extra_params`
 
@@ -1564,6 +1907,14 @@ Block retention time on local disk.
 
 Default value: '48h'
 
+##### `tsdb_no_lockfile`
+
+Data type: `Boolean`
+
+Do not create lockfile in TSDB data directory. In any case, the lockfiles will be deleted on next startup.
+
+Default value: `false`
+
 ##### `tsdb_wal_compression`
 
 Data type: `Boolean`
@@ -1656,6 +2007,17 @@ Name of HTTP request header used for dynamic prefixing of UI links and redirects
   The --web.prefix-header=X-Forwarded-Prefix option can be useful, for example,
   if Thanos UI is served via Traefik reverse proxy with PathPrefixStrip option enabled, hich sends the stripped
   prefix value in  X-Forwarded-Prefix header. This allows thanos UI to be served on a sub-path.
+
+Default value: `undef`
+
+##### `log_request_decision`
+
+Data type: `Optional[String]`
+
+Request Logging for logging the start and end of requests. LogFinishCall is enabled by default.
+  LogFinishCall : Logs the finish call of the requests.
+  LogStartAndFinishCall : Logs the start and finish call of the requests.
+  NoLogCall : Disable request logging.
 
 Default value: `undef`
 
@@ -1911,13 +2273,29 @@ Rule directories for the reloader to refresh.
 
 Default value: []
 
+##### `reloader_watch_interval`
+
+Data type: `String`
+
+Controls how often reloader re-reads config and rules.
+
+Default value: '3m'
+
+##### `reloader_retry_interval`
+
+Data type: `String`
+
+Controls how often reloader retries config reload in case of error.
+
+Default value: '5s'
+
 ##### `objstore_config_file`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 Path to YAML file that contains object store configuration. See format details: https://thanos.io/storage.md/#configuration
 
-Default value: `undef`
+Default value: $thanos::storage_config_file
 
 ##### `shipper_upload_compacted`
 
@@ -1933,8 +2311,8 @@ Default value: `false`
 Data type: `Optional[String]`
 
 Start of time range limit to serve. Thanos sidecar will serve only metrics, which happened later than this value.
-  Option can be a constant time in RFC3339 format or time duration relative to current time, such as -1d or 2h45m. Valid
-  duration units are ms, s, m, h, d, w, y.
+  Option can be a constant time in RFC3339 format or time duration relative to current time, such as -1d or 2h45m.
+  Valid duration units are ms, s, m, h, d, w, y.
 
 Default value: `undef`
 
@@ -2188,6 +2566,195 @@ Data type: `String`
 Minimum age of all blocks before they are being read.
 
 Default value: '30m'
+
+##### `ignore_deletion_marks_delay`
+
+Data type: `String`
+
+Duration after which the blocks marked for deletion will be filtered out while fetching blocks.
+  The idea of ignore-deletion-marks-delay is to ignore blocks that are marked for deletion with some delay.
+  This ensures store can still serve blocks that are meant to be deleted but do not have a replacement yet.
+  If delete-delay duration is provided to compactor or bucket verify component,
+  it will upload deletion-mark.json file to mark after what duration the block should be deleted rather than
+  deleting the block straight away. If delete-delay is non-zero for compactor or bucket verify component,
+  ignore-deletion-marks-delay should be set to (delete-delay)/2 so that blocks marked for deletion are filtered out
+  while fetching blocks before being deleted from bucket. Default is 24h, half of the default value for --delete-delay on compactor.
+
+Default value: '24h'
+
+##### `web_external_prefix`
+
+Data type: `Optional[String]`
+
+Static prefix for all HTML links and redirect URLs in the UI query web interface.
+  Actual endpoints are still served on / or the web.route-prefix.
+  This allows thanos UI to be served behind a reverse proxy that strips a URL sub-path.
+
+Default value: `undef`
+
+##### `web_prefix_header`
+
+Data type: `Optional[String]`
+
+Name of HTTP request header used for dynamic prefixing of UI links and redirects.
+  This option is ignored if web.external-prefix argument is set.
+  Security risk: enable this option only if a reverse proxy in front of thanos is resetting the header.
+  The --web.prefix-header=X-Forwarded-Prefix option can be useful, for example,
+  if Thanos UI is served via Traefik reverse proxy with PathPrefixStrip option enabled, which sends the stripped
+  prefix value in X-Forwarded-Prefix header. This allows thanos UI to be served on a sub-path.
+
+Default value: `undef`
+
+##### `extra_params`
+
+Data type: `Hash`
+
+Parameters passed to the binary, ressently released in latest version of Thanos.
+
+Default value: {}
+
+### thanos::tools::bucket_web
+
+This class install Web interface for remote storage bucket.
+
+#### Examples
+
+##### 
+
+```puppet
+include thanos::bucket_web
+```
+
+#### Parameters
+
+The following parameters are available in the `thanos::tools::bucket_web` class.
+
+##### `ensure`
+
+Data type: `Enum['present', 'absent']`
+
+State ensured from compact service.
+
+Default value: 'present'
+
+##### `user`
+
+Data type: `String`
+
+User running thanos.
+
+Default value: $thanos::user
+
+##### `group`
+
+Data type: `String`
+
+Group under which thanos is running.
+
+Default value: $thanos::group
+
+##### `bin_path`
+
+Data type: `Stdlib::Absolutepath`
+
+Path where binary is located.
+
+Default value: $thanos::bin_path
+
+##### `log_level`
+
+Data type: `Thanos::Log_level`
+
+Only log messages with the given severity or above. One of: [debug, info, warn, error, fatal]
+
+Default value: 'info'
+
+##### `log_format`
+
+Data type: `Enum['logfmt', 'json']`
+
+Output format of log messages. One of: [logfmt, json]
+
+Default value: 'logfmt'
+
+##### `tracing_config_file`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+Path to YAML file with tracing configuration. See format details: https://thanos.io/tracing.md/#configuration
+
+Default value: $thanos::tracing_config_file
+
+##### `objstore_config_file`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+Path to YAML file that contains object store configuration. See format details: https://thanos.io/storage.md/#configuration
+
+Default value: $thanos::storage_config_file
+
+##### `http_address`
+
+Data type: `String`
+
+Listen host:port for HTTP endpoints.
+
+Default value: '0.0.0.0:10902'
+
+##### `http_grace_period`
+
+Data type: `String`
+
+Time to wait after an interrupt received for HTTP Server.
+
+Default value: '2m'
+
+##### `web_external_prefix`
+
+Data type: `String`
+
+Static prefix for all HTML links and redirect URLs in the bucket web UI interface.
+Actual endpoints are still served on / or the web.route-prefix.
+This allows thanos bucket web UI to be served behind a reverse proxy that strips a URL sub-path.
+
+Default value: ''
+
+##### `web_prefix_header`
+
+Data type: `String`
+
+Name of HTTP request header used for dynamic prefixing of UI links and redirects.
+This option is ignored if web.external-prefix argument is set.
+Security risk: enable this option only if a reverse proxy in front of thanos is resetting the header.
+The --web.prefix-header=X-Forwarded-Prefix option can be useful, for example, if Thanos UI is served via Traefik
+  reverse proxy with PathPrefixStrip option enabled, which sends the stripped prefix value in X-Forwarded-Prefix header.
+This allows thanos UI to be served on a sub-path.
+
+Default value: ''
+
+##### `refresh`
+
+Data type: `String`
+
+Refresh interval to download metadata from remote storage
+
+Default value: '30m'
+
+##### `timeout`
+
+Data type: `String`
+
+Timeout to download metadata from remote storage
+
+Default value: '5m'
+
+##### `label`
+
+Data type: `String`
+
+Prometheus label to use as timeline title
+
+Default value: ''
 
 ##### `extra_params`
 

@@ -46,6 +46,10 @@
 #  Output file for environment variable substituted config file.
 # @param reloader_rule_dirs
 #  Rule directories for the reloader to refresh.
+# @param reloader_watch_interval
+#  Controls how often reloader re-reads config and rules.
+# @param reloader_retry_interval
+#  Controls how often reloader retries config reload in case of error.
 # @param objstore_config_file
 #  Path to YAML file that contains object store configuration. See format details: https://thanos.io/storage.md/#configuration
 # @param shipper_upload_compacted
@@ -53,8 +57,8 @@
 #  Works only if compaction is disabled on Prometheus. Do it once and then disable the flag when done.
 # @param min_time
 #  Start of time range limit to serve. Thanos sidecar will serve only metrics, which happened later than this value.
-#    Option can be a constant time in RFC3339 format or time duration relative to current time, such as -1d or 2h45m. Valid
-#    duration units are ms, s, m, h, d, w, y.
+#    Option can be a constant time in RFC3339 format or time duration relative to current time, such as -1d or 2h45m.
+#    Valid duration units are ms, s, m, h, d, w, y.
 # @param extra_params
 #  Parameters passed to the binary, ressently released in latest version of Thanos.
 # @example
@@ -64,6 +68,7 @@ class thanos::sidecar (
   String                         $user                                  = $thanos::user,
   String                         $group                                 = $thanos::group,
   Stdlib::Absolutepath           $bin_path                              = $thanos::bin_path,
+  # Binary Parameters
   Thanos::Log_level              $log_level                             = 'info',
   Enum['logfmt', 'json']         $log_format                            = 'logfmt',
   Optional[Stdlib::Absolutepath] $tracing_config_file                   = $thanos::tracing_config_file,
@@ -82,9 +87,12 @@ class thanos::sidecar (
   Optional[Stdlib::Absolutepath] $reloader_config_file                  = undef,
   Optional[Stdlib::Absolutepath] $reloader_config_envsubst_file         = undef,
   Array[Stdlib::Absolutepath]    $reloader_rule_dirs                    = [],
+  String                         $reloader_watch_interval               = '3m',
+  String                         $reloader_retry_interval               = '5s',
   Optional[Stdlib::Absolutepath] $objstore_config_file                  = $thanos::storage_config_file,
   Boolean                        $shipper_upload_compacted              = false,
   Optional[String]               $min_time                              = undef,
+  # Extra parametes
   Hash                           $extra_params                          = {},
 ) {
   $_service_ensure = $ensure ? {
@@ -116,6 +124,8 @@ class thanos::sidecar (
       'reloader.config-file'                  => $reloader_config_file,
       'reloader.config-envsubst-file'         => $reloader_config_envsubst_file,
       'reloader.rule-dir'                     => $reloader_rule_dirs,
+      'reloader.watch-interval'               => $reloader_watch_interval,
+      'reloader.retry-interval'               => $reloader_retry_interval,
       'objstore.config-file'                  => $objstore_config_file,
       'shipper.upload-compacted'              => $shipper_upload_compacted,
       'min-time'                              => $min_time,

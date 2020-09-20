@@ -44,6 +44,8 @@ describe 'thanos::sidecar' do
             'reloader.config-file'                  => nil,
             'reloader.config-envsubst-file'         => nil,
             'reloader.rule-dir'                     => [],
+            'reloader.watch-interval'               => '3m',
+            'reloader.retry-interval'               => '5s',
             'objstore.config-file'                  => '/etc/thanos/storage.yaml',
             'shipper.upload-compacted'              => false,
             'min-time'                              => nil,

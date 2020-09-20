@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'thanos::bucket_web' do
+describe 'thanos::tools::bucket_web' do
   on_supported_os.each do |os, os_facts|
     context "on #{os}" do
       let(:facts) { os_facts }
@@ -22,6 +22,7 @@ describe 'thanos::bucket_web' do
         is_expected.to contain_thanos__resources__service('bucket-web').with(
           'ensure'   => 'running',
           'bin_path' => '/usr/local/bin/thanos',
+          'name'     => 'tools bucket web',
           'user'     => 'thanos',
           'group'    => 'thanos',
           'params'   => {

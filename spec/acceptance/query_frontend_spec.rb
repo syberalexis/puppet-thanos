@@ -3,16 +3,8 @@ require 'spec_helper_acceptance'
 describe 'Check idempotence' do
   context 'should work with no errors' do
     pp = <<-EOS
-      class{ 'thanos':
-        manage_downsample => true,
-        manage_storage_config => true,
-        storage_config => {
-          ensure => 'present',
-          type   => 'FILESYSTEM',
-          config => {
-            directory => '/data'
-          }
-        }
+      class { 'thanos':
+        manage_query_frontend => true,
       }
     EOS
 

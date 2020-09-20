@@ -10,15 +10,17 @@
 #  Whether to create a service to run Sidecar.
 # @param manage_query
 #  Whether to create a service to run Query.
+# @param manage_query_frontend
+#  Whether to create a service to run Query Frontend.
 # @param manage_rule
 #  Whether to create a service to run Rule.
 # @param manage_store
 #  Whether to create a service to run Store.
 # @param manage_compact
 #  Whether to create a service to run Compact.
-# @param manage_downsample
-#  Whether to create a service to run Downsample.
-# @param manage_bucket_web
+# @param manage_receiver
+#  Whether to create a service to run Receiver.
+# @param manage_tools_bucket_web
 #  Whether to create a service to run Bucket Web interface.
 # @param install_method
 #  Installation method: url or package (only url is supported currently).
@@ -87,11 +89,12 @@ class thanos (
   String                              $os                        = downcase($facts['kernel']),
   Boolean                             $manage_sidecar            = false,
   Boolean                             $manage_query              = false,
+  Boolean                             $manage_query_frontend     = false,
   Boolean                             $manage_rule               = false,
   Boolean                             $manage_store              = false,
   Boolean                             $manage_compact            = false,
-  Boolean                             $manage_downsample         = false,
-  Boolean                             $manage_bucket_web         = false,
+  Boolean                             $manage_receive            = false,
+  Boolean                             $manage_tools_bucket_web   = false,
 
   # Installation
   Enum['url', 'package', 'none']      $install_method            = 'url',
@@ -129,13 +132,14 @@ class thanos (
   $bin_path = "${bin_dir}/thanos"
 
   $notify_services = {
-    'sidecar'    => $manage_sidecar,
-    'query'      => $manage_query,
-    'rule'       => $manage_rule,
-    'store'      => $manage_store,
-    'compact'    => $manage_compact,
-    'downsample' => $manage_downsample,
-    'bucket-web' => $manage_bucket_web,
+    'sidecar'        => $manage_sidecar,
+    'query'          => $manage_query,
+    'query-frontend' => $manage_query_frontend,
+    'rule'           => $manage_rule,
+    'store'          => $manage_store,
+    'compact'        => $manage_compact,
+    'receive'        => $manage_receive,
+    'bucket-web'     => $manage_tools_bucket_web,
   }.filter |String $key, Boolean $value| {
     $value
   }.map |String $key, Boolean $value| {
@@ -171,6 +175,11 @@ class thanos (
     Class['thanos::config'] -> Class['thanos::query']
   }
 
+  if $manage_query_frontend {
+    include thanos::query_frontend
+    Class['thanos::config'] -> Class['thanos::query_frontend']
+  }
+
   if $manage_rule {
     include thanos::rule
     Class['thanos::config'] -> Class['thanos::rule']
@@ -186,13 +195,13 @@ class thanos (
     Class['thanos::config'] -> Class['thanos::compact']
   }
 
-  if $manage_downsample {
-    include thanos::downsample
-    Class['thanos::config'] -> Class['thanos::downsample']
+  if $manage_receive {
+    include thanos::receive
+    Class['thanos::config'] -> Class['thanos::receive']
   }
 
-  if $manage_bucket_web {
-    include thanos::bucket_web
-    Class['thanos::config'] -> Class['thanos::bucket_web']
+  if $manage_tools_bucket_web {
+    include thanos::tools::bucket_web
+    Class['thanos::config'] -> Class['thanos::tools::bucket_web']
   }
 }

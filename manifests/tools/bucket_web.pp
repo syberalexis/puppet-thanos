@@ -43,11 +43,12 @@
 #  Parameters passed to the binary, ressently released in latest version of Thanos.
 # @example
 #   include thanos::bucket_web
-class thanos::bucket_web (
+class thanos::tools::bucket_web (
   Enum['present', 'absent']      $ensure               = 'present',
   String                         $user                 = $thanos::user,
   String                         $group                = $thanos::group,
   Stdlib::Absolutepath           $bin_path             = $thanos::bin_path,
+  # Binary Parameters
   Thanos::Log_level              $log_level            = 'info',
   Enum['logfmt', 'json']         $log_format           = 'logfmt',
   Optional[Stdlib::Absolutepath] $tracing_config_file  = $thanos::tracing_config_file,
@@ -59,6 +60,7 @@ class thanos::bucket_web (
   String                         $refresh              = '30m',
   String                         $timeout              = '5m',
   String                         $label                = '',
+  # Extra parametes
   Hash                           $extra_params         = {},
 ) {
   $_service_ensure = $ensure ? {
@@ -68,7 +70,7 @@ class thanos::bucket_web (
 
   thanos::resources::service { 'bucket-web':
     ensure       => $_service_ensure,
-    name         => 'bucket web',
+    name         => 'tools bucket web',
     bin_path     => $bin_path,
     user         => $user,
     group        => $group,

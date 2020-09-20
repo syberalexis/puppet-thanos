@@ -20,6 +20,7 @@
 ## Description
 
 This module automates the install of [Thanos](https://github.com/thanos-io/thanos) and it's components into a service.  
+Maximum tested version of Thanos : 0.15.0
 
 ## Usage
 
@@ -30,7 +31,7 @@ For more information see [REFERENCE.md](REFERENCE.md).
 #### Puppet
 ```puppet
 class { 'thanos':
-  version => '0.10.1'
+  version => '0.15.0'
 }
 ```
 
@@ -39,7 +40,7 @@ class { 'thanos':
 include thanos
 ```
 ```yaml
-thanos::version: '0.10.1'
+thanos::version: '0.15.0'
 ```
 
 ### Thanos Sidecar
@@ -54,6 +55,11 @@ thanos::manage_query: true
 thanos::query::stores:
   - 'sidecar:10901'
   - 'store:10901'
+```
+
+### Thanos Query Frontend
+```yaml
+thanos::manage_query_frontend: true
 ```
 
 ### Thanos Rule
@@ -73,14 +79,14 @@ thanos::manage_store: true
 thanos::manage_compact: true
 ```
 
-### Thanos Downsample
+### Thanos Receive
 ```yaml
-thanos::manage_downsample: true
+thanos::manage_receive: true
 ```
 
-### Thanos Bucket Web
+### Thanos Tools Bucket Web
 ```yaml
-thanos::manage_bucket_web: true
+thanos::manage_tools_bucket_web: true
 ```
 
 ### Manage Storage config
@@ -242,9 +248,6 @@ thanos::reloader_config_file: '/etc/prometheus/prometheus.yaml'
 ```
 
 ## Limitations
-
-Don't manage Thanos experimental features, like :
-- `thanos receive` command
 
 Only support, Thanos supported OS. See [Thanos releases page](https://github.com/thanos-io/thanos/releases)
 

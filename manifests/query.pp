@@ -54,10 +54,24 @@
 #    The --web.prefix-header=X-Forwarded-Prefix option can be useful, for example,
 #    if Thanos UI is served via Traefik reverse proxy with PathPrefixStrip option enabled, which sends the stripped
 #    prefix value in X-Forwarded-Prefix header. This allows thanos UI to be served on a sub-path.
+# @param log_request_decision
+#  Request Logging for logging the start and end of requests. LogFinishCall is enabled by default.
+#    LogFinishCall : Logs the finish call of the requests.
+#    LogStartAndFinishCall : Logs the start and finish call of the requests.
+#    NoLogCall : Disable request logging.
 # @param query_timeout
 #  Maximum time to process query by query node.
 # @param query_max_concurrent
 #  Maximum number of queries processed concurrently by query node.
+# @param query_loopback_delta
+#  The maximum lookback duration for retrieving metrics during expression evaluations.
+#    PromQL always evaluates the query for the certain timestamp (query range timestamps are deduced by step).
+#    Since scrape intervals might be different, PromQL looks back for given amount of time to get latest sample.
+#    If it exceeds the maximum lookback delta it assumes series is stale and returns none (a gap).
+#    This is why lookback delta should be set to at least 2 times of the slowest scrape interval.
+#    If unset it will use the promql default of 5m.
+# @param query_max_concurrent_select
+#  Maximum number of select requests made concurrently per a query.
 # @param query_replica_label
 #  Labels to treat as a replica indicator along which data is deduplicated.
 #    Still you will be able to query without deduplication using 'dedup=false' parameter.
@@ -66,6 +80,9 @@
 # @param stores
 #  Addresses of statically configured store API servers. The scheme may be prefixed with 'dns+' or 'dnssrv+'
 #    to detect store API servers through respective DNS lookups.
+# @param store_strict
+#  Addresses of only statically configured store API servers that are always used, even if the health check fails.
+#    Useful if you have a caching layer on top.
 # @param store_sd_files
 #  Path to files that contain addresses of store API servers. The path can be a glob pattern.
 # @param store_sd_interval
@@ -93,6 +110,7 @@ class thanos::query (
   String                         $user                              = $thanos::user,
   String                         $group                             = $thanos::group,
   Stdlib::Absolutepath           $bin_path                          = $thanos::bin_path,
+  # Binary Parameters
   Thanos::Log_level              $log_level                         = 'info',
   Enum['logfmt', 'json']         $log_format                        = 'logfmt',
   Optional[Stdlib::Absolutepath] $tracing_config_file               = $thanos::tracing_config_file,
@@ -111,11 +129,15 @@ class thanos::query (
   Optional[String]               $web_route_prefix                  = undef,
   Optional[String]               $web_external_prefix               = undef,
   Optional[String]               $web_prefix_header                 = undef,
+  Optional[String]               $log_request_decision              = undef,
   String                         $query_timeout                     = '2m',
   Integer                        $query_max_concurrent              = 20,
+  Optional[String]               $query_loopback_delta              = undef,
+  Integer                        $query_max_concurrent_select       = 4,
   Optional[String]               $query_replica_label               = undef,
   Array[String]                  $selector_labels                   = [],
   Array[String]                  $stores                            = [],
+  Optional[String]               $store_strict                      = undef,
   Array[Stdlib::Absolutepath]    $store_sd_files                    = [],
   String                         $store_sd_interval                 = '5m',
   String                         $store_sd_dns_interval             = '30s',
@@ -124,6 +146,7 @@ class thanos::query (
   Boolean                        $query_partial_response            = false,
   String                         $query_default_evaluation_interval = '1m',
   String                         $store_response_timeout            = '0ms',
+  # Extra parametes
   Hash                           $extra_params                      = {},
 ) {
   $_service_ensure = $ensure ? {
@@ -155,11 +178,15 @@ class thanos::query (
       'web.route-prefix'                  => $web_route_prefix,
       'web.external-prefix'               => $web_external_prefix,
       'web.prefix-header'                 => $web_prefix_header,
+      'log.request.decision'              => $log_request_decision,
       'query.timeout'                     => $query_timeout,
       'query.max-concurrent'              => $query_max_concurrent,
+      'query.loopback-delta'              => $query_loopback_delta,
+      'query.max-concurrent-select'       => $query_max_concurrent_select,
       'query.replica-label'               => $query_replica_label,
       'selector-label'                    => $selector_labels,
       'store'                             => $stores,
+      'store-strict'                      => $store_strict,
       'store.sd-files'                    => $store_sd_files,
       'store.sd-interval'                 => $store_sd_interval,
       'store.sd-dns-interval'             => $store_sd_dns_interval,

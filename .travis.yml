@@ -99,6 +99,10 @@ jobs:
     env: PUPPET_INSTALL_TYPE=agent BEAKER_PUPPET_COLLECTION="puppet6" BEAKER_setfile=ubuntu1804-64
       BEAKER_debug=true BEAKER_HYPERVISOR=docker CHECK="beaker"
     services: docker
+  - stage: acceptance
+    env: PUPPET_INSTALL_TYPE=agent BEAKER_PUPPET_COLLECTION="puppet6" BEAKER_setfile=ubuntu2004-64
+      BEAKER_debug=true BEAKER_HYPERVISOR=docker CHECK="beaker"
+    services: docker
 
   - stage: deploy
     bundler_args: "--without system_tests"

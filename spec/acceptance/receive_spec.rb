@@ -3,8 +3,8 @@ require 'spec_helper_acceptance'
 describe 'Check idempotence' do
   context 'should work with no errors' do
     pp = <<-EOS
-      class{ 'thanos':
-        manage_bucket_web => true,
+      class { 'thanos':
+        manage_receive => true,
         manage_storage_config => true,
         storage_config => {
           ensure => 'present',

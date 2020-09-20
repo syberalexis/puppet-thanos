@@ -1,5 +1,5 @@
 ---
 
-thanos::version: '0.10.1'
+thanos::version: '0.15.0'
 
 ...
