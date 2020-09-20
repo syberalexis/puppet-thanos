@@ -48,6 +48,9 @@ describe 'thanos::store' do
             'max-time'                          => nil,
             'selector.relabel-config-file'      => nil,
             'consistency-delay'                 => '30m',
+            'ignore-deletion-marks-delay'       => '24h',
+            'web.external-prefix'               => nil,
+            'web.prefix-header'                 => nil,
           },
         )
       }

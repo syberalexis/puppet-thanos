@@ -47,6 +47,8 @@
 #  Block duration for TSDB block.
 # @param tsdb_retention
 #  Block retention time on local disk.
+# @param tsdb_no_lockfile
+#  Do not create lockfile in TSDB data directory. In any case, the lockfiles will be deleted on next startup.
 # @param tsdb_wal_compression
 #  Compress the tsdb WAL.
 # @param alertmanagers_url
@@ -82,6 +84,11 @@
 #    The --web.prefix-header=X-Forwarded-Prefix option can be useful, for example,
 #    if Thanos UI is served via Traefik reverse proxy with PathPrefixStrip option enabled, hich sends the stripped
 #    prefix value in  X-Forwarded-Prefix header. This allows thanos UI to be served on a sub-path.
+# @param log_request_decision
+#  Request Logging for logging the start and end of requests. LogFinishCall is enabled by default.
+#    LogFinishCall : Logs the finish call of the requests.
+#    LogStartAndFinishCall : Logs the start and finish call of the requests.
+#    NoLogCall : Disable request logging.
 # @param objstore_config_file
 #  Path to YAML file that contains object store configuration. See format details:
 #    https://thanos.io/storage.md/#configuration
@@ -107,6 +114,7 @@ class thanos::rule (
   String                         $user                          = $thanos::user,
   String                         $group                         = $thanos::group,
   Stdlib::Absolutepath           $bin_path                      = $thanos::bin_path,
+  # Binary Parameters
   Thanos::Log_level              $log_level                     = 'info',
   Enum['logfmt', 'json']         $log_format                    = 'logfmt',
   Optional[Stdlib::Absolutepath] $tracing_config_file           = $thanos::tracing_config_file,
@@ -124,6 +132,7 @@ class thanos::rule (
   String                         $eval_interval                 = '30s',
   String                         $tsdb_block_duration           = '2h',
   String                         $tsdb_retention                = '48h',
+  Boolean                        $tsdb_no_lockfile              = false,
   Boolean                        $tsdb_wal_compression          = false,
   Array[Stdlib::HTTPUrl]         $alertmanagers_url             = [],
   String                         $alertmanagers_send_timeout    = '10s',
@@ -134,12 +143,14 @@ class thanos::rule (
   Optional[String]               $web_route_prefix              = undef,
   Optional[String]               $web_external_prefix           = undef,
   Optional[String]               $web_prefix_header             = undef,
+  Optional[String]               $log_request_decision          = undef,
   Optional[Stdlib::Absolutepath] $objstore_config_file          = undef,
   Array[String]                  $queries                       = [],
   Optional[Stdlib::Absolutepath] $query_config_file             = undef,
   Array[Stdlib::Absolutepath]    $query_sd_files                = [],
   String                         $query_sd_interval             = '5m',
   String                         $query_sd_dns_interval         = '30s',
+  # Extra parametes
   Hash                           $extra_params                  = {},
 ) {
   $_service_ensure = $ensure ? {
@@ -171,6 +182,7 @@ class thanos::rule (
       'tsdb.block-duration'           => $tsdb_block_duration,
       'tsdb.retention'                => $tsdb_retention,
       'tsdb.wal-compression'          => $tsdb_wal_compression,
+      'tsdb.no-lockfile'              => $tsdb_no_lockfile,
       'alertmanagers.url'             => $alertmanagers_url,
       'alertmanagers.send-timeout'    => $alertmanagers_send_timeout,
       'alertmanagers.config-file'     => $alertmanagers_config_file,
@@ -180,6 +192,7 @@ class thanos::rule (
       'web.route-prefix'              => $web_route_prefix,
       'web.external-prefix'           => $web_external_prefix,
       'web.prefix-header'             => $web_prefix_header,
+      'log.request.decision'          => $log_request_decision,
       'objstore.config-file'          => $objstore_config_file,
       'query'                         => $queries,
       'query.config-file'             => $query_config_file,

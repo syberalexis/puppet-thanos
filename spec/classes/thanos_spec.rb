@@ -14,11 +14,12 @@ describe 'thanos' do
           version: '0.9.0',
           manage_sidecar: true,
           manage_query: true,
+          manage_query_frontend: true,
           manage_rule: true,
           manage_store: true,
           manage_compact: true,
-          manage_downsample: true,
-          manage_bucket_web: true,
+          manage_receive: true,
+          manage_tools_bucket_web: true,
           download_url: 'https://my-custom-dropbox.com/thanos/releases/thanos-0.9.0.linux.amd64.tar.gz',
           user: 'wheel',
           group: 'wheel',
@@ -78,11 +79,12 @@ describe 'thanos' do
           thanos_version = parameters[:version]
           thanos_manage_sidecar = parameters[:manage_sidecar] || false
           thanos_manage_query = parameters[:manage_query] || false
+          thanos_manage_query_frontend = parameters[:manage_query_frontend] || false
           thanos_manage_rule = parameters[:manage_rule] || false
           thanos_manage_store = parameters[:manage_store] || false
           thanos_manage_compact = parameters[:manage_compact] || false
-          thanos_manage_downsample = parameters[:manage_downsample] || false
-          thanos_manage_bucket_web = parameters[:manage_bucket_web] || false
+          thanos_manage_receive = parameters[:manage_receive] || false
+          thanos_manage_tools_bucket_web = parameters[:manage_tools_bucket_web] || false
           thanos_install_method = parameters[:install_method] || 'url'
           thanos_download_url = parameters[:download_url] || "https://github.com/thanos-io/thanos/releases/download/v#{thanos_version}/thanos-#{thanos_version}.#{thanos_os}-#{thanos_arch}.tar.gz"
           thanos_package_ensure = parameters[:package_ensure] || 'present'
@@ -177,6 +179,9 @@ describe 'thanos' do
             if thanos_manage_query
               is_expected.to contain_class('thanos::query')
             end
+            if thanos_manage_query_frontend
+              is_expected.to contain_class('thanos::query_frontend')
+            end
             if thanos_manage_rule
               is_expected.to contain_class('thanos::rule')
             end
@@ -186,11 +191,11 @@ describe 'thanos' do
             if thanos_manage_compact
               is_expected.to contain_class('thanos::compact')
             end
-            if thanos_manage_downsample
-              is_expected.to contain_class('thanos::downsample')
+            if thanos_manage_receive
+              is_expected.to contain_class('thanos::receive')
             end
-            if thanos_manage_bucket_web
-              is_expected.to contain_class('thanos::bucket_web')
+            if thanos_manage_tools_bucket_web
+              is_expected.to contain_class('thanos::tools::bucket_web')
             end
           }
 

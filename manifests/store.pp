@@ -67,6 +67,26 @@
 #    See format details: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config
 # @param consistency_delay
 #  Minimum age of all blocks before they are being read.
+# @param ignore_deletion_marks_delay
+#  Duration after which the blocks marked for deletion will be filtered out while fetching blocks.
+#    The idea of ignore-deletion-marks-delay is to ignore blocks that are marked for deletion with some delay.
+#    This ensures store can still serve blocks that are meant to be deleted but do not have a replacement yet.
+#    If delete-delay duration is provided to compactor or bucket verify component,
+#    it will upload deletion-mark.json file to mark after what duration the block should be deleted rather than
+#    deleting the block straight away. If delete-delay is non-zero for compactor or bucket verify component,
+#    ignore-deletion-marks-delay should be set to (delete-delay)/2 so that blocks marked for deletion are filtered out
+#    while fetching blocks before being deleted from bucket. Default is 24h, half of the default value for --delete-delay on compactor.
+# @param web_external_prefix
+#  Static prefix for all HTML links and redirect URLs in the UI query web interface.
+#    Actual endpoints are still served on / or the web.route-prefix.
+#    This allows thanos UI to be served behind a reverse proxy that strips a URL sub-path.
+# @param web_prefix_header
+#  Name of HTTP request header used for dynamic prefixing of UI links and redirects.
+#    This option is ignored if web.external-prefix argument is set.
+#    Security risk: enable this option only if a reverse proxy in front of thanos is resetting the header.
+#    The --web.prefix-header=X-Forwarded-Prefix option can be useful, for example,
+#    if Thanos UI is served via Traefik reverse proxy with PathPrefixStrip option enabled, which sends the stripped
+#    prefix value in X-Forwarded-Prefix header. This allows thanos UI to be served on a sub-path.
 # @param extra_params
 #  Parameters passed to the binary, ressently released in latest version of Thanos.
 # @example
@@ -76,6 +96,7 @@ class thanos::store (
   String                         $user                              = $thanos::user,
   String                         $group                             = $thanos::group,
   Stdlib::Absolutepath           $bin_path                          = $thanos::bin_path,
+  # Binary Parameters
   Thanos::Log_level              $log_level                         = 'info',
   Enum['logfmt', 'json']         $log_format                        = 'logfmt',
   Optional[Stdlib::Absolutepath] $tracing_config_file               = $thanos::tracing_config_file,
@@ -99,6 +120,10 @@ class thanos::store (
   Optional[String]               $max_time                          = undef,
   Optional[Stdlib::Absolutepath] $selector_relabel_config_file      = undef,
   String                         $consistency_delay                 = '30m',
+  String                         $ignore_deletion_marks_delay       = '24h',
+  Optional[String]               $web_external_prefix               = undef,
+  Optional[String]               $web_prefix_header                 = undef,
+  # Extra parametes
   Hash                           $extra_params                      = {},
 ) {
   $_service_ensure = $ensure ? {
@@ -135,6 +160,9 @@ class thanos::store (
       'max-time'                          => $max_time,
       'selector.relabel-config-file'      => $selector_relabel_config_file,
       'consistency-delay'                 => $consistency_delay,
+      'ignore-deletion-marks-delay'       => $ignore_deletion_marks_delay,
+      'web.external-prefix'               => $web_external_prefix,
+      'web.prefix-header'                 => $web_prefix_header,
     },
     extra_params => $extra_params,
   }
