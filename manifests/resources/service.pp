@@ -31,6 +31,10 @@ define thanos::resources::service (
     'running' => running,
     default   => stopped,
   }
+  $_service_enabled = $ensure ? {
+    'running' => true,
+    default   => false,
+  }
   $_file_ensure    = $ensure ? {
     'running' => file,
     'stopped' => file,
@@ -63,6 +67,6 @@ define thanos::resources::service (
   }
   service { $_service_name:
     ensure => $_service_ensure,
-    enable => true,
+    enable => $_service_enabled,
   }
 }
