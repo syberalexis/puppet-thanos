@@ -65,6 +65,4 @@ define thanos::resources::service (
     ensure => $_service_ensure,
     enable => true,
   }
-
-  File["/lib/systemd/system/${_service_name}.service"] -> Service[$_service_name]
 }
