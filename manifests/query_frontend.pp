@@ -99,7 +99,7 @@ class thanos::query_frontend (
       'http-grace-period'                        => $http_grace_period,
       'query-frontend.downstream-url'            => $query_frontend_downstream_url,
       'query-frontend.compress-responses'        => $query_frontend_compress_responses,
-      'query-frontend.log_queries_longer_than'   => $query_frontend_log_queries_longer_than,
+      'query-frontend.log-queries-longer-than'   => $query_frontend_log_queries_longer_than,
       'log.request.decision'                     => $log_request_decision,
     },
     extra_params => $extra_params,
