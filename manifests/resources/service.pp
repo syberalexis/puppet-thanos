@@ -31,6 +31,10 @@ define thanos::resources::service (
     'running' => running,
     default   => stopped,
   }
+  $_service_enabled = $ensure ? {
+    'running' => true,
+    default   => false,
+  }
   $_file_ensure    = $ensure ? {
     'running' => file,
     'stopped' => file,
@@ -54,12 +58,15 @@ define thanos::resources::service (
   file { "/lib/systemd/system/${_service_name}.service":
     ensure  => $_file_ensure,
     content => template('thanos/service.erb'),
-    notify  => Service[$_service_name]
+    notify  => Exec["systemd reload for ${_service_name}"],
+  }
+  exec { "systemd reload for ${_service_name}":
+    command     => '/usr/bin/systemctl daemon-reload',
+    refreshonly => true,
+    notify      => Service[$_service_name],
   }
   service { $_service_name:
     ensure => $_service_ensure,
-    enable => true,
+    enable => $_service_enabled,
   }
-
-  File["/lib/systemd/system/${_service_name}.service"] -> Service[$_service_name]
 }
