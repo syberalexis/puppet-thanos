@@ -20,7 +20,7 @@
 ## Description
 
 This module automates the install of [Thanos](https://github.com/thanos-io/thanos) and it's components into a service.  
-Maximum tested version of Thanos : 0.15.0
+Maximum tested version of Thanos : 0.16.0
 
 ## Usage
 
@@ -31,7 +31,7 @@ For more information see [REFERENCE.md](REFERENCE.md).
 #### Puppet
 ```puppet
 class { 'thanos':
-  version => '0.15.0'
+  version => '0.16.0'
 }
 ```
 
@@ -40,7 +40,7 @@ class { 'thanos':
 include thanos
 ```
 ```yaml
-thanos::version: '0.15.0'
+thanos::version: '0.16.0'
 ```
 
 ### Thanos Sidecar
