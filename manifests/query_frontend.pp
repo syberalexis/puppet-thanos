@@ -45,6 +45,9 @@
 #    LogFinishCall : Logs the finish call of the requests.
 #    LogStartAndFinishCall : Logs the start and finish call of the requests.
 #    NoLogCall : Disable request logging.
+# @param max_open_files
+#  Define how many open files the service is able to use
+#  In some cases, the default value (1024) needs to be increased
 # @param extra_params
 #  Parameters passed to the binary, ressently released in latest version of Thanos.
 # @example
@@ -54,6 +57,7 @@ class thanos::query_frontend (
   String                         $user                                     = $thanos::user,
   String                         $group                                    = $thanos::group,
   Stdlib::Absolutepath           $bin_path                                 = $thanos::bin_path,
+  Optional[Integer]              $max_open_files                           = undef,
   # Binary Parameters
   Thanos::Log_level              $log_level                                = 'info',
   Enum['logfmt', 'json']         $log_format                               = 'logfmt',
@@ -80,11 +84,12 @@ class thanos::query_frontend (
   }
 
   thanos::resources::service { 'query-frontend':
-    ensure       => $_service_ensure,
-    bin_path     => $bin_path,
-    user         => $user,
-    group        => $group,
-    params       => {
+    ensure         => $_service_ensure,
+    bin_path       => $bin_path,
+    user           => $user,
+    group          => $group,
+    max_open_files => $max_open_files,
+    params         => {
       'log.level'                                => $log_level,
       'log.format'                               => $log_format,
       'tracing.config-file'                      => $tracing_config_file,
@@ -102,6 +107,6 @@ class thanos::query_frontend (
       'query-frontend.log-queries-longer-than'   => $query_frontend_log_queries_longer_than,
       'log.request.decision'                     => $log_request_decision,
     },
-    extra_params => $extra_params,
+    extra_params   => $extra_params,
   }
 }

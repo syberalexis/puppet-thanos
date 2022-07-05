@@ -8,6 +8,8 @@
 #  User running thanos.
 # @param group
 #  Group under which thanos is running.
+# @param max_open_files
+#  Define the maximum open files the service is allowed to use
 # @param params
 #  Parameters passed to the binary.
 # @param extra_params
@@ -18,11 +20,13 @@
 #     ensure => 'running',
 #     bin_path => '/usr/local/bin/thanos',
 #   }
+#
 define thanos::resources::service (
   Variant[Stdlib::Ensure::Service, Enum['absent']] $ensure,
   Stdlib::Absolutepath                             $bin_path,
   String                                           $user,
   String                                           $group,
+  Optional[Integer]                                $max_open_files = undef,
   Hash                                             $params       = {},
   Hash                                             $extra_params = {},
 ) {
@@ -30,6 +34,10 @@ define thanos::resources::service (
   $_service_ensure = $ensure ? {
     'running' => running,
     default   => stopped,
+  }
+  $_service_enabled = $ensure ? {
+    'running' => true,
+    default   => false,
   }
   $_file_ensure    = $ensure ? {
     'running' => file,
@@ -54,12 +62,15 @@ define thanos::resources::service (
   file { "/lib/systemd/system/${_service_name}.service":
     ensure  => $_file_ensure,
     content => template('thanos/service.erb'),
-    notify  => Service[$_service_name]
+    notify  => Exec["systemd reload for ${_service_name}"],
+  }
+  exec { "systemd reload for ${_service_name}":
+    command     => '/usr/bin/systemctl daemon-reload',
+    refreshonly => true,
+    notify      => Service[$_service_name],
   }
   service { $_service_name:
     ensure => $_service_ensure,
-    enable => true,
+    enable => $_service_enabled,
   }
-
-  File["/lib/systemd/system/${_service_name}.service"] -> Service[$_service_name]
 }

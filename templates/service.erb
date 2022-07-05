@@ -5,6 +5,7 @@ After=network-online.target
 Wants=network-online.target
 
 [Service]
+<% if @max_open_files %>LimitNOFILE=<%= @max_open_files %><% end %>
 User=<%= @user %>
 Group=<%= @group %>
 ExecStart=<%= @bin_path %> <%= @name %> \

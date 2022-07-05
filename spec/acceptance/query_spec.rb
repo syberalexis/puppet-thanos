@@ -5,7 +5,7 @@ describe 'Check idempotence' do
     pp = <<-EOS
       class { 'thanos': }
       class { 'thanos::query':
-        stores => [
+        endpoints => [
           'sidecar:10902'
         ],
       }
