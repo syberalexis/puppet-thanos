@@ -1136,7 +1136,7 @@ Query selector labels that will be exposed in info endpoint.
 
 Default value: []
 
-##### `stores`
+##### `endpoints`
 
 Data type: `Array[String]`
 

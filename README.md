@@ -20,7 +20,7 @@
 ## Description
 
 This module automates the install of [Thanos](https://github.com/thanos-io/thanos) and it's components into a service.  
-Maximum tested version of Thanos : 0.16.0
+Maximum tested version of Thanos : 0.26.0
 
 ## Usage
 
@@ -31,7 +31,7 @@ For more information see [REFERENCE.md](REFERENCE.md).
 #### Puppet
 ```puppet
 class { 'thanos':
-  version => '0.16.0'
+  version => '0.26.0'
 }
 ```
 
@@ -40,7 +40,7 @@ class { 'thanos':
 include thanos
 ```
 ```yaml
-thanos::version: '0.16.0'
+thanos::version: '0.26.0'
 ```
 
 ### Thanos Sidecar
@@ -52,7 +52,7 @@ thanos::manage_sidecar: true
 ### Thanos Query
 ```yaml
 thanos::manage_query: true
-thanos::query::stores:
+thanos::query::endpoints:
   - 'sidecar:10901'
   - 'store:10901'
 ```
@@ -207,7 +207,7 @@ thanos::sidecar::grpc_address: '0.0.0.0:10901'
 thanos::sidecar::objstore_config_file: '/etc/thanos/storage.yaml'
 thanos::query::http_address: '0.0.0.0:10904'
 thanos::query::grpc_address: '0.0.0.0:10903'
-thanos::query::stores:
+thanos::query::endpoints:
   - 'localhost:10901'
   - 'localhost:10907'
 thanos::rule::http_address: '0.0.0.0:10906'

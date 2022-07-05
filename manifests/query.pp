@@ -77,8 +77,8 @@
 #    Still you will be able to query without deduplication using 'dedup=false' parameter.
 # @param selector_labels
 #  Query selector labels that will be exposed in info endpoint.
-# @param stores
-#  Addresses of statically configured store API servers. The scheme may be prefixed with 'dns+' or 'dnssrv+'
+# @param endpoints
+#  (Replace stores) Addresses of statically configured store API servers. The scheme may be prefixed with 'dns+' or 'dnssrv+'
 #    to detect store API servers through respective DNS lookups.
 # @param store_strict
 #  Addresses of only statically configured store API servers that are always used, even if the health check fails.
@@ -101,6 +101,9 @@
 # @param store_response_timeout
 #  If a Store doesn't send any data in this specified duration then a Store will be ignored and partial data will be
 #    returned if it's enabled. 0 disables timeout.
+# @param max_open_files
+#  Define how many open files the service is able to use
+#  In some cases, the default value (1024) needs to be increased
 # @param extra_params
 #  Parameters passed to the binary, ressently released in latest version of Thanos.
 # @example
@@ -110,6 +113,7 @@ class thanos::query (
   String                         $user                              = $thanos::user,
   String                         $group                             = $thanos::group,
   Stdlib::Absolutepath           $bin_path                          = $thanos::bin_path,
+  Optional[Integer]              $max_open_files                    = undef,
   # Binary Parameters
   Thanos::Log_level              $log_level                         = 'info',
   Enum['logfmt', 'json']         $log_format                        = 'logfmt',
@@ -136,7 +140,7 @@ class thanos::query (
   Integer                        $query_max_concurrent_select       = 4,
   Optional[String]               $query_replica_label               = undef,
   Array[String]                  $selector_labels                   = [],
-  Array[String]                  $stores                            = [],
+  Array[String]                  $endpoints                         = [],
   Optional[String]               $store_strict                      = undef,
   Array[Stdlib::Absolutepath]    $store_sd_files                    = [],
   String                         $store_sd_interval                 = '5m',
@@ -155,11 +159,12 @@ class thanos::query (
   }
 
   thanos::resources::service { 'query':
-    ensure       => $_service_ensure,
-    bin_path     => $bin_path,
-    user         => $user,
-    group        => $group,
-    params       => {
+    ensure         => $_service_ensure,
+    bin_path       => $bin_path,
+    user           => $user,
+    group          => $group,
+    max_open_files => $max_open_files,
+    params         => {
       'log.level'                         => $log_level,
       'log.format'                        => $log_format,
       'tracing.config-file'               => $tracing_config_file,
@@ -185,7 +190,7 @@ class thanos::query (
       'query.max-concurrent-select'       => $query_max_concurrent_select,
       'query.replica-label'               => $query_replica_label,
       'selector-label'                    => $selector_labels,
-      'store'                             => $stores,
+      'endpoint'                          => $endpoints,
       'store-strict'                      => $store_strict,
       'store.sd-files'                    => $store_sd_files,
       'store.sd-interval'                 => $store_sd_interval,
@@ -196,6 +201,6 @@ class thanos::query (
       'query.default-evaluation-interval' => $query_default_evaluation_interval,
       'store.response-timeout'            => $store_response_timeout,
     },
-    extra_params => $extra_params,
+    extra_params   => $extra_params,
   }
 }

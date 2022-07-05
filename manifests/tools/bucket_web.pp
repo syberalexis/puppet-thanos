@@ -60,6 +60,7 @@ class thanos::tools::bucket_web (
   String                         $refresh              = '30m',
   String                         $timeout              = '5m',
   String                         $label                = '',
+  Optional[Integer]              $max_open_files       = undef,
   # Extra parametes
   Hash                           $extra_params         = {},
 ) {
@@ -69,12 +70,13 @@ class thanos::tools::bucket_web (
   }
 
   thanos::resources::service { 'bucket-web':
-    ensure       => $_service_ensure,
-    name         => 'tools bucket web',
-    bin_path     => $bin_path,
-    user         => $user,
-    group        => $group,
-    params       => {
+    ensure         => $_service_ensure,
+    name           => 'tools bucket web',
+    bin_path       => $bin_path,
+    user           => $user,
+    group          => $group,
+    max_open_files => $max_open_files,
+    params         => {
       'log.level'            => $log_level,
       'log.format'           => $log_format,
       'tracing.config-file'  => $tracing_config_file,
@@ -87,6 +89,6 @@ class thanos::tools::bucket_web (
       'timeout'              => $timeout,
       'label'                => $label,
     },
-    extra_params => $extra_params,
+    extra_params   => $extra_params,
   }
 }
