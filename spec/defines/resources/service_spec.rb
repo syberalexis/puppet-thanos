@@ -26,6 +26,7 @@ describe 'thanos::resources::service' do
           ).with_content(
             "# THIS FILE IS MANAGED BY PUPPET
 [Unit]
+
 Description=Thanos component module service
 After=network-online.target
 Wants=network-online.target
