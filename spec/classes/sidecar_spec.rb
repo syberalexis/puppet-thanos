@@ -38,8 +38,6 @@ describe 'thanos::sidecar' do
             'grpc-server-tls-client-ca'             => nil,
             'prometheus.url'                        => 'http://localhost:9090',
             'prometheus.ready_timeout'              => '10m',
-            'receive.connection-pool-size'          => nil,
-            'receive.connection-pool-size-per-host' => 100,
             'tsdb.path'                             => '/opt/prometheus/data',
             'reloader.config-file'                  => nil,
             'reloader.config-envsubst-file'         => nil,
