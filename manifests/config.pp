@@ -43,19 +43,19 @@ class thanos::config (
 
   if $manage_storage_config {
     thanos::config::storage { $storage_config_file:
-      * => $storage_config
+      * => $storage_config,
     }
   }
 
   if $manage_tracing_config {
     thanos::config::tracing { $tracing_config_file:
-      * => $tracing_config
+      * => $tracing_config,
     }
   }
 
   if $manage_index_cache_config {
     thanos::config::index_cache { $index_cache_config_file:
-      * => $index_cache_config
+      * => $index_cache_config,
     }
   }
 }

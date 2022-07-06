@@ -10,7 +10,7 @@ before_install:
 script:
 - bundle exec rake $CHECK
 rvm:
-- 2.5.3
+- 2.7.0
 stages:
 - static
 - spec
@@ -22,14 +22,14 @@ jobs:
   include:
   - stage: static
     bundler_args: "--without system_tests"
-    env: CHECK="check:symlinks check:git_ignore check:dot_underscore check:test_file rubocop syntax lint metadata_lint"
+    env: CHECK="validate lint check rubocop"
 
   - stage: spec
     bundler_args: "--without system_tests"
-    env: PUPPET_GEM_VERSION="~> 6.0" CHECK="parallel_spec spec/classes spec/defines"
+    env: PUPPET_GEM_VERSION="~> 7.0" CHECK="parallel_spec spec/classes spec/defines"
 
   - stage: acceptance
-    env: PUPPET_INSTALL_TYPE=agent BEAKER_PUPPET_COLLECTION="puppet5" BEAKER_setfile=centos7-64
+    env: PUPPET_INSTALL_TYPE=agent BEAKER_PUPPET_COLLECTION="puppet7" BEAKER_setfile=centos7-64
       BEAKER_debug=true BEAKER_HYPERVISOR=docker CHECK="beaker"
     services: docker
   - stage: acceptance
@@ -38,7 +38,7 @@ jobs:
     services: docker
 
   - stage: acceptance
-    env: PUPPET_INSTALL_TYPE=agent BEAKER_PUPPET_COLLECTION="puppet5" BEAKER_setfile=centos8-64
+    env: PUPPET_INSTALL_TYPE=agent BEAKER_PUPPET_COLLECTION="puppet7" BEAKER_setfile=centos8-64
       BEAKER_debug=true BEAKER_HYPERVISOR=docker CHECK="beaker"
     services: docker
   - stage: acceptance
@@ -47,7 +47,7 @@ jobs:
     services: docker
 
   - stage: acceptance
-    env: PUPPET_INSTALL_TYPE=agent BEAKER_PUPPET_COLLECTION="puppet5" BEAKER_setfile=debian9-64
+    env: PUPPET_INSTALL_TYPE=agent BEAKER_PUPPET_COLLECTION="puppet7" BEAKER_setfile=debian9-64
       BEAKER_debug=true BEAKER_HYPERVISOR=docker CHECK="beaker"
     services: docker
   - stage: acceptance
@@ -56,7 +56,7 @@ jobs:
     services: docker
 
   - stage: acceptance
-    env: PUPPET_INSTALL_TYPE=agent BEAKER_PUPPET_COLLECTION="puppet5" BEAKER_setfile=debian10-64
+    env: PUPPET_INSTALL_TYPE=agent BEAKER_PUPPET_COLLECTION="puppet7" BEAKER_setfile=debian10-64
       BEAKER_debug=true BEAKER_HYPERVISOR=docker CHECK="beaker"
     services: docker
   - stage: acceptance
@@ -65,16 +65,21 @@ jobs:
     services: docker
 
   - stage: acceptance
-    env: PUPPET_INSTALL_TYPE=agent BEAKER_PUPPET_COLLECTION="puppet5" BEAKER_setfile=fedora29-64
+    env: PUPPET_INSTALL_TYPE=agent BEAKER_PUPPET_COLLECTION="puppet7" BEAKER_setfile=debian11-64
       BEAKER_debug=true BEAKER_HYPERVISOR=docker CHECK="beaker"
     services: docker
+  - stage: acceptance
+    env: PUPPET_INSTALL_TYPE=agent BEAKER_PUPPET_COLLECTION="puppet6" BEAKER_setfile=debian11-64
+      BEAKER_debug=true BEAKER_HYPERVISOR=docker CHECK="beaker"
+    services: docker
+
   - stage: acceptance
     env: PUPPET_INSTALL_TYPE=agent BEAKER_PUPPET_COLLECTION="puppet6" BEAKER_setfile=fedora29-64
       BEAKER_debug=true BEAKER_HYPERVISOR=docker CHECK="beaker"
     services: docker
 
   - stage: acceptance
-    env: PUPPET_INSTALL_TYPE=agent BEAKER_PUPPET_COLLECTION="puppet5" BEAKER_setfile=fedora30-64
+    env: PUPPET_INSTALL_TYPE=agent BEAKER_PUPPET_COLLECTION="puppet7" BEAKER_setfile=fedora30-64
       BEAKER_debug=true BEAKER_HYPERVISOR=docker CHECK="beaker"
     services: docker
   - stage: acceptance
@@ -83,7 +88,7 @@ jobs:
     services: docker
 
   - stage: acceptance
-    env: PUPPET_INSTALL_TYPE=agent BEAKER_PUPPET_COLLECTION="puppet5" BEAKER_setfile=fedora31-64
+    env: PUPPET_INSTALL_TYPE=agent BEAKER_PUPPET_COLLECTION="puppet7" BEAKER_setfile=fedora31-64
       BEAKER_debug=true BEAKER_HYPERVISOR=docker CHECK="beaker"
     services: docker
   - stage: acceptance
@@ -92,11 +97,16 @@ jobs:
     services: docker
 
   - stage: acceptance
-    env: PUPPET_INSTALL_TYPE=agent BEAKER_PUPPET_COLLECTION="puppet5" BEAKER_setfile=ubuntu1804-64
+    env: PUPPET_INSTALL_TYPE=agent BEAKER_PUPPET_COLLECTION="puppet7" BEAKER_setfile=ubuntu1804-64
       BEAKER_debug=true BEAKER_HYPERVISOR=docker CHECK="beaker"
     services: docker
   - stage: acceptance
     env: PUPPET_INSTALL_TYPE=agent BEAKER_PUPPET_COLLECTION="puppet6" BEAKER_setfile=ubuntu1804-64
+      BEAKER_debug=true BEAKER_HYPERVISOR=docker CHECK="beaker"
+    services: docker
+
+  - stage: acceptance
+    env: PUPPET_INSTALL_TYPE=agent BEAKER_PUPPET_COLLECTION="puppet7" BEAKER_setfile=ubuntu2004-64
       BEAKER_debug=true BEAKER_HYPERVISOR=docker CHECK="beaker"
     services: docker
   - stage: acceptance

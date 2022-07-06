@@ -259,8 +259,8 @@ This project contains tests for [rspec-puppet](http://rspec-puppet.com/).
 
 Quickstart to run all linter and unit tests:
 ```bash
-bundle install --path .vendor/
-bundle exec rake test
+bundle install
+bundle exec rake validate
 ```
 Or
 ```bash

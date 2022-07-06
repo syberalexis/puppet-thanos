@@ -39,6 +39,9 @@
 #  Timeout to download metadata from remote storage
 # @param label
 #  Prometheus label to use as timeline title
+# @param max_open_files
+#  Define how many open files the service is able to use
+#  In some cases, the default value (1024) needs to be increased
 # @param extra_params
 #  Parameters passed to the binary, ressently released in latest version of Thanos.
 # @example
@@ -55,11 +58,11 @@ class thanos::tools::bucket_web (
   Optional[Stdlib::Absolutepath] $objstore_config_file = $thanos::storage_config_file,
   String                         $http_address         = '0.0.0.0:10902',
   String                         $http_grace_period    = '2m',
-  String                         $web_external_prefix  = '',
-  String                         $web_prefix_header    = '',
+  Optional[String]               $web_external_prefix  = undef,
+  Optional[String]               $web_prefix_header    = undef,
   String                         $refresh              = '30m',
   String                         $timeout              = '5m',
-  String                         $label                = '',
+  Optional[String]               $label                = undef,
   Optional[Integer]              $max_open_files       = undef,
   # Extra parametes
   Hash                           $extra_params         = {},
