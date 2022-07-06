@@ -142,7 +142,7 @@ WantedBy=multi-user.target
 
           is_expected.to contain_service('thanos-component').with(
             'ensure' => 'stopped',
-            'enable' => true,
+            'enable' => false,
           )
         }
       end
@@ -167,7 +167,7 @@ WantedBy=multi-user.target
 
           is_expected.to contain_service('thanos-component').with(
             'ensure' => 'stopped',
-            'enable' => true,
+            'enable' => false,
           )
         }
       end
