@@ -26,12 +26,12 @@ describe 'thanos::resources::service' do
           ).with_content(
             "# THIS FILE IS MANAGED BY PUPPET
 [Unit]
-
 Description=Thanos component module service
 After=network-online.target
 Wants=network-online.target
 
 [Service]
+
 User=thanos
 Group=thanos
 ExecStart=/usr/local/bin/thanos component \\
@@ -76,12 +76,12 @@ WantedBy=multi-user.target
           ).with_content(
             "# THIS FILE IS MANAGED BY PUPPET
 [Unit]
-
 Description=Thanos component module service
 After=network-online.target
 Wants=network-online.target
 
 [Service]
+
 User=thanos
 Group=thanos
 ExecStart=/usr/local/bin/thanos component \\
@@ -123,12 +123,12 @@ WantedBy=multi-user.target
           ).with_content(
             "# THIS FILE IS MANAGED BY PUPPET
 [Unit]
-
 Description=Thanos component module service
 After=network-online.target
 Wants=network-online.target
 
 [Service]
+
 User=thanos
 Group=thanos
 ExecStart=/usr/local/bin/thanos component \\
@@ -200,12 +200,12 @@ WantedBy=multi-user.target
           ).with_content(
             "# THIS FILE IS MANAGED BY PUPPET
 [Unit]
-
 Description=Thanos component module service
 After=network-online.target
 Wants=network-online.target
 
 [Service]
+
 User=thanos
 Group=thanos
 ExecStart=/usr/local/bin/thanos component \\
