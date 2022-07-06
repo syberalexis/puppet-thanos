@@ -26,23 +26,21 @@ environment:
       PUPPET_GEM_VERSION: ~> 6.0
       RUBY_VERSION: 25-x64
       CHECK: parallel_spec
-matrix:
-  fast_finish: true
+
 install:
   - set PATH=C:\Ruby%RUBY_VERSION%\bin;%PATH%
+  - SET LOG_SPEC_ORDER=true
+  - SET COVERAGE=yes
   - bundle install --jobs 4 --retry 2 --without system_tests
-  - type Gemfile.lock
+
 build: off
-test_script:
-  - bundle exec puppet -V
+
+before_test:
   - ruby -v
   - gem -v
   - bundle -v
+  - type Gemfile.lock
+
+test_script:
   - bundle exec rake %CHECK%
-notifications:
-  - provider: Email
-    to:
-      - nobody@nowhere.com
-    on_build_success: false
-    on_build_failure: false
-    on_build_status_changed: false
+
