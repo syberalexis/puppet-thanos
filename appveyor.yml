@@ -16,8 +16,8 @@ init:
 environment:
   matrix:
     -
-      RUBY_VERSION: 24-x64
-      CHECK: syntax lint metadata_lint check:symlinks check:git_ignore check:dot_underscore check:test_file rubocop
+      RUBY_VERSION: 25-x64
+      CHECK: validate lint check rubocop
     -
       PUPPET_GEM_VERSION: ~> 6.0
       RUBY_VERSION: 25

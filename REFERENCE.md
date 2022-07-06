@@ -58,7 +58,7 @@ The following parameters are available in the `thanos` class:
 * [`manage_rule`](#manage_rule)
 * [`manage_store`](#manage_store)
 * [`manage_compact`](#manage_compact)
-* [`manage_receiver`](#manage_receiver)
+* [`manage_receive`](#manage_receive)
 * [`manage_tools_bucket_web`](#manage_tools_bucket_web)
 * [`install_method`](#install_method)
 * [`package_ensure`](#package_ensure)
@@ -87,7 +87,6 @@ The following parameters are available in the `thanos` class:
 * [`manage_index_cache_config`](#manage_index_cache_config)
 * [`index_cache_config_file`](#index_cache_config_file)
 * [`index_cache_config`](#index_cache_config)
-* [`manage_receive`](#manage_receive)
 
 ##### <a name="version"></a>`version`
 
@@ -151,9 +150,13 @@ Whether to create a service to run Compact.
 
 Default value: ``false``
 
-##### <a name="manage_receiver"></a>`manage_receiver`
+##### <a name="manage_receive"></a>`manage_receive`
+
+Data type: `Boolean`
 
 Whether to create a service to run Receiver.
+
+Default value: ``false``
 
 ##### <a name="manage_tools_bucket_web"></a>`manage_tools_bucket_web`
 
@@ -384,14 +387,6 @@ Index cache configuration.
    config: index cache typed configuration in Hash[String, Data]
 
 Default value: `{}`
-
-##### <a name="manage_receive"></a>`manage_receive`
-
-Data type: `Boolean`
-
-
-
-Default value: ``false``
 
 ### <a name="thanoscompact"></a>`thanos::compact`
 
@@ -2977,8 +2972,8 @@ The following parameters are available in the `thanos::tools::bucket_web` class:
 * [`refresh`](#refresh)
 * [`timeout`](#timeout)
 * [`label`](#label)
-* [`extra_params`](#extra_params)
 * [`max_open_files`](#max_open_files)
+* [`extra_params`](#extra_params)
 
 ##### <a name="ensure"></a>`ensure`
 
@@ -3062,17 +3057,17 @@ Default value: `'2m'`
 
 ##### <a name="web_external_prefix"></a>`web_external_prefix`
 
-Data type: `String`
+Data type: `Optional[String]`
 
 Static prefix for all HTML links and redirect URLs in the bucket web UI interface.
 Actual endpoints are still served on / or the web.route-prefix.
 This allows thanos bucket web UI to be served behind a reverse proxy that strips a URL sub-path.
 
-Default value: `''`
+Default value: ``undef``
 
 ##### <a name="web_prefix_header"></a>`web_prefix_header`
 
-Data type: `String`
+Data type: `Optional[String]`
 
 Name of HTTP request header used for dynamic prefixing of UI links and redirects.
 This option is ignored if web.external-prefix argument is set.
@@ -3081,7 +3076,7 @@ The --web.prefix-header=X-Forwarded-Prefix option can be useful, for example, if
   reverse proxy with PathPrefixStrip option enabled, which sends the stripped prefix value in X-Forwarded-Prefix header.
 This allows thanos UI to be served on a sub-path.
 
-Default value: `''`
+Default value: ``undef``
 
 ##### <a name="refresh"></a>`refresh`
 
@@ -3101,11 +3096,20 @@ Default value: `'5m'`
 
 ##### <a name="label"></a>`label`
 
-Data type: `String`
+Data type: `Optional[String]`
 
 Prometheus label to use as timeline title
 
-Default value: `''`
+Default value: ``undef``
+
+##### <a name="max_open_files"></a>`max_open_files`
+
+Data type: `Optional[Integer]`
+
+Define how many open files the service is able to use
+In some cases, the default value (1024) needs to be increased
+
+Default value: ``undef``
 
 ##### <a name="extra_params"></a>`extra_params`
 
@@ -3114,14 +3118,6 @@ Data type: `Hash`
 Parameters passed to the binary, ressently released in latest version of Thanos.
 
 Default value: `{}`
-
-##### <a name="max_open_files"></a>`max_open_files`
-
-Data type: `Optional[Integer]`
-
-
-
-Default value: ``undef``
 
 ## Defined types
 

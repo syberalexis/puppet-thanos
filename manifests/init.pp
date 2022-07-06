@@ -18,7 +18,7 @@
 #  Whether to create a service to run Store.
 # @param manage_compact
 #  Whether to create a service to run Compact.
-# @param manage_receiver
+# @param manage_receive
 #  Whether to create a service to run Receiver.
 # @param manage_tools_bucket_web
 #  Whether to create a service to run Bucket Web interface.
@@ -146,11 +146,11 @@ class thanos (
     Service["thanos-${key}"]
   }
 
-  case $facts['architecture'] {
+  case $facts['os']['architecture'] {
     'x86_64', 'amd64': { $real_arch = 'amd64' }
     'aarch64':         { $real_arch = 'arm64' }
     default:           {
-      fail("Unsupported kernel architecture: ${facts['architecture']}")
+      fail("Unsupported kernel architecture: ${facts['os']['architecture']}")
     }
   }
 

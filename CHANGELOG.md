@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## Release 1.3.0
+
+**Features**
+
+- Support Thanos version 0.26.0
+
+**Bug Fixes**
+
+- Fix : systemctl daemon-reload after service file changed
+
 ## Release 1.2.0
 
 **Features**

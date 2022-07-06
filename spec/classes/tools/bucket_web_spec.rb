@@ -32,11 +32,11 @@ describe 'thanos::tools::bucket_web' do
             'objstore.config-file' => '/etc/thanos/storage.yaml',
             'http-address'         => '0.0.0.0:10902',
             'http-grace-period'    => '2m',
-            'web.external-prefix'  => '',
-            'web.prefix-header'    => '',
+            'web.external-prefix'  => nil,
+            'web.prefix-header'    => nil,
             'refresh'              => '30m',
             'timeout'              => '5m',
-            'label'                => '',
+            'label'                => nil,
           },
         )
       }

@@ -109,11 +109,11 @@ class thanos::install (
   }
 
   if $manage_user {
-    ensure_resource('user', [ $user ], {
-      ensure => 'present',
-      system => true,
-      groups => concat([$group], $extra_groups),
-      shell  => $usershell,
+    ensure_resource('user', [$user], {
+        ensure => 'present',
+        system => true,
+        groups => concat([$group], $extra_groups),
+        shell  => $usershell,
     })
 
     if $manage_group {
@@ -121,9 +121,9 @@ class thanos::install (
     }
   }
   if $manage_group {
-    ensure_resource('group', [ $group ],{
-      ensure => 'present',
-      system => true,
+    ensure_resource('group', [$group], {
+        ensure => 'present',
+        system => true,
     })
   }
 
