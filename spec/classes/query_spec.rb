@@ -49,7 +49,7 @@ describe 'thanos::query' do
             'query.max-concurrent-select'       => 4,
             'query.replica-label'               => nil,
             'selector-label'                    => [],
-            'store'                             => [],
+            'endpoint'                          => [],
             'store-strict'                      => nil,
             'store.sd-files'                    => [],
             'store.sd-interval'                 => '5m',
