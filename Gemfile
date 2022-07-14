@@ -26,6 +26,7 @@ group :development do
   gem "puppet-module-win-dev-r#{minor_version}", '~> 1.0',       require: false, platforms: [:mswin, :mingw, :x64_mingw]
   gem "voxpupuli-puppet-lint-plugins", '>= 3.0',                 require: false
   gem 'rubocop-i18n',                                            require: false
+  gem 'pdk',                                                     require: false
 end
 group :system_tests do
   gem "puppet-module-posix-system-r#{minor_version}", '~> 1.0', require: false, platforms: [:ruby]
