@@ -9,6 +9,8 @@
 #    One of ['S3', 'GCS', 'AZURE', 'SWIFT', 'COS', 'ALIYUNOSS', 'FILESYSTEM']
 # @param config
 #  Configuration to typed storage.
+# @param prefix 
+#  Set the prefix for to be used on the storage
 # @example
 #   thanos::config::storage { '/etc/thanos/storage.yaml':
 #     ensure => 'present',
@@ -21,6 +23,7 @@ define thanos::config::storage (
   Enum['present', 'absent'] $ensure,
   Thanos::Storage_type      $type,
   Hash[String, Data]        $config,
+  String                    $prefix = '',
 ) {
   $_ensure = $ensure ? {
     'present' => 'file',
@@ -29,6 +32,7 @@ define thanos::config::storage (
 
   $configs = {
     type   => $type,
+    prefix => $prefix,
     config => $config,
   }
 
