@@ -3192,6 +3192,7 @@ The following parameters are available in the `thanos::config::storage` defined 
 * [`ensure`](#ensure)
 * [`type`](#type)
 * [`config`](#config)
+* [`prefix`](#prefix)
 
 ##### <a name="ensure"></a>`ensure`
 
@@ -3211,6 +3212,14 @@ Type of Storage configurarion.
 Data type: `Hash[String, Data]`
 
 Configuration to typed storage.
+
+##### <a name="prefix"></a>`prefix`
+
+Data type: `String`
+
+Set the prefix for to be used on the storage
+
+Default value: `''`
 
 ### <a name="thanosconfigtracing"></a>`thanos::config::tracing`
 
