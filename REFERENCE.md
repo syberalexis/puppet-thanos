@@ -40,7 +40,7 @@ Init class of Thanos module. It can installes Thanos binaries and manages compon
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 include thanos
@@ -394,7 +394,7 @@ This class install Compact as service to continuously compacts blocks in an obje
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 include thanos::compact
@@ -422,7 +422,6 @@ The following parameters are available in the `thanos::compact` class:
 * [`wait`](#wait)
 * [`wait_interval`](#wait_interval)
 * [`downsampling_disable`](#downsampling_disable)
-* [`block_sync_concurrency`](#block_sync_concurrency)
 * [`block_viewer_global_sync_block_interval`](#block_viewer_global_sync_block_interval)
 * [`compact_concurrency`](#compact_concurrency)
 * [`delete_delay`](#delete_delay)
@@ -579,14 +578,6 @@ Disables downsampling. This is not recommended as querying long time ranges with
 
 Default value: ``false``
 
-##### <a name="block_sync_concurrency"></a>`block_sync_concurrency`
-
-Data type: `Integer`
-
-Number of goroutines to use when syncing block metadata from object storage.
-
-Default value: `20`
-
 ##### <a name="block_viewer_global_sync_block_interval"></a>`block_viewer_global_sync_block_interval`
 
 Data type: `String`
@@ -670,7 +661,7 @@ This class install and manage configuration files like object store and tracing.
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 include thanos::config
@@ -774,7 +765,7 @@ This class install Thanos requirements and binaries.
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 include thanos::install
@@ -971,7 +962,7 @@ This class install Query as service query node exposing PromQL enabled Query API
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 include thanos::query
@@ -1379,7 +1370,7 @@ This class install Query Frontend as service that can be put in front of Thanos 
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 include thanos::query
@@ -1598,7 +1589,7 @@ This class install Receiver as service that implements the Prometheus Remote Wri
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 include thanos::downsample
@@ -1941,7 +1932,7 @@ This class install Rule as service ruler evaluating Prometheus rules against giv
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 include thanos::rule
@@ -2352,7 +2343,7 @@ This class install Sidecar as service sidecar for Prometheus server.
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 include thanos::sidecar
@@ -2617,7 +2608,7 @@ This class install Store as service store node giving access to blocks in a buck
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 include thanos::store
@@ -2947,7 +2938,7 @@ This class install Web interface for remote storage bucket.
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 include thanos::bucket_web
@@ -3127,7 +3118,7 @@ Manage Index cache configuration file.
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 thanos::config::index_cache { '/etc/thanos/index_cache.yaml':
@@ -3173,7 +3164,7 @@ Manage Storage configuration file.
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 thanos::config::storage { '/etc/thanos/storage.yaml':
@@ -3227,7 +3218,7 @@ Manage Tracing configuration file
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 thanos::config::tracing { '/etc/thanos/tracing.yaml':
@@ -3270,7 +3261,7 @@ This defined type create component's service.
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 thanos::resources::service { 'component_name':
