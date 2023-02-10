@@ -39,7 +39,6 @@ describe 'thanos::compact' do
             'wait'                                    => false,
             'wait-interval'                           => '5m',
             'downsampling.disable'                    => false,
-            'block-sync-concurrency'                  => 20,
             'block-viewer.global.sync-block-interval' => '1m',
             'compact.concurrency'                     => 1,
             'delete-delay'                            => '48h',
