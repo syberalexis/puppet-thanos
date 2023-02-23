@@ -41,8 +41,6 @@
 # @param downsampling_disable
 #  Disables downsampling. This is not recommended as querying long time ranges without non-downsampled data is
 #    not efficient and useful e.g it is not possible to render all samples for a human eye anyway
-# @param block_sync_concurrency
-#  Number of goroutines to use when syncing block metadata from object storage.
 # @param block_viewer_global_sync_block_interval
 #  Repeat interval for syncing the blocks between local and remote view for /global Block Viewer UI.
 # @param compact_concurrency
@@ -94,7 +92,6 @@ class thanos::compact (
   Boolean                        $wait                                    = false,
   String                         $wait_interval                           = '5m',
   Boolean                        $downsampling_disable                    = false,
-  Integer                        $block_sync_concurrency                  = 20,
   String                         $block_viewer_global_sync_block_interval = '1m',
   Integer                        $compact_concurrency                     = 1,
   String                         $delete_delay                            = '48h',
@@ -130,7 +127,6 @@ class thanos::compact (
       'wait'                                    => $wait,
       'wait-interval'                           => $wait_interval,
       'downsampling.disable'                    => $downsampling_disable,
-      'block-sync-concurrency'                  => $block_sync_concurrency,
       'block-viewer.global.sync-block-interval' => $block_viewer_global_sync_block_interval,
       'compact.concurrency'                     => $compact_concurrency,
       'delete-delay'                            => $delete_delay,
