@@ -43,7 +43,7 @@ describe 'thanos::receive' do
             'remote-write.client-tls-key'             => nil,
             'remote-write.client-tls-ca'              => nil,
             'remote-write.client-server-name'         => nil,
-            'data-dir'                                => nil,
+            'tsdb.path'                               => nil,
             'objstore.config-file'                    => '/etc/thanos/storage.yaml',
             'tsdb.retention'                          => '15d',
             'receive.hashrings-file'                  => nil,

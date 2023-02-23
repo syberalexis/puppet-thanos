@@ -46,8 +46,8 @@
 #  TLS CA Certificates to use to verify servers.
 # @param remote_write_client_server_name
 #  Server name to verify the hostname on the returned gRPC certificates. See https://tools.ietf.org/html/rfc4366#section-3.1
-# @param data_dir
-#  Data directory in which to cache blocks and process downsamplings.
+# @param tsdb_path
+#  Data directory of TSDB.
 # @param objstore_config_file
 #  Path to YAML file that contains object store configuration. See format details: https://thanos.io/storage.md/#configuration
 # @param tsdb_retention
@@ -101,7 +101,7 @@ class thanos::receive (
   Optional[Stdlib::Absolutepath] $remote_write_client_tls_key             = undef,
   Optional[Stdlib::Absolutepath] $remote_write_client_tls_ca              = undef,
   Optional[String]               $remote_write_client_server_name         = undef,
-  Optional[Stdlib::Absolutepath] $data_dir                                = undef,
+  Optional[Stdlib::Absolutepath] $tsdb_path                               = undef,
   Optional[Stdlib::Absolutepath] $objstore_config_file                    = $thanos::storage_config_file,
   String                         $tsdb_retention                          = '15d',
   Optional[Stdlib::Absolutepath] $receive_hashrings_file                  = undef,
@@ -146,7 +146,7 @@ class thanos::receive (
       'remote-write.client-tls-key'             => $remote_write_client_tls_key,
       'remote-write.client-tls-ca'              => $remote_write_client_tls_ca,
       'remote-write.client-server-name'         => $remote_write_client_server_name,
-      'data-dir'                                => $data_dir,
+      'tsdb.path'                               => $tsdb_path,
       'objstore.config-file'                    => $objstore_config_file,
       'tsdb.retention'                          => $tsdb_retention,
       'receive.hashrings-file'                  => $receive_hashrings_file,

@@ -1621,7 +1621,7 @@ The following parameters are available in the `thanos::receive` class:
 * [`remote_write_client_tls_key`](#remote_write_client_tls_key)
 * [`remote_write_client_tls_ca`](#remote_write_client_tls_ca)
 * [`remote_write_client_server_name`](#remote_write_client_server_name)
-* [`data_dir`](#data_dir)
+* [`tsdb_path`](#tsdb_path)
 * [`objstore_config_file`](#objstore_config_file)
 * [`tsdb_retention`](#tsdb_retention)
 * [`receive_hashrings_file`](#receive_hashrings_file)
@@ -1812,11 +1812,11 @@ Server name to verify the hostname on the returned gRPC certificates. See https:
 
 Default value: ``undef``
 
-##### <a name="data_dir"></a>`data_dir`
+##### <a name="tsdb_path"></a>`tsdb_path`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
-Data directory in which to cache blocks and process downsamplings.
+Data directory of TSDB.
 
 Default value: ``undef``
 
