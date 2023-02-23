@@ -73,6 +73,9 @@
 # @param tsdb_no_lockfile
 #  Do not create lockfile in TSDB data directory.
 #    In any case, the lockfiles will be deleted on next startup.
+# @param labels
+#  External labels to announce.
+#    This flag will be removed in the future when handling multiple tsdb instances is added.
 # @param extra_params
 #  Parameters passed to the binary, ressently released in latest version of Thanos.
 # @example
@@ -114,6 +117,7 @@ class thanos::receive (
   Integer                        $receive_replication_factor              = 1,
   Boolean                        $tsdb_wal_compression                    = false,
   Boolean                        $tsdb_no_lockfile                        = false,
+  Array[String]                  $labels                                  = [],
   # Extra parametes
   Hash                           $extra_params                            = {},
 ) {
@@ -159,6 +163,7 @@ class thanos::receive (
       'receive.replication-factor'              => $receive_replication_factor,
       'tsdb.wal-compression'                    => $tsdb_wal_compression,
       'tsdb.no-lockfile'                        => $tsdb_no_lockfile,
+      'label'                                   => $labels,
     },
     extra_params => $extra_params,
   }

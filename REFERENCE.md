@@ -1634,6 +1634,7 @@ The following parameters are available in the `thanos::receive` class:
 * [`receive_replication_factor`](#receive_replication_factor)
 * [`tsdb_wal_compression`](#tsdb_wal_compression)
 * [`tsdb_no_lockfile`](#tsdb_no_lockfile)
+* [`labels`](#labels)
 * [`extra_params`](#extra_params)
 
 ##### <a name="ensure"></a>`ensure`
@@ -1916,6 +1917,15 @@ Do not create lockfile in TSDB data directory.
   In any case, the lockfiles will be deleted on next startup.
 
 Default value: ``false``
+
+##### <a name="labels"></a>`labels`
+
+Data type: `Array[String]`
+
+External labels to announce. 
+  This flag will be removed in the future when handling multiple tsdb instances is added.
+
+Default value: `[]`
 
 ##### <a name="extra_params"></a>`extra_params`
 

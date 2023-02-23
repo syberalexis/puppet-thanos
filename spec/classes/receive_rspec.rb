@@ -56,6 +56,7 @@ describe 'thanos::receive' do
             'receive.replication-factor'              => 1,
             'tsdb.wal-compression'                    => false,
             'tsdb.no-lockfile'                        => false,
+            'label'                                   => [],
           },
         )
       }
