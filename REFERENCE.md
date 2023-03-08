@@ -1621,7 +1621,7 @@ The following parameters are available in the `thanos::receive` class:
 * [`remote_write_client_tls_key`](#remote_write_client_tls_key)
 * [`remote_write_client_tls_ca`](#remote_write_client_tls_ca)
 * [`remote_write_client_server_name`](#remote_write_client_server_name)
-* [`data_dir`](#data_dir)
+* [`tsdb_path`](#tsdb_path)
 * [`objstore_config_file`](#objstore_config_file)
 * [`tsdb_retention`](#tsdb_retention)
 * [`receive_hashrings_file`](#receive_hashrings_file)
@@ -1634,6 +1634,7 @@ The following parameters are available in the `thanos::receive` class:
 * [`receive_replication_factor`](#receive_replication_factor)
 * [`tsdb_wal_compression`](#tsdb_wal_compression)
 * [`tsdb_no_lockfile`](#tsdb_no_lockfile)
+* [`labels`](#labels)
 * [`extra_params`](#extra_params)
 
 ##### <a name="ensure"></a>`ensure`
@@ -1812,11 +1813,11 @@ Server name to verify the hostname on the returned gRPC certificates. See https:
 
 Default value: ``undef``
 
-##### <a name="data_dir"></a>`data_dir`
+##### <a name="tsdb_path"></a>`tsdb_path`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
-Data directory in which to cache blocks and process downsamplings.
+Data directory of TSDB.
 
 Default value: ``undef``
 
@@ -1916,6 +1917,15 @@ Do not create lockfile in TSDB data directory.
   In any case, the lockfiles will be deleted on next startup.
 
 Default value: ``false``
+
+##### <a name="labels"></a>`labels`
+
+Data type: `Array[String]`
+
+External labels to announce. 
+  This flag will be removed in the future when handling multiple tsdb instances is added.
+
+Default value: `[]`
 
 ##### <a name="extra_params"></a>`extra_params`
 
