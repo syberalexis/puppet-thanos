@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## Release 1.5.0
+
+**Features**
+
+- #37 : Remove unsed parameter block_sync_concurrency in Thanos Compactor
+- #38 : fix receiver tsdb.path var name and add labels flag
+- #40 : increase puppet-archive dependency to < 7.0.0
+
 ## Release 1.4.0
 
 **Features**
