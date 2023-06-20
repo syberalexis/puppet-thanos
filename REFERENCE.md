@@ -1549,7 +1549,7 @@ Default value: ``false``
 
 ##### <a name="query_frontend_log_queries_longer_than"></a>`query_frontend_log_queries_longer_than`
 
-Data type: `Integer`
+Data type: `String`
 
 Log queries that are slower than the specified duration. Set to 0 to disable. Set to < 0 to enable on all queries.
 
