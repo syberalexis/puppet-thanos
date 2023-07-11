@@ -106,6 +106,8 @@
 #  In some cases, the default value (1024) needs to be increased
 # @param extra_params
 #  Parameters passed to the binary, ressently released in latest version of Thanos.
+# @param env_vars
+#  Environment variables passed during startup. Useful for example for ELASTIC_APM tracing integration.
 # @example
 #   include thanos::query
 class thanos::query (
@@ -152,6 +154,7 @@ class thanos::query (
   String                         $store_response_timeout            = '0ms',
   # Extra parametes
   Hash                           $extra_params                      = {},
+  Array                          $env_vars                          = [],
 ) {
   $_service_ensure = $ensure ? {
     'present' => 'running',
@@ -202,5 +205,6 @@ class thanos::query (
       'store.response-timeout'            => $store_response_timeout,
     },
     extra_params   => $extra_params,
+    env_vars       => $env_vars,
   }
 }

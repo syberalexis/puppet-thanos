@@ -78,6 +78,8 @@
 #    This flag will be removed in the future when handling multiple tsdb instances is added.
 # @param extra_params
 #  Parameters passed to the binary, ressently released in latest version of Thanos.
+# @param env_vars
+#  Environment variables passed during startup. Useful for example for ELASTIC_APM tracing integration.
 # @example
 #   include thanos::downsample
 class thanos::receive (
@@ -120,6 +122,7 @@ class thanos::receive (
   Array[String]                  $labels                                  = [],
   # Extra parametes
   Hash                           $extra_params                            = {},
+  Array                          $env_vars                                = [],
 ) {
   $_service_ensure = $ensure ? {
     'present' => 'running',
@@ -166,5 +169,6 @@ class thanos::receive (
       'label'                                   => $labels,
     },
     extra_params => $extra_params,
+    env_vars     => $env_vars,
   }
 }

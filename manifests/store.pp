@@ -92,6 +92,8 @@
 #  In some cases, the default value (1024) needs to be increased
 # @param extra_params
 #  Parameters passed to the binary, ressently released in latest version of Thanos.
+# @param env_vars
+#  Environment variables passed during startup. Useful for example for ELASTIC_APM tracing integration.
 # @example
 #   include thanos::store
 class thanos::store (
@@ -129,6 +131,7 @@ class thanos::store (
   Optional[String]               $web_prefix_header                 = undef,
   # Extra parametes
   Hash                           $extra_params                      = {},
+  Array                          $env_vars                          = [],
 ) {
   $_service_ensure = $ensure ? {
     'present' => 'running',
@@ -170,5 +173,6 @@ class thanos::store (
       'web.prefix-header'                 => $web_prefix_header,
     },
     extra_params   => $extra_params,
+    env_vars       => $env_vars,
   }
 }
