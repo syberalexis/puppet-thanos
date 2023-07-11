@@ -50,6 +50,8 @@
 #  In some cases, the default value (1024) needs to be increased
 # @param extra_params
 #  Parameters passed to the binary, ressently released in latest version of Thanos.
+# @param env_vars
+#  Environment variables passed during startup. Useful for example for ELASTIC_APM tracing integration.
 # @example
 #   include thanos::query
 class thanos::query_frontend (
@@ -77,6 +79,7 @@ class thanos::query_frontend (
   Optional[String]               $log_request_decision                     = undef,
   # Extra parametes
   Hash                           $extra_params                             = {},
+  Array                          $env_vars                                 = [],
 ) {
   $_service_ensure = $ensure ? {
     'present' => 'running',
@@ -108,5 +111,6 @@ class thanos::query_frontend (
       'log.request.decision'                     => $log_request_decision,
     },
     extra_params   => $extra_params,
+    env_vars       => $env_vars,
   }
 }

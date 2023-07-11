@@ -7,30 +7,30 @@
 ### Classes
 
 * [`thanos`](#thanos): This module manages Thanos
-* [`thanos::compact`](#thanoscompact): This class manages compact service
-* [`thanos::config`](#thanosconfig): This class manages configuration files
-* [`thanos::install`](#thanosinstall): This class install Thanos requirements and binaries.
-* [`thanos::query`](#thanosquery): This class manages query service
-* [`thanos::query_frontend`](#thanosquery_frontend): This class manages query frontend service
-* [`thanos::receive`](#thanosreceive): This class manages receiver service
-* [`thanos::rule`](#thanosrule): This class manages rule service
-* [`thanos::sidecar`](#thanossidecar): This class manages sidecar service
-* [`thanos::store`](#thanosstore): This class manages store service
-* [`thanos::tools::bucket_web`](#thanostoolsbucket_web): This class manages bucket web interface service
+* [`thanos::compact`](#thanos--compact): This class manages compact service
+* [`thanos::config`](#thanos--config): This class manages configuration files
+* [`thanos::install`](#thanos--install): This class install Thanos requirements and binaries.
+* [`thanos::query`](#thanos--query): This class manages query service
+* [`thanos::query_frontend`](#thanos--query_frontend): This class manages query frontend service
+* [`thanos::receive`](#thanos--receive): This class manages receiver service
+* [`thanos::rule`](#thanos--rule): This class manages rule service
+* [`thanos::sidecar`](#thanos--sidecar): This class manages sidecar service
+* [`thanos::store`](#thanos--store): This class manages store service
+* [`thanos::tools::bucket_web`](#thanos--tools--bucket_web): This class manages bucket web interface service
 
 ### Defined types
 
-* [`thanos::config::index_cache`](#thanosconfigindex_cache): Manage Index cache configuration file.
-* [`thanos::config::storage`](#thanosconfigstorage): Manage Storage configuration file.
-* [`thanos::config::tracing`](#thanosconfigtracing): Manage Tracing configuration file.
-* [`thanos::resources::service`](#thanosresourcesservice): This defined type create component's service.
+* [`thanos::config::index_cache`](#thanos--config--index_cache): Manage Index cache configuration file.
+* [`thanos::config::storage`](#thanos--config--storage): Manage Storage configuration file.
+* [`thanos::config::tracing`](#thanos--config--tracing): Manage Tracing configuration file.
+* [`thanos::resources::service`](#thanos--resources--service): This defined type create component's service.
 
 ### Data types
 
-* [`Thanos::Index_cache_type`](#thanosindex_cache_type): Thanos index cache type
-* [`Thanos::Log_level`](#thanoslog_level): Thanos Log Level type
-* [`Thanos::Storage_type`](#thanosstorage_type): Thanos Storage type
-* [`Thanos::Tracing_type`](#thanostracing_type): Thanos Tracing type
+* [`Thanos::Index_cache_type`](#Thanos--Index_cache_type): Thanos index cache type
+* [`Thanos::Log_level`](#Thanos--Log_level): Thanos Log Level type
+* [`Thanos::Storage_type`](#Thanos--Storage_type): Thanos Storage type
+* [`Thanos::Tracing_type`](#Thanos--Tracing_type): Thanos Tracing type
 
 ## Classes
 
@@ -40,7 +40,7 @@ Init class of Thanos module. It can installes Thanos binaries and manages compon
 
 #### Examples
 
-#####
+##### 
 
 ```puppet
 include thanos
@@ -50,51 +50,51 @@ include thanos
 
 The following parameters are available in the `thanos` class:
 
-* [`version`](#version)
-* [`os`](#os)
-* [`manage_sidecar`](#manage_sidecar)
-* [`manage_query`](#manage_query)
-* [`manage_query_frontend`](#manage_query_frontend)
-* [`manage_rule`](#manage_rule)
-* [`manage_store`](#manage_store)
-* [`manage_compact`](#manage_compact)
-* [`manage_receive`](#manage_receive)
-* [`manage_tools_bucket_web`](#manage_tools_bucket_web)
-* [`install_method`](#install_method)
-* [`package_ensure`](#package_ensure)
-* [`package_name`](#package_name)
-* [`base_url`](#base_url)
-* [`download_extension`](#download_extension)
-* [`download_url`](#download_url)
-* [`base_dir`](#base_dir)
-* [`bin_dir`](#bin_dir)
-* [`config_dir`](#config_dir)
-* [`purge_config_dir`](#purge_config_dir)
-* [`tsdb_path`](#tsdb_path)
-* [`manage_user`](#manage_user)
-* [`manage_group`](#manage_group)
-* [`user`](#user)
-* [`group`](#group)
-* [`usershell`](#usershell)
-* [`extra_groups`](#extra_groups)
-* [`extract_command`](#extract_command)
-* [`manage_storage_config`](#manage_storage_config)
-* [`storage_config_file`](#storage_config_file)
-* [`storage_config`](#storage_config)
-* [`manage_tracing_config`](#manage_tracing_config)
-* [`tracing_config_file`](#tracing_config_file)
-* [`tracing_config`](#tracing_config)
-* [`manage_index_cache_config`](#manage_index_cache_config)
-* [`index_cache_config_file`](#index_cache_config_file)
-* [`index_cache_config`](#index_cache_config)
+* [`version`](#-thanos--version)
+* [`os`](#-thanos--os)
+* [`manage_sidecar`](#-thanos--manage_sidecar)
+* [`manage_query`](#-thanos--manage_query)
+* [`manage_query_frontend`](#-thanos--manage_query_frontend)
+* [`manage_rule`](#-thanos--manage_rule)
+* [`manage_store`](#-thanos--manage_store)
+* [`manage_compact`](#-thanos--manage_compact)
+* [`manage_receive`](#-thanos--manage_receive)
+* [`manage_tools_bucket_web`](#-thanos--manage_tools_bucket_web)
+* [`install_method`](#-thanos--install_method)
+* [`package_ensure`](#-thanos--package_ensure)
+* [`package_name`](#-thanos--package_name)
+* [`base_url`](#-thanos--base_url)
+* [`download_extension`](#-thanos--download_extension)
+* [`download_url`](#-thanos--download_url)
+* [`base_dir`](#-thanos--base_dir)
+* [`bin_dir`](#-thanos--bin_dir)
+* [`config_dir`](#-thanos--config_dir)
+* [`purge_config_dir`](#-thanos--purge_config_dir)
+* [`tsdb_path`](#-thanos--tsdb_path)
+* [`manage_user`](#-thanos--manage_user)
+* [`manage_group`](#-thanos--manage_group)
+* [`user`](#-thanos--user)
+* [`group`](#-thanos--group)
+* [`usershell`](#-thanos--usershell)
+* [`extra_groups`](#-thanos--extra_groups)
+* [`extract_command`](#-thanos--extract_command)
+* [`manage_storage_config`](#-thanos--manage_storage_config)
+* [`storage_config_file`](#-thanos--storage_config_file)
+* [`storage_config`](#-thanos--storage_config)
+* [`manage_tracing_config`](#-thanos--manage_tracing_config)
+* [`tracing_config_file`](#-thanos--tracing_config_file)
+* [`tracing_config`](#-thanos--tracing_config)
+* [`manage_index_cache_config`](#-thanos--manage_index_cache_config)
+* [`index_cache_config_file`](#-thanos--index_cache_config_file)
+* [`index_cache_config`](#-thanos--index_cache_config)
 
-##### <a name="version"></a>`version`
+##### <a name="-thanos--version"></a>`version`
 
 Data type: `Pattern[/\d+\.\d+\.\d+/]`
 
 Thanos release. See https://github.com/thanos-io/thanos/releases
 
-##### <a name="os"></a>`os`
+##### <a name="-thanos--os"></a>`os`
 
 Data type: `String`
 
@@ -102,71 +102,71 @@ Operating system.
 
 Default value: `downcase($facts['kernel'])`
 
-##### <a name="manage_sidecar"></a>`manage_sidecar`
+##### <a name="-thanos--manage_sidecar"></a>`manage_sidecar`
 
 Data type: `Boolean`
 
 Whether to create a service to run Sidecar.
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="manage_query"></a>`manage_query`
+##### <a name="-thanos--manage_query"></a>`manage_query`
 
 Data type: `Boolean`
 
 Whether to create a service to run Query.
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="manage_query_frontend"></a>`manage_query_frontend`
+##### <a name="-thanos--manage_query_frontend"></a>`manage_query_frontend`
 
 Data type: `Boolean`
 
 Whether to create a service to run Query Frontend.
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="manage_rule"></a>`manage_rule`
+##### <a name="-thanos--manage_rule"></a>`manage_rule`
 
 Data type: `Boolean`
 
 Whether to create a service to run Rule.
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="manage_store"></a>`manage_store`
+##### <a name="-thanos--manage_store"></a>`manage_store`
 
 Data type: `Boolean`
 
 Whether to create a service to run Store.
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="manage_compact"></a>`manage_compact`
+##### <a name="-thanos--manage_compact"></a>`manage_compact`
 
 Data type: `Boolean`
 
 Whether to create a service to run Compact.
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="manage_receive"></a>`manage_receive`
+##### <a name="-thanos--manage_receive"></a>`manage_receive`
 
 Data type: `Boolean`
 
 Whether to create a service to run Receiver.
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="manage_tools_bucket_web"></a>`manage_tools_bucket_web`
+##### <a name="-thanos--manage_tools_bucket_web"></a>`manage_tools_bucket_web`
 
 Data type: `Boolean`
 
 Whether to create a service to run Bucket Web interface.
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="install_method"></a>`install_method`
+##### <a name="-thanos--install_method"></a>`install_method`
 
 Data type: `Enum['url', 'package', 'none']`
 
@@ -174,7 +174,7 @@ Installation method: url or package (only url is supported currently).
 
 Default value: `'url'`
 
-##### <a name="package_ensure"></a>`package_ensure`
+##### <a name="-thanos--package_ensure"></a>`package_ensure`
 
 Data type: `Enum['present', 'absent', 'latest']`
 
@@ -182,7 +182,7 @@ If package, then use this for package ensure default 'latest'.
 
 Default value: `'latest'`
 
-##### <a name="package_name"></a>`package_name`
+##### <a name="-thanos--package_name"></a>`package_name`
 
 Data type: `String`
 
@@ -190,7 +190,7 @@ Thanos package name - not available yet.
 
 Default value: `'thanos'`
 
-##### <a name="base_url"></a>`base_url`
+##### <a name="-thanos--base_url"></a>`base_url`
 
 Data type: `Stdlib::HTTPUrl`
 
@@ -198,7 +198,7 @@ Base URL for thanos.
 
 Default value: `'https://github.com/thanos-io/thanos/releases/download'`
 
-##### <a name="download_extension"></a>`download_extension`
+##### <a name="-thanos--download_extension"></a>`download_extension`
 
 Data type: `String`
 
@@ -206,15 +206,15 @@ Extension of Thanos binaries archive.
 
 Default value: `'tar.gz'`
 
-##### <a name="download_url"></a>`download_url`
+##### <a name="-thanos--download_url"></a>`download_url`
 
 Data type: `Optional[Stdlib::HTTPUrl]`
 
 Complete URL corresponding to the Thanos release, default to undef.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="base_dir"></a>`base_dir`
+##### <a name="-thanos--base_dir"></a>`base_dir`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -222,7 +222,7 @@ Base directory where Thanos is extracted.
 
 Default value: `'/opt'`
 
-##### <a name="bin_dir"></a>`bin_dir`
+##### <a name="-thanos--bin_dir"></a>`bin_dir`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -230,7 +230,7 @@ Directory where binaries are located.
 
 Default value: `'/usr/local/bin'`
 
-##### <a name="config_dir"></a>`config_dir`
+##### <a name="-thanos--config_dir"></a>`config_dir`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -238,15 +238,15 @@ Directory where configuration are located.
 
 Default value: `'/etc/thanos'`
 
-##### <a name="purge_config_dir"></a>`purge_config_dir`
+##### <a name="-thanos--purge_config_dir"></a>`purge_config_dir`
 
 Data type: `Boolean`
 
 Purge configuration directory.
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="tsdb_path"></a>`tsdb_path`
+##### <a name="-thanos--tsdb_path"></a>`tsdb_path`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -254,23 +254,23 @@ Data directory of TSDB.
 
 Default value: `'/data'`
 
-##### <a name="manage_user"></a>`manage_user`
+##### <a name="-thanos--manage_user"></a>`manage_user`
 
 Data type: `Boolean`
 
 Whether to create user for thanos or rely on external code for that.
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="manage_group"></a>`manage_group`
+##### <a name="-thanos--manage_group"></a>`manage_group`
 
 Data type: `Boolean`
 
 Whether to create user for thanos or rely on external code for that.
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="user"></a>`user`
+##### <a name="-thanos--user"></a>`user`
 
 Data type: `String`
 
@@ -278,7 +278,7 @@ User running thanos.
 
 Default value: `'thanos'`
 
-##### <a name="group"></a>`group`
+##### <a name="-thanos--group"></a>`group`
 
 Data type: `String`
 
@@ -286,7 +286,7 @@ Group under which thanos is running.
 
 Default value: `'thanos'`
 
-##### <a name="usershell"></a>`usershell`
+##### <a name="-thanos--usershell"></a>`usershell`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -294,7 +294,7 @@ if requested, we create a user for thanos. The default shell is false. It can be
 
 Default value: `'/bin/false'`
 
-##### <a name="extra_groups"></a>`extra_groups`
+##### <a name="-thanos--extra_groups"></a>`extra_groups`
 
 Data type: `Array[String]`
 
@@ -302,23 +302,23 @@ Add other groups to the managed user.
 
 Default value: `[]`
 
-##### <a name="extract_command"></a>`extract_command`
+##### <a name="-thanos--extract_command"></a>`extract_command`
 
 Data type: `Optional[String]`
 
 Custom command passed to the archive resource to extract the downloaded archive.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="manage_storage_config"></a>`manage_storage_config`
+##### <a name="-thanos--manage_storage_config"></a>`manage_storage_config`
 
 Data type: `Boolean`
 
 Whether to manage storage configuration file.
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="storage_config_file"></a>`storage_config_file`
+##### <a name="-thanos--storage_config_file"></a>`storage_config_file`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -326,7 +326,7 @@ Path to storage configuration file.
 
 Default value: `"${config_dir}/storage.yaml"`
 
-##### <a name="storage_config"></a>`storage_config`
+##### <a name="-thanos--storage_config"></a>`storage_config`
 
 Data type: `Hash[String, Data]`
 
@@ -336,23 +336,23 @@ Storage configuration.
 
 Default value: `{}`
 
-##### <a name="manage_tracing_config"></a>`manage_tracing_config`
+##### <a name="-thanos--manage_tracing_config"></a>`manage_tracing_config`
 
 Data type: `Boolean`
 
 Whether to manage tracing configuration file
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="tracing_config_file"></a>`tracing_config_file`
+##### <a name="-thanos--tracing_config_file"></a>`tracing_config_file`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 Path to tracing configuration file.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="tracing_config"></a>`tracing_config`
+##### <a name="-thanos--tracing_config"></a>`tracing_config`
 
 Data type: `Hash[String, Data]`
 
@@ -362,23 +362,23 @@ Tracing configuration.
 
 Default value: `{}`
 
-##### <a name="manage_index_cache_config"></a>`manage_index_cache_config`
+##### <a name="-thanos--manage_index_cache_config"></a>`manage_index_cache_config`
 
 Data type: `Boolean`
 
 Whether to manage index cache configuration file
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="index_cache_config_file"></a>`index_cache_config_file`
+##### <a name="-thanos--index_cache_config_file"></a>`index_cache_config_file`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 Path to index cache configuration file.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="index_cache_config"></a>`index_cache_config`
+##### <a name="-thanos--index_cache_config"></a>`index_cache_config`
 
 Data type: `Hash[String, Data]`
 
@@ -388,13 +388,13 @@ Index cache configuration.
 
 Default value: `{}`
 
-### <a name="thanoscompact"></a>`thanos::compact`
+### <a name="thanos--compact"></a>`thanos::compact`
 
 This class install Compact as service to continuously compacts blocks in an object store bucket.
 
 #### Examples
 
-#####
+##### 
 
 ```puppet
 include thanos::compact
@@ -404,34 +404,35 @@ include thanos::compact
 
 The following parameters are available in the `thanos::compact` class:
 
-* [`ensure`](#ensure)
-* [`user`](#user)
-* [`group`](#group)
-* [`bin_path`](#bin_path)
-* [`log_level`](#log_level)
-* [`log_format`](#log_format)
-* [`tracing_config_file`](#tracing_config_file)
-* [`http_address`](#http_address)
-* [`http_grace_period`](#http_grace_period)
-* [`data_dir`](#data_dir)
-* [`objstore_config_file`](#objstore_config_file)
-* [`consistency_delay`](#consistency_delay)
-* [`retention_resolution_raw`](#retention_resolution_raw)
-* [`retention_resolution_5m`](#retention_resolution_5m)
-* [`retention_resolution_1h`](#retention_resolution_1h)
-* [`wait`](#wait)
-* [`wait_interval`](#wait_interval)
-* [`downsampling_disable`](#downsampling_disable)
-* [`block_viewer_global_sync_block_interval`](#block_viewer_global_sync_block_interval)
-* [`compact_concurrency`](#compact_concurrency)
-* [`delete_delay`](#delete_delay)
-* [`selector_relabel_config_file`](#selector_relabel_config_file)
-* [`web_external_prefix`](#web_external_prefix)
-* [`web_prefix_header`](#web_prefix_header)
-* [`bucket_web_label`](#bucket_web_label)
-* [`extra_params`](#extra_params)
+* [`ensure`](#-thanos--compact--ensure)
+* [`user`](#-thanos--compact--user)
+* [`group`](#-thanos--compact--group)
+* [`bin_path`](#-thanos--compact--bin_path)
+* [`log_level`](#-thanos--compact--log_level)
+* [`log_format`](#-thanos--compact--log_format)
+* [`tracing_config_file`](#-thanos--compact--tracing_config_file)
+* [`http_address`](#-thanos--compact--http_address)
+* [`http_grace_period`](#-thanos--compact--http_grace_period)
+* [`data_dir`](#-thanos--compact--data_dir)
+* [`objstore_config_file`](#-thanos--compact--objstore_config_file)
+* [`consistency_delay`](#-thanos--compact--consistency_delay)
+* [`retention_resolution_raw`](#-thanos--compact--retention_resolution_raw)
+* [`retention_resolution_5m`](#-thanos--compact--retention_resolution_5m)
+* [`retention_resolution_1h`](#-thanos--compact--retention_resolution_1h)
+* [`wait`](#-thanos--compact--wait)
+* [`wait_interval`](#-thanos--compact--wait_interval)
+* [`downsampling_disable`](#-thanos--compact--downsampling_disable)
+* [`block_viewer_global_sync_block_interval`](#-thanos--compact--block_viewer_global_sync_block_interval)
+* [`compact_concurrency`](#-thanos--compact--compact_concurrency)
+* [`delete_delay`](#-thanos--compact--delete_delay)
+* [`selector_relabel_config_file`](#-thanos--compact--selector_relabel_config_file)
+* [`web_external_prefix`](#-thanos--compact--web_external_prefix)
+* [`web_prefix_header`](#-thanos--compact--web_prefix_header)
+* [`bucket_web_label`](#-thanos--compact--bucket_web_label)
+* [`extra_params`](#-thanos--compact--extra_params)
+* [`env_vars`](#-thanos--compact--env_vars)
 
-##### <a name="ensure"></a>`ensure`
+##### <a name="-thanos--compact--ensure"></a>`ensure`
 
 Data type: `Enum['present', 'absent']`
 
@@ -439,7 +440,7 @@ State ensured from compact service.
 
 Default value: `'present'`
 
-##### <a name="user"></a>`user`
+##### <a name="-thanos--compact--user"></a>`user`
 
 Data type: `String`
 
@@ -447,7 +448,7 @@ User running thanos.
 
 Default value: `$thanos::user`
 
-##### <a name="group"></a>`group`
+##### <a name="-thanos--compact--group"></a>`group`
 
 Data type: `String`
 
@@ -455,7 +456,7 @@ Group under which thanos is running.
 
 Default value: `$thanos::group`
 
-##### <a name="bin_path"></a>`bin_path`
+##### <a name="-thanos--compact--bin_path"></a>`bin_path`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -463,7 +464,7 @@ Path where binary is located.
 
 Default value: `$thanos::bin_path`
 
-##### <a name="log_level"></a>`log_level`
+##### <a name="-thanos--compact--log_level"></a>`log_level`
 
 Data type: `Thanos::Log_level`
 
@@ -471,7 +472,7 @@ Only log messages with the given severity or above. One of: [debug, info, warn, 
 
 Default value: `'info'`
 
-##### <a name="log_format"></a>`log_format`
+##### <a name="-thanos--compact--log_format"></a>`log_format`
 
 Data type: `Enum['logfmt', 'json']`
 
@@ -479,7 +480,7 @@ Output format of log messages. One of: [logfmt, json]
 
 Default value: `'logfmt'`
 
-##### <a name="tracing_config_file"></a>`tracing_config_file`
+##### <a name="-thanos--compact--tracing_config_file"></a>`tracing_config_file`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
@@ -487,7 +488,7 @@ Path to YAML file with tracing configuration. See format details: https://thanos
 
 Default value: `$thanos::tracing_config_file`
 
-##### <a name="http_address"></a>`http_address`
+##### <a name="-thanos--compact--http_address"></a>`http_address`
 
 Data type: `String`
 
@@ -495,7 +496,7 @@ Listen host:port for HTTP endpoints.
 
 Default value: `'0.0.0.0:10902'`
 
-##### <a name="http_grace_period"></a>`http_grace_period`
+##### <a name="-thanos--compact--http_grace_period"></a>`http_grace_period`
 
 Data type: `String`
 
@@ -503,15 +504,15 @@ Time to wait after an interrupt received for HTTP Server.
 
 Default value: `'2m'`
 
-##### <a name="data_dir"></a>`data_dir`
+##### <a name="-thanos--compact--data_dir"></a>`data_dir`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 Data directory in which to cache blocks and process compactions.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="objstore_config_file"></a>`objstore_config_file`
+##### <a name="-thanos--compact--objstore_config_file"></a>`objstore_config_file`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
@@ -519,7 +520,7 @@ Path to YAML file that contains object store configuration. See format details: 
 
 Default value: `$thanos::storage_config_file`
 
-##### <a name="consistency_delay"></a>`consistency_delay`
+##### <a name="-thanos--compact--consistency_delay"></a>`consistency_delay`
 
 Data type: `String`
 
@@ -528,7 +529,7 @@ Minimum age of fresh (non-compacted) blocks before they are being processed.
 
 Default value: `'30m'`
 
-##### <a name="retention_resolution_raw"></a>`retention_resolution_raw`
+##### <a name="-thanos--compact--retention_resolution_raw"></a>`retention_resolution_raw`
 
 Data type: `String`
 
@@ -536,7 +537,7 @@ How long to retain raw samples in bucket. 0d - disables this retention
 
 Default value: `'0d'`
 
-##### <a name="retention_resolution_5m"></a>`retention_resolution_5m`
+##### <a name="-thanos--compact--retention_resolution_5m"></a>`retention_resolution_5m`
 
 Data type: `String`
 
@@ -544,7 +545,7 @@ How long to retain samples of resolution 1 (5 minutes) in bucket. 0d - disables 
 
 Default value: `'0d'`
 
-##### <a name="retention_resolution_1h"></a>`retention_resolution_1h`
+##### <a name="-thanos--compact--retention_resolution_1h"></a>`retention_resolution_1h`
 
 Data type: `String`
 
@@ -552,15 +553,15 @@ How long to retain samples of resolution 2 (1 hour) in bucket. 0d - disables thi
 
 Default value: `'0d'`
 
-##### <a name="wait"></a>`wait`
+##### <a name="-thanos--compact--wait"></a>`wait`
 
 Data type: `Boolean`
 
 Do not exit after all compactions have been processed and wait for new work.
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="wait_interval"></a>`wait_interval`
+##### <a name="-thanos--compact--wait_interval"></a>`wait_interval`
 
 Data type: `String`
 
@@ -569,16 +570,16 @@ Wait interval between consecutive compaction runs and bucket refreshes.
 
 Default value: `'5m'`
 
-##### <a name="downsampling_disable"></a>`downsampling_disable`
+##### <a name="-thanos--compact--downsampling_disable"></a>`downsampling_disable`
 
 Data type: `Boolean`
 
 Disables downsampling. This is not recommended as querying long time ranges without non-downsampled data is
   not efficient and useful e.g it is not possible to render all samples for a human eye anyway
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="block_viewer_global_sync_block_interval"></a>`block_viewer_global_sync_block_interval`
+##### <a name="-thanos--compact--block_viewer_global_sync_block_interval"></a>`block_viewer_global_sync_block_interval`
 
 Data type: `String`
 
@@ -586,7 +587,7 @@ Repeat interval for syncing the blocks between local and remote view for /global
 
 Default value: `'1m'`
 
-##### <a name="compact_concurrency"></a>`compact_concurrency`
+##### <a name="-thanos--compact--compact_concurrency"></a>`compact_concurrency`
 
 Data type: `Integer`
 
@@ -594,7 +595,7 @@ Number of goroutines to use when compacting groups.
 
 Default value: `1`
 
-##### <a name="delete_delay"></a>`delete_delay`
+##### <a name="-thanos--compact--delete_delay"></a>`delete_delay`
 
 Data type: `String`
 
@@ -606,7 +607,7 @@ Time before a block marked for deletion is deleted from bucket.
 
 Default value: `'48h'`
 
-##### <a name="selector_relabel_config_file"></a>`selector_relabel_config_file`
+##### <a name="-thanos--compact--selector_relabel_config_file"></a>`selector_relabel_config_file`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
@@ -614,9 +615,9 @@ Path to YAML file that contains relabeling configuration that allows selecting b
   It follows native Prometheus relabel-config syntax.
   See format details: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="web_external_prefix"></a>`web_external_prefix`
+##### <a name="-thanos--compact--web_external_prefix"></a>`web_external_prefix`
 
 Data type: `Optional[String]`
 
@@ -624,9 +625,9 @@ Static prefix for all HTML links and redirect URLs in the bucket web UI interfac
   Actual endpoints are still served on / or the web.route-prefix.
   This allows thanos bucket web UI to be served behind a reverse proxy that strips a URL sub-path.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="web_prefix_header"></a>`web_prefix_header`
+##### <a name="-thanos--compact--web_prefix_header"></a>`web_prefix_header`
 
 Data type: `Optional[String]`
 
@@ -637,17 +638,17 @@ Name of HTTP request header used for dynamic prefixing of UI links and redirects
   if Thanos UI is served via Traefik reverse proxy with PathPrefixStrip option enabled,
   which sends the stripped prefix value in X-Forwarded-Prefix header. This allows thanos UI to be served on a sub-path.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="bucket_web_label"></a>`bucket_web_label`
+##### <a name="-thanos--compact--bucket_web_label"></a>`bucket_web_label`
 
 Data type: `Optional[String]`
 
 Prometheus label to use as timeline title in the bucket web UI
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="extra_params"></a>`extra_params`
+##### <a name="-thanos--compact--extra_params"></a>`extra_params`
 
 Data type: `Hash`
 
@@ -655,13 +656,21 @@ Parameters passed to the binary, ressently released in latest version of Thanos.
 
 Default value: `{}`
 
-### <a name="thanosconfig"></a>`thanos::config`
+##### <a name="-thanos--compact--env_vars"></a>`env_vars`
+
+Data type: `Array`
+
+Environment variables passed during startup. Useful for example for ELASTIC_APM tracing integration.
+
+Default value: `[]`
+
+### <a name="thanos--config"></a>`thanos::config`
 
 This class install and manage configuration files like object store and tracing.
 
 #### Examples
 
-#####
+##### 
 
 ```puppet
 include thanos::config
@@ -671,17 +680,17 @@ include thanos::config
 
 The following parameters are available in the `thanos::config` class:
 
-* [`manage_storage_config`](#manage_storage_config)
-* [`storage_config_file`](#storage_config_file)
-* [`storage_config`](#storage_config)
-* [`manage_tracing_config`](#manage_tracing_config)
-* [`tracing_config_file`](#tracing_config_file)
-* [`tracing_config`](#tracing_config)
-* [`manage_index_cache_config`](#manage_index_cache_config)
-* [`index_cache_config_file`](#index_cache_config_file)
-* [`index_cache_config`](#index_cache_config)
+* [`manage_storage_config`](#-thanos--config--manage_storage_config)
+* [`storage_config_file`](#-thanos--config--storage_config_file)
+* [`storage_config`](#-thanos--config--storage_config)
+* [`manage_tracing_config`](#-thanos--config--manage_tracing_config)
+* [`tracing_config_file`](#-thanos--config--tracing_config_file)
+* [`tracing_config`](#-thanos--config--tracing_config)
+* [`manage_index_cache_config`](#-thanos--config--manage_index_cache_config)
+* [`index_cache_config_file`](#-thanos--config--index_cache_config_file)
+* [`index_cache_config`](#-thanos--config--index_cache_config)
 
-##### <a name="manage_storage_config"></a>`manage_storage_config`
+##### <a name="-thanos--config--manage_storage_config"></a>`manage_storage_config`
 
 Data type: `Boolean`
 
@@ -689,7 +698,7 @@ Whether to manage storage configuration file.
 
 Default value: `$thanos::manage_storage_config`
 
-##### <a name="storage_config_file"></a>`storage_config_file`
+##### <a name="-thanos--config--storage_config_file"></a>`storage_config_file`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
@@ -697,7 +706,7 @@ Path to storage configuration file.
 
 Default value: `$thanos::storage_config_file`
 
-##### <a name="storage_config"></a>`storage_config`
+##### <a name="-thanos--config--storage_config"></a>`storage_config`
 
 Data type: `Hash[String, Data]`
 
@@ -707,7 +716,7 @@ Storage configuration.
 
 Default value: `$thanos::storage_config`
 
-##### <a name="manage_tracing_config"></a>`manage_tracing_config`
+##### <a name="-thanos--config--manage_tracing_config"></a>`manage_tracing_config`
 
 Data type: `Boolean`
 
@@ -715,7 +724,7 @@ Whether to manage tracing configuration file
 
 Default value: `$thanos::manage_tracing_config`
 
-##### <a name="tracing_config_file"></a>`tracing_config_file`
+##### <a name="-thanos--config--tracing_config_file"></a>`tracing_config_file`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
@@ -723,7 +732,7 @@ Path to tracing configuration file.
 
 Default value: `$thanos::tracing_config_file`
 
-##### <a name="tracing_config"></a>`tracing_config`
+##### <a name="-thanos--config--tracing_config"></a>`tracing_config`
 
 Data type: `Hash[String, Data]`
 
@@ -733,7 +742,7 @@ Tracing configuration.
 
 Default value: `$thanos::tracing_config`
 
-##### <a name="manage_index_cache_config"></a>`manage_index_cache_config`
+##### <a name="-thanos--config--manage_index_cache_config"></a>`manage_index_cache_config`
 
 Data type: `Boolean`
 
@@ -741,7 +750,7 @@ Whether to manage index cache configuration file
 
 Default value: `$thanos::manage_index_cache_config`
 
-##### <a name="index_cache_config_file"></a>`index_cache_config_file`
+##### <a name="-thanos--config--index_cache_config_file"></a>`index_cache_config_file`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
@@ -749,7 +758,7 @@ Path to index cache configuration file.
 
 Default value: `$thanos::index_cache_config_file`
 
-##### <a name="index_cache_config"></a>`index_cache_config`
+##### <a name="-thanos--config--index_cache_config"></a>`index_cache_config`
 
 Data type: `Hash[String, Data]`
 
@@ -759,13 +768,13 @@ Index cache configuration.
 
 Default value: `$thanos::index_cache_config`
 
-### <a name="thanosinstall"></a>`thanos::install`
+### <a name="thanos--install"></a>`thanos::install`
 
 This class install Thanos requirements and binaries.
 
 #### Examples
 
-#####
+##### 
 
 ```puppet
 include thanos::install
@@ -775,28 +784,28 @@ include thanos::install
 
 The following parameters are available in the `thanos::install` class:
 
-* [`version`](#version)
-* [`package_name`](#package_name)
-* [`os`](#os)
-* [`real_arch`](#real_arch)
-* [`package_ensure`](#package_ensure)
-* [`install_method`](#install_method)
-* [`download_extension`](#download_extension)
-* [`download_url`](#download_url)
-* [`extract_command`](#extract_command)
-* [`base_dir`](#base_dir)
-* [`bin_dir`](#bin_dir)
-* [`config_dir`](#config_dir)
-* [`purge_config_dir`](#purge_config_dir)
-* [`notify_services`](#notify_services)
-* [`manage_user`](#manage_user)
-* [`manage_group`](#manage_group)
-* [`user`](#user)
-* [`group`](#group)
-* [`usershell`](#usershell)
-* [`extra_groups`](#extra_groups)
+* [`version`](#-thanos--install--version)
+* [`package_name`](#-thanos--install--package_name)
+* [`os`](#-thanos--install--os)
+* [`real_arch`](#-thanos--install--real_arch)
+* [`package_ensure`](#-thanos--install--package_ensure)
+* [`install_method`](#-thanos--install--install_method)
+* [`download_extension`](#-thanos--install--download_extension)
+* [`download_url`](#-thanos--install--download_url)
+* [`extract_command`](#-thanos--install--extract_command)
+* [`base_dir`](#-thanos--install--base_dir)
+* [`bin_dir`](#-thanos--install--bin_dir)
+* [`config_dir`](#-thanos--install--config_dir)
+* [`purge_config_dir`](#-thanos--install--purge_config_dir)
+* [`notify_services`](#-thanos--install--notify_services)
+* [`manage_user`](#-thanos--install--manage_user)
+* [`manage_group`](#-thanos--install--manage_group)
+* [`user`](#-thanos--install--user)
+* [`group`](#-thanos--install--group)
+* [`usershell`](#-thanos--install--usershell)
+* [`extra_groups`](#-thanos--install--extra_groups)
 
-##### <a name="version"></a>`version`
+##### <a name="-thanos--install--version"></a>`version`
 
 Data type: `Pattern[/\d+\.\d+\.\d+/]`
 
@@ -804,7 +813,7 @@ Thanos release. See https://github.com/thanos-io/thanos/releases
 
 Default value: `$thanos::version`
 
-##### <a name="package_name"></a>`package_name`
+##### <a name="-thanos--install--package_name"></a>`package_name`
 
 Data type: `String`
 
@@ -812,7 +821,7 @@ Thanos package name - not available yet.
 
 Default value: `$thanos::package_name`
 
-##### <a name="os"></a>`os`
+##### <a name="-thanos--install--os"></a>`os`
 
 Data type: `String`
 
@@ -820,7 +829,7 @@ Operating system.
 
 Default value: `$thanos::os`
 
-##### <a name="real_arch"></a>`real_arch`
+##### <a name="-thanos--install--real_arch"></a>`real_arch`
 
 Data type: `String`
 
@@ -828,7 +837,7 @@ Architecture (amd64 or arm64).
 
 Default value: `$thanos::real_arch`
 
-##### <a name="package_ensure"></a>`package_ensure`
+##### <a name="-thanos--install--package_ensure"></a>`package_ensure`
 
 Data type: `Enum['present', 'absent', 'latest']`
 
@@ -836,7 +845,7 @@ If package, then use this for package ensurel default 'latest'.
 
 Default value: `$thanos::package_ensure`
 
-##### <a name="install_method"></a>`install_method`
+##### <a name="-thanos--install--install_method"></a>`install_method`
 
 Data type: `Enum['url', 'package', 'none']`
 
@@ -844,7 +853,7 @@ Installation method: url or package (only url is supported currently).
 
 Default value: `$thanos::install_method`
 
-##### <a name="download_extension"></a>`download_extension`
+##### <a name="-thanos--install--download_extension"></a>`download_extension`
 
 Data type: `String`
 
@@ -852,7 +861,7 @@ Extension of Thanos binaries archive.
 
 Default value: `$thanos::download_extension`
 
-##### <a name="download_url"></a>`download_url`
+##### <a name="-thanos--install--download_url"></a>`download_url`
 
 Data type: `Stdlib::HTTPUrl`
 
@@ -860,7 +869,7 @@ Complete URL corresponding to the Prometheus release, default to undef.
 
 Default value: `$thanos::real_download_url`
 
-##### <a name="extract_command"></a>`extract_command`
+##### <a name="-thanos--install--extract_command"></a>`extract_command`
 
 Data type: `Optional[String]`
 
@@ -868,7 +877,7 @@ Custom command passed to the archive resource to extract the downloaded archive.
 
 Default value: `$thanos::extract_command`
 
-##### <a name="base_dir"></a>`base_dir`
+##### <a name="-thanos--install--base_dir"></a>`base_dir`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -876,7 +885,7 @@ Base directory where Thanos is extracted.
 
 Default value: `$thanos::base_dir`
 
-##### <a name="bin_dir"></a>`bin_dir`
+##### <a name="-thanos--install--bin_dir"></a>`bin_dir`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -884,7 +893,7 @@ Directory where binaries are located.
 
 Default value: `$thanos::bin_dir`
 
-##### <a name="config_dir"></a>`config_dir`
+##### <a name="-thanos--install--config_dir"></a>`config_dir`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -892,7 +901,7 @@ Directory where configuration are located.
 
 Default value: `$thanos::config_dir`
 
-##### <a name="purge_config_dir"></a>`purge_config_dir`
+##### <a name="-thanos--install--purge_config_dir"></a>`purge_config_dir`
 
 Data type: `Boolean`
 
@@ -900,7 +909,7 @@ Purge configuration directory.
 
 Default value: `$thanos::purge_config_dir`
 
-##### <a name="notify_services"></a>`notify_services`
+##### <a name="-thanos--install--notify_services"></a>`notify_services`
 
 Data type: `Array[Type[Resource]]`
 
@@ -908,7 +917,7 @@ Services to notify when binaries changed.
 
 Default value: `$thanos::notify_services`
 
-##### <a name="manage_user"></a>`manage_user`
+##### <a name="-thanos--install--manage_user"></a>`manage_user`
 
 Data type: `Boolean`
 
@@ -916,7 +925,7 @@ Whether to create user for thanos or rely on external code for that.
 
 Default value: `$thanos::manage_user`
 
-##### <a name="manage_group"></a>`manage_group`
+##### <a name="-thanos--install--manage_group"></a>`manage_group`
 
 Data type: `Boolean`
 
@@ -924,7 +933,7 @@ Whether to create user for thanos or rely on external code for that.
 
 Default value: `$thanos::manage_group`
 
-##### <a name="user"></a>`user`
+##### <a name="-thanos--install--user"></a>`user`
 
 Data type: `String`
 
@@ -932,7 +941,7 @@ User running thanos.
 
 Default value: `$thanos::user`
 
-##### <a name="group"></a>`group`
+##### <a name="-thanos--install--group"></a>`group`
 
 Data type: `String`
 
@@ -940,7 +949,7 @@ Group under which thanos is running.
 
 Default value: `$thanos::group`
 
-##### <a name="usershell"></a>`usershell`
+##### <a name="-thanos--install--usershell"></a>`usershell`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -948,7 +957,7 @@ if requested, we create a user for thanos. The default shell is false. It can be
 
 Default value: `$thanos::usershell`
 
-##### <a name="extra_groups"></a>`extra_groups`
+##### <a name="-thanos--install--extra_groups"></a>`extra_groups`
 
 Data type: `Array[String]`
 
@@ -956,13 +965,13 @@ Add other groups to the managed user.
 
 Default value: `$thanos::extra_groups`
 
-### <a name="thanosquery"></a>`thanos::query`
+### <a name="thanos--query"></a>`thanos::query`
 
 This class install Query as service query node exposing PromQL enabled Query API with data retrieved from multiple store nodes.
 
 #### Examples
 
-#####
+##### 
 
 ```puppet
 include thanos::query
@@ -972,49 +981,50 @@ include thanos::query
 
 The following parameters are available in the `thanos::query` class:
 
-* [`ensure`](#ensure)
-* [`user`](#user)
-* [`group`](#group)
-* [`bin_path`](#bin_path)
-* [`log_level`](#log_level)
-* [`log_format`](#log_format)
-* [`tracing_config_file`](#tracing_config_file)
-* [`http_address`](#http_address)
-* [`http_grace_period`](#http_grace_period)
-* [`grpc_address`](#grpc_address)
-* [`grpc_grace_period`](#grpc_grace_period)
-* [`grpc_server_tls_cert`](#grpc_server_tls_cert)
-* [`grpc_server_tls_key`](#grpc_server_tls_key)
-* [`grpc_server_tls_client_ca`](#grpc_server_tls_client_ca)
-* [`grpc_client_tls_secure`](#grpc_client_tls_secure)
-* [`grpc_client_tls_cert`](#grpc_client_tls_cert)
-* [`grpc_client_tls_key`](#grpc_client_tls_key)
-* [`grpc_client_tls_ca`](#grpc_client_tls_ca)
-* [`grpc_client_server_name`](#grpc_client_server_name)
-* [`web_route_prefix`](#web_route_prefix)
-* [`web_external_prefix`](#web_external_prefix)
-* [`web_prefix_header`](#web_prefix_header)
-* [`log_request_decision`](#log_request_decision)
-* [`query_timeout`](#query_timeout)
-* [`query_max_concurrent`](#query_max_concurrent)
-* [`query_loopback_delta`](#query_loopback_delta)
-* [`query_max_concurrent_select`](#query_max_concurrent_select)
-* [`query_replica_label`](#query_replica_label)
-* [`selector_labels`](#selector_labels)
-* [`endpoints`](#endpoints)
-* [`store_strict`](#store_strict)
-* [`store_sd_files`](#store_sd_files)
-* [`store_sd_interval`](#store_sd_interval)
-* [`store_sd_dns_interval`](#store_sd_dns_interval)
-* [`store_unhealthy_timeout`](#store_unhealthy_timeout)
-* [`query_auto_downsampling`](#query_auto_downsampling)
-* [`query_partial_response`](#query_partial_response)
-* [`query_default_evaluation_interval`](#query_default_evaluation_interval)
-* [`store_response_timeout`](#store_response_timeout)
-* [`max_open_files`](#max_open_files)
-* [`extra_params`](#extra_params)
+* [`ensure`](#-thanos--query--ensure)
+* [`user`](#-thanos--query--user)
+* [`group`](#-thanos--query--group)
+* [`bin_path`](#-thanos--query--bin_path)
+* [`log_level`](#-thanos--query--log_level)
+* [`log_format`](#-thanos--query--log_format)
+* [`tracing_config_file`](#-thanos--query--tracing_config_file)
+* [`http_address`](#-thanos--query--http_address)
+* [`http_grace_period`](#-thanos--query--http_grace_period)
+* [`grpc_address`](#-thanos--query--grpc_address)
+* [`grpc_grace_period`](#-thanos--query--grpc_grace_period)
+* [`grpc_server_tls_cert`](#-thanos--query--grpc_server_tls_cert)
+* [`grpc_server_tls_key`](#-thanos--query--grpc_server_tls_key)
+* [`grpc_server_tls_client_ca`](#-thanos--query--grpc_server_tls_client_ca)
+* [`grpc_client_tls_secure`](#-thanos--query--grpc_client_tls_secure)
+* [`grpc_client_tls_cert`](#-thanos--query--grpc_client_tls_cert)
+* [`grpc_client_tls_key`](#-thanos--query--grpc_client_tls_key)
+* [`grpc_client_tls_ca`](#-thanos--query--grpc_client_tls_ca)
+* [`grpc_client_server_name`](#-thanos--query--grpc_client_server_name)
+* [`web_route_prefix`](#-thanos--query--web_route_prefix)
+* [`web_external_prefix`](#-thanos--query--web_external_prefix)
+* [`web_prefix_header`](#-thanos--query--web_prefix_header)
+* [`log_request_decision`](#-thanos--query--log_request_decision)
+* [`query_timeout`](#-thanos--query--query_timeout)
+* [`query_max_concurrent`](#-thanos--query--query_max_concurrent)
+* [`query_loopback_delta`](#-thanos--query--query_loopback_delta)
+* [`query_max_concurrent_select`](#-thanos--query--query_max_concurrent_select)
+* [`query_replica_label`](#-thanos--query--query_replica_label)
+* [`selector_labels`](#-thanos--query--selector_labels)
+* [`endpoints`](#-thanos--query--endpoints)
+* [`store_strict`](#-thanos--query--store_strict)
+* [`store_sd_files`](#-thanos--query--store_sd_files)
+* [`store_sd_interval`](#-thanos--query--store_sd_interval)
+* [`store_sd_dns_interval`](#-thanos--query--store_sd_dns_interval)
+* [`store_unhealthy_timeout`](#-thanos--query--store_unhealthy_timeout)
+* [`query_auto_downsampling`](#-thanos--query--query_auto_downsampling)
+* [`query_partial_response`](#-thanos--query--query_partial_response)
+* [`query_default_evaluation_interval`](#-thanos--query--query_default_evaluation_interval)
+* [`store_response_timeout`](#-thanos--query--store_response_timeout)
+* [`max_open_files`](#-thanos--query--max_open_files)
+* [`extra_params`](#-thanos--query--extra_params)
+* [`env_vars`](#-thanos--query--env_vars)
 
-##### <a name="ensure"></a>`ensure`
+##### <a name="-thanos--query--ensure"></a>`ensure`
 
 Data type: `Enum['present', 'absent']`
 
@@ -1022,7 +1032,7 @@ State ensured from compact service.
 
 Default value: `'present'`
 
-##### <a name="user"></a>`user`
+##### <a name="-thanos--query--user"></a>`user`
 
 Data type: `String`
 
@@ -1030,7 +1040,7 @@ User running thanos.
 
 Default value: `$thanos::user`
 
-##### <a name="group"></a>`group`
+##### <a name="-thanos--query--group"></a>`group`
 
 Data type: `String`
 
@@ -1038,7 +1048,7 @@ Group under which thanos is running.
 
 Default value: `$thanos::group`
 
-##### <a name="bin_path"></a>`bin_path`
+##### <a name="-thanos--query--bin_path"></a>`bin_path`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -1046,7 +1056,7 @@ Path where binary is located.
 
 Default value: `$thanos::bin_path`
 
-##### <a name="log_level"></a>`log_level`
+##### <a name="-thanos--query--log_level"></a>`log_level`
 
 Data type: `Thanos::Log_level`
 
@@ -1054,7 +1064,7 @@ Only log messages with the given severity or above. One of: [debug, info, warn, 
 
 Default value: `'info'`
 
-##### <a name="log_format"></a>`log_format`
+##### <a name="-thanos--query--log_format"></a>`log_format`
 
 Data type: `Enum['logfmt', 'json']`
 
@@ -1062,7 +1072,7 @@ Output format of log messages. One of: [logfmt, json]
 
 Default value: `'logfmt'`
 
-##### <a name="tracing_config_file"></a>`tracing_config_file`
+##### <a name="-thanos--query--tracing_config_file"></a>`tracing_config_file`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
@@ -1070,7 +1080,7 @@ Path to YAML file with tracing configuration. See format details: https://thanos
 
 Default value: `$thanos::tracing_config_file`
 
-##### <a name="http_address"></a>`http_address`
+##### <a name="-thanos--query--http_address"></a>`http_address`
 
 Data type: `String`
 
@@ -1078,7 +1088,7 @@ Listen host:port for HTTP endpoints.
 
 Default value: `'0.0.0.0:10902'`
 
-##### <a name="http_grace_period"></a>`http_grace_period`
+##### <a name="-thanos--query--http_grace_period"></a>`http_grace_period`
 
 Data type: `String`
 
@@ -1086,7 +1096,7 @@ Time to wait after an interrupt received for HTTP Server.
 
 Default value: `'2m'`
 
-##### <a name="grpc_address"></a>`grpc_address`
+##### <a name="-thanos--query--grpc_address"></a>`grpc_address`
 
 Data type: `String`
 
@@ -1094,7 +1104,7 @@ Listen ip:port address for gRPC endpoints (StoreAPI). Make sure this address is 
 
 Default value: `'0.0.0.0:10901'`
 
-##### <a name="grpc_grace_period"></a>`grpc_grace_period`
+##### <a name="-thanos--query--grpc_grace_period"></a>`grpc_grace_period`
 
 Data type: `String`
 
@@ -1102,80 +1112,80 @@ Time to wait after an interrupt received for GRPC Server.
 
 Default value: `'2m'`
 
-##### <a name="grpc_server_tls_cert"></a>`grpc_server_tls_cert`
+##### <a name="-thanos--query--grpc_server_tls_cert"></a>`grpc_server_tls_cert`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 TLS Certificate for gRPC server, leave blank to disable TLS
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="grpc_server_tls_key"></a>`grpc_server_tls_key`
+##### <a name="-thanos--query--grpc_server_tls_key"></a>`grpc_server_tls_key`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 TLS Key for the gRPC server, leave blank to disable TLS
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="grpc_server_tls_client_ca"></a>`grpc_server_tls_client_ca`
+##### <a name="-thanos--query--grpc_server_tls_client_ca"></a>`grpc_server_tls_client_ca`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 TLS CA to verify clients against. If no client CA is specified, there is no client verification on server side. (tls.NoClientCert)
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="grpc_client_tls_secure"></a>`grpc_client_tls_secure`
+##### <a name="-thanos--query--grpc_client_tls_secure"></a>`grpc_client_tls_secure`
 
 Data type: `Boolean`
 
 Use TLS when talking to the gRPC server
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="grpc_client_tls_cert"></a>`grpc_client_tls_cert`
+##### <a name="-thanos--query--grpc_client_tls_cert"></a>`grpc_client_tls_cert`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 TLS Certificates to use to identify this client to the server
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="grpc_client_tls_key"></a>`grpc_client_tls_key`
+##### <a name="-thanos--query--grpc_client_tls_key"></a>`grpc_client_tls_key`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 TLS Key for the client's certificate
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="grpc_client_tls_ca"></a>`grpc_client_tls_ca`
+##### <a name="-thanos--query--grpc_client_tls_ca"></a>`grpc_client_tls_ca`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 TLS CA Certificates to use to verify gRPC servers
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="grpc_client_server_name"></a>`grpc_client_server_name`
+##### <a name="-thanos--query--grpc_client_server_name"></a>`grpc_client_server_name`
 
 Data type: `Optional[String]`
 
 Server name to verify the hostname on the returned gRPC certificates. See https://tools.ietf.org/html/rfc4366#section-3.1
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="web_route_prefix"></a>`web_route_prefix`
+##### <a name="-thanos--query--web_route_prefix"></a>`web_route_prefix`
 
 Data type: `Optional[String]`
 
 Prefix for API and UI endpoints. This allows thanos UI to be served on a sub-path.
   This option is analogous to --web.route-prefix of Promethus.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="web_external_prefix"></a>`web_external_prefix`
+##### <a name="-thanos--query--web_external_prefix"></a>`web_external_prefix`
 
 Data type: `Optional[String]`
 
@@ -1183,9 +1193,9 @@ Static prefix for all HTML links and redirect URLs in the UI query web interface
   Actual endpoints are still served on / or the web.route-prefix.
   This allows thanos UI to be served behind a reverse proxy that strips a URL sub-path.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="web_prefix_header"></a>`web_prefix_header`
+##### <a name="-thanos--query--web_prefix_header"></a>`web_prefix_header`
 
 Data type: `Optional[String]`
 
@@ -1196,9 +1206,9 @@ Name of HTTP request header used for dynamic prefixing of UI links and redirects
   if Thanos UI is served via Traefik reverse proxy with PathPrefixStrip option enabled, which sends the stripped
   prefix value in X-Forwarded-Prefix header. This allows thanos UI to be served on a sub-path.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="log_request_decision"></a>`log_request_decision`
+##### <a name="-thanos--query--log_request_decision"></a>`log_request_decision`
 
 Data type: `Optional[String]`
 
@@ -1207,9 +1217,9 @@ Request Logging for logging the start and end of requests. LogFinishCall is enab
   LogStartAndFinishCall : Logs the start and finish call of the requests.
   NoLogCall : Disable request logging.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="query_timeout"></a>`query_timeout`
+##### <a name="-thanos--query--query_timeout"></a>`query_timeout`
 
 Data type: `String`
 
@@ -1217,7 +1227,7 @@ Maximum time to process query by query node.
 
 Default value: `'2m'`
 
-##### <a name="query_max_concurrent"></a>`query_max_concurrent`
+##### <a name="-thanos--query--query_max_concurrent"></a>`query_max_concurrent`
 
 Data type: `Integer`
 
@@ -1225,7 +1235,7 @@ Maximum number of queries processed concurrently by query node.
 
 Default value: `20`
 
-##### <a name="query_loopback_delta"></a>`query_loopback_delta`
+##### <a name="-thanos--query--query_loopback_delta"></a>`query_loopback_delta`
 
 Data type: `Optional[String]`
 
@@ -1236,9 +1246,9 @@ The maximum lookback duration for retrieving metrics during expression evaluatio
   This is why lookback delta should be set to at least 2 times of the slowest scrape interval.
   If unset it will use the promql default of 5m.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="query_max_concurrent_select"></a>`query_max_concurrent_select`
+##### <a name="-thanos--query--query_max_concurrent_select"></a>`query_max_concurrent_select`
 
 Data type: `Integer`
 
@@ -1246,16 +1256,16 @@ Maximum number of select requests made concurrently per a query.
 
 Default value: `4`
 
-##### <a name="query_replica_label"></a>`query_replica_label`
+##### <a name="-thanos--query--query_replica_label"></a>`query_replica_label`
 
 Data type: `Optional[String]`
 
 Labels to treat as a replica indicator along which data is deduplicated.
   Still you will be able to query without deduplication using 'dedup=false' parameter.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="selector_labels"></a>`selector_labels`
+##### <a name="-thanos--query--selector_labels"></a>`selector_labels`
 
 Data type: `Array[String]`
 
@@ -1263,7 +1273,7 @@ Query selector labels that will be exposed in info endpoint.
 
 Default value: `[]`
 
-##### <a name="endpoints"></a>`endpoints`
+##### <a name="-thanos--query--endpoints"></a>`endpoints`
 
 Data type: `Array[String]`
 
@@ -1272,16 +1282,16 @@ Data type: `Array[String]`
 
 Default value: `[]`
 
-##### <a name="store_strict"></a>`store_strict`
+##### <a name="-thanos--query--store_strict"></a>`store_strict`
 
 Data type: `Optional[String]`
 
 Addresses of only statically configured store API servers that are always used, even if the health check fails.
   Useful if you have a caching layer on top.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="store_sd_files"></a>`store_sd_files`
+##### <a name="-thanos--query--store_sd_files"></a>`store_sd_files`
 
 Data type: `Array[Stdlib::Absolutepath]`
 
@@ -1289,7 +1299,7 @@ Path to files that contain addresses of store API servers. The path can be a glo
 
 Default value: `[]`
 
-##### <a name="store_sd_interval"></a>`store_sd_interval`
+##### <a name="-thanos--query--store_sd_interval"></a>`store_sd_interval`
 
 Data type: `String`
 
@@ -1297,7 +1307,7 @@ Refresh interval to re-read file SD files. It is used as a resync fallback.
 
 Default value: `'5m'`
 
-##### <a name="store_sd_dns_interval"></a>`store_sd_dns_interval`
+##### <a name="-thanos--query--store_sd_dns_interval"></a>`store_sd_dns_interval`
 
 Data type: `String`
 
@@ -1305,7 +1315,7 @@ Interval between DNS resolutions.
 
 Default value: `'30s'`
 
-##### <a name="store_unhealthy_timeout"></a>`store_unhealthy_timeout`
+##### <a name="-thanos--query--store_unhealthy_timeout"></a>`store_unhealthy_timeout`
 
 Data type: `String`
 
@@ -1313,24 +1323,24 @@ Timeout before an unhealthy store is cleaned from the store UI page.
 
 Default value: `'30s'`
 
-##### <a name="query_auto_downsampling"></a>`query_auto_downsampling`
+##### <a name="-thanos--query--query_auto_downsampling"></a>`query_auto_downsampling`
 
 Data type: `Boolean`
 
 Enable automatic adjustment (step / 5) to what source of data should be used in store gateways
   if no max_source_resolution param is specified.
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="query_partial_response"></a>`query_partial_response`
+##### <a name="-thanos--query--query_partial_response"></a>`query_partial_response`
 
 Data type: `Boolean`
 
 Enable partial response for queries if no partial_response param is specified. --no-query.partial-response for disabling.
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="query_default_evaluation_interval"></a>`query_default_evaluation_interval`
+##### <a name="-thanos--query--query_default_evaluation_interval"></a>`query_default_evaluation_interval`
 
 Data type: `String`
 
@@ -1338,7 +1348,7 @@ Set default evaluation interval for sub queries.
 
 Default value: `'1m'`
 
-##### <a name="store_response_timeout"></a>`store_response_timeout`
+##### <a name="-thanos--query--store_response_timeout"></a>`store_response_timeout`
 
 Data type: `String`
 
@@ -1347,16 +1357,16 @@ If a Store doesn't send any data in this specified duration then a Store will be
 
 Default value: `'0ms'`
 
-##### <a name="max_open_files"></a>`max_open_files`
+##### <a name="-thanos--query--max_open_files"></a>`max_open_files`
 
 Data type: `Optional[Integer]`
 
 Define how many open files the service is able to use
 In some cases, the default value (1024) needs to be increased
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="extra_params"></a>`extra_params`
+##### <a name="-thanos--query--extra_params"></a>`extra_params`
 
 Data type: `Hash`
 
@@ -1364,13 +1374,21 @@ Parameters passed to the binary, ressently released in latest version of Thanos.
 
 Default value: `{}`
 
-### <a name="thanosquery_frontend"></a>`thanos::query_frontend`
+##### <a name="-thanos--query--env_vars"></a>`env_vars`
+
+Data type: `Array`
+
+Environment variables passed during startup. Useful for example for ELASTIC_APM tracing integration.
+
+Default value: `[]`
+
+### <a name="thanos--query_frontend"></a>`thanos::query_frontend`
 
 This class install Query Frontend as service that can be put in front of Thanos Queriers to improve the read path.
 
 #### Examples
 
-#####
+##### 
 
 ```puppet
 include thanos::query
@@ -1380,30 +1398,31 @@ include thanos::query
 
 The following parameters are available in the `thanos::query_frontend` class:
 
-* [`ensure`](#ensure)
-* [`user`](#user)
-* [`group`](#group)
-* [`bin_path`](#bin_path)
-* [`log_level`](#log_level)
-* [`log_format`](#log_format)
-* [`tracing_config_file`](#tracing_config_file)
-* [`query_range_split_interval`](#query_range_split_interval)
-* [`query_range_max_retries_per_request`](#query_range_max_retries_per_request)
-* [`query_range_max_query_length`](#query_range_max_query_length)
-* [`query_range_max_query_parrallelism`](#query_range_max_query_parrallelism)
-* [`query_range_response_cache_max_freshness`](#query_range_response_cache_max_freshness)
-* [`query_range_partial_response`](#query_range_partial_response)
-* [`query_range_response_cache_config_file`](#query_range_response_cache_config_file)
-* [`http_address`](#http_address)
-* [`http_grace_period`](#http_grace_period)
-* [`query_frontend_downstream_url`](#query_frontend_downstream_url)
-* [`query_frontend_compress_responses`](#query_frontend_compress_responses)
-* [`query_frontend_log_queries_longer_than`](#query_frontend_log_queries_longer_than)
-* [`log_request_decision`](#log_request_decision)
-* [`max_open_files`](#max_open_files)
-* [`extra_params`](#extra_params)
+* [`ensure`](#-thanos--query_frontend--ensure)
+* [`user`](#-thanos--query_frontend--user)
+* [`group`](#-thanos--query_frontend--group)
+* [`bin_path`](#-thanos--query_frontend--bin_path)
+* [`log_level`](#-thanos--query_frontend--log_level)
+* [`log_format`](#-thanos--query_frontend--log_format)
+* [`tracing_config_file`](#-thanos--query_frontend--tracing_config_file)
+* [`query_range_split_interval`](#-thanos--query_frontend--query_range_split_interval)
+* [`query_range_max_retries_per_request`](#-thanos--query_frontend--query_range_max_retries_per_request)
+* [`query_range_max_query_length`](#-thanos--query_frontend--query_range_max_query_length)
+* [`query_range_max_query_parrallelism`](#-thanos--query_frontend--query_range_max_query_parrallelism)
+* [`query_range_response_cache_max_freshness`](#-thanos--query_frontend--query_range_response_cache_max_freshness)
+* [`query_range_partial_response`](#-thanos--query_frontend--query_range_partial_response)
+* [`query_range_response_cache_config_file`](#-thanos--query_frontend--query_range_response_cache_config_file)
+* [`http_address`](#-thanos--query_frontend--http_address)
+* [`http_grace_period`](#-thanos--query_frontend--http_grace_period)
+* [`query_frontend_downstream_url`](#-thanos--query_frontend--query_frontend_downstream_url)
+* [`query_frontend_compress_responses`](#-thanos--query_frontend--query_frontend_compress_responses)
+* [`query_frontend_log_queries_longer_than`](#-thanos--query_frontend--query_frontend_log_queries_longer_than)
+* [`log_request_decision`](#-thanos--query_frontend--log_request_decision)
+* [`max_open_files`](#-thanos--query_frontend--max_open_files)
+* [`extra_params`](#-thanos--query_frontend--extra_params)
+* [`env_vars`](#-thanos--query_frontend--env_vars)
 
-##### <a name="ensure"></a>`ensure`
+##### <a name="-thanos--query_frontend--ensure"></a>`ensure`
 
 Data type: `Enum['present', 'absent']`
 
@@ -1411,7 +1430,7 @@ State ensured from compact service.
 
 Default value: `'present'`
 
-##### <a name="user"></a>`user`
+##### <a name="-thanos--query_frontend--user"></a>`user`
 
 Data type: `String`
 
@@ -1419,7 +1438,7 @@ User running thanos.
 
 Default value: `$thanos::user`
 
-##### <a name="group"></a>`group`
+##### <a name="-thanos--query_frontend--group"></a>`group`
 
 Data type: `String`
 
@@ -1427,7 +1446,7 @@ Group under which thanos is running.
 
 Default value: `$thanos::group`
 
-##### <a name="bin_path"></a>`bin_path`
+##### <a name="-thanos--query_frontend--bin_path"></a>`bin_path`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -1435,7 +1454,7 @@ Path where binary is located.
 
 Default value: `$thanos::bin_path`
 
-##### <a name="log_level"></a>`log_level`
+##### <a name="-thanos--query_frontend--log_level"></a>`log_level`
 
 Data type: `Thanos::Log_level`
 
@@ -1443,7 +1462,7 @@ Only log messages with the given severity or above. One of: [debug, info, warn, 
 
 Default value: `'info'`
 
-##### <a name="log_format"></a>`log_format`
+##### <a name="-thanos--query_frontend--log_format"></a>`log_format`
 
 Data type: `Enum['logfmt', 'json']`
 
@@ -1451,7 +1470,7 @@ Output format of log messages. One of: [logfmt, json]
 
 Default value: `'logfmt'`
 
-##### <a name="tracing_config_file"></a>`tracing_config_file`
+##### <a name="-thanos--query_frontend--tracing_config_file"></a>`tracing_config_file`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
@@ -1459,7 +1478,7 @@ Path to YAML file with tracing configuration. See format details: https://thanos
 
 Default value: `$thanos::tracing_config_file`
 
-##### <a name="query_range_split_interval"></a>`query_range_split_interval`
+##### <a name="-thanos--query_frontend--query_range_split_interval"></a>`query_range_split_interval`
 
 Data type: `String`
 
@@ -1467,7 +1486,7 @@ Split queries by an interval and execute in parallel, 0 disables it.
 
 Default value: `'24h'`
 
-##### <a name="query_range_max_retries_per_request"></a>`query_range_max_retries_per_request`
+##### <a name="-thanos--query_frontend--query_range_max_retries_per_request"></a>`query_range_max_retries_per_request`
 
 Data type: `Integer`
 
@@ -1475,7 +1494,7 @@ Maximum number of retries for a single request; beyond this, the downstream erro
 
 Default value: `5`
 
-##### <a name="query_range_max_query_length"></a>`query_range_max_query_length`
+##### <a name="-thanos--query_frontend--query_range_max_query_length"></a>`query_range_max_query_length`
 
 Data type: `Integer`
 
@@ -1483,7 +1502,7 @@ Limit the query time range (end - start time) in the query-frontend, 0 disables 
 
 Default value: `0`
 
-##### <a name="query_range_max_query_parrallelism"></a>`query_range_max_query_parrallelism`
+##### <a name="-thanos--query_frontend--query_range_max_query_parrallelism"></a>`query_range_max_query_parrallelism`
 
 Data type: `Integer`
 
@@ -1491,7 +1510,7 @@ Maximum number of queries will be scheduled in parallel by the frontend.
 
 Default value: `14`
 
-##### <a name="query_range_response_cache_max_freshness"></a>`query_range_response_cache_max_freshness`
+##### <a name="-thanos--query_frontend--query_range_response_cache_max_freshness"></a>`query_range_response_cache_max_freshness`
 
 Data type: `String`
 
@@ -1499,23 +1518,23 @@ Most recent allowed cacheable result, to prevent caching very recent results tha
 
 Default value: `'1m'`
 
-##### <a name="query_range_partial_response"></a>`query_range_partial_response`
+##### <a name="-thanos--query_frontend--query_range_partial_response"></a>`query_range_partial_response`
 
 Data type: `Boolean`
 
 Enable partial response for queries if no partial_response param is specified. --no-query-range.partial-response for disabling.
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="query_range_response_cache_config_file"></a>`query_range_response_cache_config_file`
+##### <a name="-thanos--query_frontend--query_range_response_cache_config_file"></a>`query_range_response_cache_config_file`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 Path to YAML file that contains response cache configuration.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="http_address"></a>`http_address`
+##### <a name="-thanos--query_frontend--http_address"></a>`http_address`
 
 Data type: `String`
 
@@ -1523,7 +1542,7 @@ Listen host:port for HTTP endpoints.
 
 Default value: `'0.0.0.0:10902'`
 
-##### <a name="http_grace_period"></a>`http_grace_period`
+##### <a name="-thanos--query_frontend--http_grace_period"></a>`http_grace_period`
 
 Data type: `String`
 
@@ -1531,7 +1550,7 @@ Time to wait after an interrupt received for HTTP Server.
 
 Default value: `'2m'`
 
-##### <a name="query_frontend_downstream_url"></a>`query_frontend_downstream_url`
+##### <a name="-thanos--query_frontend--query_frontend_downstream_url"></a>`query_frontend_downstream_url`
 
 Data type: `Stdlib::HTTPUrl`
 
@@ -1539,23 +1558,23 @@ URL of downstream Prometheus Query compatible API.
 
 Default value: `'http://localhost:9090'`
 
-##### <a name="query_frontend_compress_responses"></a>`query_frontend_compress_responses`
+##### <a name="-thanos--query_frontend--query_frontend_compress_responses"></a>`query_frontend_compress_responses`
 
 Data type: `Boolean`
 
 Compress HTTP responses.
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="query_frontend_log_queries_longer_than"></a>`query_frontend_log_queries_longer_than`
+##### <a name="-thanos--query_frontend--query_frontend_log_queries_longer_than"></a>`query_frontend_log_queries_longer_than`
 
 Data type: `String`
 
 Log queries that are slower than the specified duration. Set to 0 to disable. Set to < 0 to enable on all queries.
 
-Default value: `0`
+Default value: `"0"`
 
-##### <a name="log_request_decision"></a>`log_request_decision`
+##### <a name="-thanos--query_frontend--log_request_decision"></a>`log_request_decision`
 
 Data type: `Optional[String]`
 
@@ -1564,18 +1583,18 @@ Request Logging for logging the start and end of requests. LogFinishCall is enab
   LogStartAndFinishCall : Logs the start and finish call of the requests.
   NoLogCall : Disable request logging.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="max_open_files"></a>`max_open_files`
+##### <a name="-thanos--query_frontend--max_open_files"></a>`max_open_files`
 
 Data type: `Optional[Integer]`
 
 Define how many open files the service is able to use
 In some cases, the default value (1024) needs to be increased
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="extra_params"></a>`extra_params`
+##### <a name="-thanos--query_frontend--extra_params"></a>`extra_params`
 
 Data type: `Hash`
 
@@ -1583,13 +1602,21 @@ Parameters passed to the binary, ressently released in latest version of Thanos.
 
 Default value: `{}`
 
-### <a name="thanosreceive"></a>`thanos::receive`
+##### <a name="-thanos--query_frontend--env_vars"></a>`env_vars`
+
+Data type: `Array`
+
+Environment variables passed during startup. Useful for example for ELASTIC_APM tracing integration.
+
+Default value: `[]`
+
+### <a name="thanos--receive"></a>`thanos::receive`
 
 This class install Receiver as service that implements the Prometheus Remote Write API.
 
 #### Examples
 
-#####
+##### 
 
 ```puppet
 include thanos::downsample
@@ -1599,45 +1626,46 @@ include thanos::downsample
 
 The following parameters are available in the `thanos::receive` class:
 
-* [`ensure`](#ensure)
-* [`user`](#user)
-* [`group`](#group)
-* [`bin_path`](#bin_path)
-* [`log_level`](#log_level)
-* [`log_format`](#log_format)
-* [`tracing_config_file`](#tracing_config_file)
-* [`http_address`](#http_address)
-* [`http_grace_period`](#http_grace_period)
-* [`grpc_address`](#grpc_address)
-* [`grpc_grace_period`](#grpc_grace_period)
-* [`grpc_server_tls_cert`](#grpc_server_tls_cert)
-* [`grpc_server_tls_key`](#grpc_server_tls_key)
-* [`grpc_server_tls_client_ca`](#grpc_server_tls_client_ca)
-* [`remote_write_address`](#remote_write_address)
-* [`remote_write_server_tls_cert`](#remote_write_server_tls_cert)
-* [`remote_write_server_tls_key`](#remote_write_server_tls_key)
-* [`remote_write_server_tls_client_ca`](#remote_write_server_tls_client_ca)
-* [`remote_write_client_tls_cert`](#remote_write_client_tls_cert)
-* [`remote_write_client_tls_key`](#remote_write_client_tls_key)
-* [`remote_write_client_tls_ca`](#remote_write_client_tls_ca)
-* [`remote_write_client_server_name`](#remote_write_client_server_name)
-* [`tsdb_path`](#tsdb_path)
-* [`objstore_config_file`](#objstore_config_file)
-* [`tsdb_retention`](#tsdb_retention)
-* [`receive_hashrings_file`](#receive_hashrings_file)
-* [`receive_hashrings_file_refresh_interval`](#receive_hashrings_file_refresh_interval)
-* [`receive_local_endpoint`](#receive_local_endpoint)
-* [`receive_tenant_header`](#receive_tenant_header)
-* [`receive_default_tenant_id`](#receive_default_tenant_id)
-* [`receive_tenant_label_name`](#receive_tenant_label_name)
-* [`receive_replica_header`](#receive_replica_header)
-* [`receive_replication_factor`](#receive_replication_factor)
-* [`tsdb_wal_compression`](#tsdb_wal_compression)
-* [`tsdb_no_lockfile`](#tsdb_no_lockfile)
-* [`labels`](#labels)
-* [`extra_params`](#extra_params)
+* [`ensure`](#-thanos--receive--ensure)
+* [`user`](#-thanos--receive--user)
+* [`group`](#-thanos--receive--group)
+* [`bin_path`](#-thanos--receive--bin_path)
+* [`log_level`](#-thanos--receive--log_level)
+* [`log_format`](#-thanos--receive--log_format)
+* [`tracing_config_file`](#-thanos--receive--tracing_config_file)
+* [`http_address`](#-thanos--receive--http_address)
+* [`http_grace_period`](#-thanos--receive--http_grace_period)
+* [`grpc_address`](#-thanos--receive--grpc_address)
+* [`grpc_grace_period`](#-thanos--receive--grpc_grace_period)
+* [`grpc_server_tls_cert`](#-thanos--receive--grpc_server_tls_cert)
+* [`grpc_server_tls_key`](#-thanos--receive--grpc_server_tls_key)
+* [`grpc_server_tls_client_ca`](#-thanos--receive--grpc_server_tls_client_ca)
+* [`remote_write_address`](#-thanos--receive--remote_write_address)
+* [`remote_write_server_tls_cert`](#-thanos--receive--remote_write_server_tls_cert)
+* [`remote_write_server_tls_key`](#-thanos--receive--remote_write_server_tls_key)
+* [`remote_write_server_tls_client_ca`](#-thanos--receive--remote_write_server_tls_client_ca)
+* [`remote_write_client_tls_cert`](#-thanos--receive--remote_write_client_tls_cert)
+* [`remote_write_client_tls_key`](#-thanos--receive--remote_write_client_tls_key)
+* [`remote_write_client_tls_ca`](#-thanos--receive--remote_write_client_tls_ca)
+* [`remote_write_client_server_name`](#-thanos--receive--remote_write_client_server_name)
+* [`tsdb_path`](#-thanos--receive--tsdb_path)
+* [`objstore_config_file`](#-thanos--receive--objstore_config_file)
+* [`tsdb_retention`](#-thanos--receive--tsdb_retention)
+* [`receive_hashrings_file`](#-thanos--receive--receive_hashrings_file)
+* [`receive_hashrings_file_refresh_interval`](#-thanos--receive--receive_hashrings_file_refresh_interval)
+* [`receive_local_endpoint`](#-thanos--receive--receive_local_endpoint)
+* [`receive_tenant_header`](#-thanos--receive--receive_tenant_header)
+* [`receive_default_tenant_id`](#-thanos--receive--receive_default_tenant_id)
+* [`receive_tenant_label_name`](#-thanos--receive--receive_tenant_label_name)
+* [`receive_replica_header`](#-thanos--receive--receive_replica_header)
+* [`receive_replication_factor`](#-thanos--receive--receive_replication_factor)
+* [`tsdb_wal_compression`](#-thanos--receive--tsdb_wal_compression)
+* [`tsdb_no_lockfile`](#-thanos--receive--tsdb_no_lockfile)
+* [`labels`](#-thanos--receive--labels)
+* [`extra_params`](#-thanos--receive--extra_params)
+* [`env_vars`](#-thanos--receive--env_vars)
 
-##### <a name="ensure"></a>`ensure`
+##### <a name="-thanos--receive--ensure"></a>`ensure`
 
 Data type: `Enum['present', 'absent']`
 
@@ -1645,7 +1673,7 @@ State ensured from compact service.
 
 Default value: `'present'`
 
-##### <a name="user"></a>`user`
+##### <a name="-thanos--receive--user"></a>`user`
 
 Data type: `String`
 
@@ -1653,7 +1681,7 @@ User running thanos.
 
 Default value: `$thanos::user`
 
-##### <a name="group"></a>`group`
+##### <a name="-thanos--receive--group"></a>`group`
 
 Data type: `String`
 
@@ -1661,7 +1689,7 @@ Group under which thanos is running.
 
 Default value: `$thanos::group`
 
-##### <a name="bin_path"></a>`bin_path`
+##### <a name="-thanos--receive--bin_path"></a>`bin_path`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -1669,7 +1697,7 @@ Path where binary is located.
 
 Default value: `$thanos::bin_path`
 
-##### <a name="log_level"></a>`log_level`
+##### <a name="-thanos--receive--log_level"></a>`log_level`
 
 Data type: `Thanos::Log_level`
 
@@ -1677,7 +1705,7 @@ Only log messages with the given severity or above. One of: [debug, info, warn, 
 
 Default value: `'info'`
 
-##### <a name="log_format"></a>`log_format`
+##### <a name="-thanos--receive--log_format"></a>`log_format`
 
 Data type: `Enum['logfmt', 'json']`
 
@@ -1685,7 +1713,7 @@ Output format of log messages. One of: [logfmt, json]
 
 Default value: `'logfmt'`
 
-##### <a name="tracing_config_file"></a>`tracing_config_file`
+##### <a name="-thanos--receive--tracing_config_file"></a>`tracing_config_file`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
@@ -1693,7 +1721,7 @@ Path to YAML file with tracing configuration. See format details: https://thanos
 
 Default value: `$thanos::tracing_config_file`
 
-##### <a name="http_address"></a>`http_address`
+##### <a name="-thanos--receive--http_address"></a>`http_address`
 
 Data type: `String`
 
@@ -1701,7 +1729,7 @@ Listen host:port for HTTP endpoints.
 
 Default value: `'0.0.0.0:10902'`
 
-##### <a name="http_grace_period"></a>`http_grace_period`
+##### <a name="-thanos--receive--http_grace_period"></a>`http_grace_period`
 
 Data type: `String`
 
@@ -1709,7 +1737,7 @@ Time to wait after an interrupt received for HTTP Server.
 
 Default value: `'2m'`
 
-##### <a name="grpc_address"></a>`grpc_address`
+##### <a name="-thanos--receive--grpc_address"></a>`grpc_address`
 
 Data type: `String`
 
@@ -1717,7 +1745,7 @@ Listen ip:port address for gRPC endpoints (StoreAPI). Make sure this address is 
 
 Default value: `'0.0.0.0:10901'`
 
-##### <a name="grpc_grace_period"></a>`grpc_grace_period`
+##### <a name="-thanos--receive--grpc_grace_period"></a>`grpc_grace_period`
 
 Data type: `String`
 
@@ -1725,31 +1753,31 @@ Time to wait after an interrupt received for GRPC Server.
 
 Default value: `'2m'`
 
-##### <a name="grpc_server_tls_cert"></a>`grpc_server_tls_cert`
+##### <a name="-thanos--receive--grpc_server_tls_cert"></a>`grpc_server_tls_cert`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 TLS Certificate for gRPC server, leave blank to disable TLS
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="grpc_server_tls_key"></a>`grpc_server_tls_key`
+##### <a name="-thanos--receive--grpc_server_tls_key"></a>`grpc_server_tls_key`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 TLS Key for the gRPC server, leave blank to disable TLS
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="grpc_server_tls_client_ca"></a>`grpc_server_tls_client_ca`
+##### <a name="-thanos--receive--grpc_server_tls_client_ca"></a>`grpc_server_tls_client_ca`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 TLS CA to verify clients against. If no client CA is specified, there is no client verification on server side. (tls.NoClientCert)
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="remote_write_address"></a>`remote_write_address`
+##### <a name="-thanos--receive--remote_write_address"></a>`remote_write_address`
 
 Data type: `String`
 
@@ -1757,71 +1785,71 @@ Address to listen on for remote write requests.
 
 Default value: `'0.0.0.0:19291'`
 
-##### <a name="remote_write_server_tls_cert"></a>`remote_write_server_tls_cert`
+##### <a name="-thanos--receive--remote_write_server_tls_cert"></a>`remote_write_server_tls_cert`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 TLS Certificate for HTTP server, leave blank to disable TLS.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="remote_write_server_tls_key"></a>`remote_write_server_tls_key`
+##### <a name="-thanos--receive--remote_write_server_tls_key"></a>`remote_write_server_tls_key`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 TLS Key for the HTTP server, leave blank to disable TLS.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="remote_write_server_tls_client_ca"></a>`remote_write_server_tls_client_ca`
+##### <a name="-thanos--receive--remote_write_server_tls_client_ca"></a>`remote_write_server_tls_client_ca`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 TLS CA to verify clients against. If no client CA is specified, there is no client verification on server side. (tls.NoClientCert)
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="remote_write_client_tls_cert"></a>`remote_write_client_tls_cert`
+##### <a name="-thanos--receive--remote_write_client_tls_cert"></a>`remote_write_client_tls_cert`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 TLS Certificates to use to identify this client to the server.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="remote_write_client_tls_key"></a>`remote_write_client_tls_key`
+##### <a name="-thanos--receive--remote_write_client_tls_key"></a>`remote_write_client_tls_key`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 TLS Key for the client's certificate.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="remote_write_client_tls_ca"></a>`remote_write_client_tls_ca`
+##### <a name="-thanos--receive--remote_write_client_tls_ca"></a>`remote_write_client_tls_ca`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 TLS CA Certificates to use to verify servers.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="remote_write_client_server_name"></a>`remote_write_client_server_name`
+##### <a name="-thanos--receive--remote_write_client_server_name"></a>`remote_write_client_server_name`
 
 Data type: `Optional[String]`
 
 Server name to verify the hostname on the returned gRPC certificates. See https://tools.ietf.org/html/rfc4366#section-3.1
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="tsdb_path"></a>`tsdb_path`
+##### <a name="-thanos--receive--tsdb_path"></a>`tsdb_path`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 Data directory of TSDB.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="objstore_config_file"></a>`objstore_config_file`
+##### <a name="-thanos--receive--objstore_config_file"></a>`objstore_config_file`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
@@ -1829,7 +1857,7 @@ Path to YAML file that contains object store configuration. See format details: 
 
 Default value: `$thanos::storage_config_file`
 
-##### <a name="tsdb_retention"></a>`tsdb_retention`
+##### <a name="-thanos--receive--tsdb_retention"></a>`tsdb_retention`
 
 Data type: `String`
 
@@ -1837,15 +1865,15 @@ How long to retain raw samples on local storage. 0d - disables this retention.
 
 Default value: `'15d'`
 
-##### <a name="receive_hashrings_file"></a>`receive_hashrings_file`
+##### <a name="-thanos--receive--receive_hashrings_file"></a>`receive_hashrings_file`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 Path to file that contains the hashring configuration.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="receive_hashrings_file_refresh_interval"></a>`receive_hashrings_file_refresh_interval`
+##### <a name="-thanos--receive--receive_hashrings_file_refresh_interval"></a>`receive_hashrings_file_refresh_interval`
 
 Data type: `String`
 
@@ -1853,15 +1881,15 @@ Refresh interval to re-read the hashring configuration file. (used as a fallback
 
 Default value: `'5m'`
 
-##### <a name="receive_local_endpoint"></a>`receive_local_endpoint`
+##### <a name="-thanos--receive--receive_local_endpoint"></a>`receive_local_endpoint`
 
 Data type: `Optional[String]`
 
 Endpoint of local receive node. Used to identify the local node in the hashring configuration.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="receive_tenant_header"></a>`receive_tenant_header`
+##### <a name="-thanos--receive--receive_tenant_header"></a>`receive_tenant_header`
 
 Data type: `String`
 
@@ -1869,7 +1897,7 @@ HTTP header to determine tenant for write requests.
 
 Default value: `'THANOS-TENANT'`
 
-##### <a name="receive_default_tenant_id"></a>`receive_default_tenant_id`
+##### <a name="-thanos--receive--receive_default_tenant_id"></a>`receive_default_tenant_id`
 
 Data type: `String`
 
@@ -1877,7 +1905,7 @@ HDefault tenant ID to use when none is provided via a header.
 
 Default value: `'default-tenant'`
 
-##### <a name="receive_tenant_label_name"></a>`receive_tenant_label_name`
+##### <a name="-thanos--receive--receive_tenant_label_name"></a>`receive_tenant_label_name`
 
 Data type: `String`
 
@@ -1885,7 +1913,7 @@ Label name through which the tenant will be announced.
 
 Default value: `'tenant_id'`
 
-##### <a name="receive_replica_header"></a>`receive_replica_header`
+##### <a name="-thanos--receive--receive_replica_header"></a>`receive_replica_header`
 
 Data type: `String`
 
@@ -1893,7 +1921,7 @@ HTTP header specifying the replica number of a write request.
 
 Default value: `'THANOS-REPLICA'`
 
-##### <a name="receive_replication_factor"></a>`receive_replication_factor`
+##### <a name="-thanos--receive--receive_replication_factor"></a>`receive_replication_factor`
 
 Data type: `Integer`
 
@@ -1901,33 +1929,33 @@ How many times to replicate incoming write requests.
 
 Default value: `1`
 
-##### <a name="tsdb_wal_compression"></a>`tsdb_wal_compression`
+##### <a name="-thanos--receive--tsdb_wal_compression"></a>`tsdb_wal_compression`
 
 Data type: `Boolean`
 
 Compress the tsdb WAL.
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="tsdb_no_lockfile"></a>`tsdb_no_lockfile`
+##### <a name="-thanos--receive--tsdb_no_lockfile"></a>`tsdb_no_lockfile`
 
 Data type: `Boolean`
 
 Do not create lockfile in TSDB data directory.
   In any case, the lockfiles will be deleted on next startup.
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="labels"></a>`labels`
+##### <a name="-thanos--receive--labels"></a>`labels`
 
 Data type: `Array[String]`
 
-External labels to announce. 
+External labels to announce.
   This flag will be removed in the future when handling multiple tsdb instances is added.
 
 Default value: `[]`
 
-##### <a name="extra_params"></a>`extra_params`
+##### <a name="-thanos--receive--extra_params"></a>`extra_params`
 
 Data type: `Hash`
 
@@ -1935,14 +1963,22 @@ Parameters passed to the binary, ressently released in latest version of Thanos.
 
 Default value: `{}`
 
-### <a name="thanosrule"></a>`thanos::rule`
+##### <a name="-thanos--receive--env_vars"></a>`env_vars`
+
+Data type: `Array`
+
+Environment variables passed during startup. Useful for example for ELASTIC_APM tracing integration.
+
+Default value: `[]`
+
+### <a name="thanos--rule"></a>`thanos::rule`
 
 This class install Rule as service ruler evaluating Prometheus rules against given Query nodes,
   exposing Store API and storing old blocks in bucket.
 
 #### Examples
 
-#####
+##### 
 
 ```puppet
 include thanos::rule
@@ -1952,49 +1988,50 @@ include thanos::rule
 
 The following parameters are available in the `thanos::rule` class:
 
-* [`ensure`](#ensure)
-* [`user`](#user)
-* [`group`](#group)
-* [`bin_path`](#bin_path)
-* [`log_level`](#log_level)
-* [`log_format`](#log_format)
-* [`tracing_config_file`](#tracing_config_file)
-* [`http_address`](#http_address)
-* [`http_grace_period`](#http_grace_period)
-* [`grpc_address`](#grpc_address)
-* [`grpc_grace_period`](#grpc_grace_period)
-* [`grpc_server_tls_cert`](#grpc_server_tls_cert)
-* [`grpc_server_tls_key`](#grpc_server_tls_key)
-* [`grpc_server_tls_client_ca`](#grpc_server_tls_client_ca)
-* [`labels`](#labels)
-* [`data_dir`](#data_dir)
-* [`rule_files`](#rule_files)
-* [`resend_delay`](#resend_delay)
-* [`eval_interval`](#eval_interval)
-* [`tsdb_block_duration`](#tsdb_block_duration)
-* [`tsdb_retention`](#tsdb_retention)
-* [`tsdb_no_lockfile`](#tsdb_no_lockfile)
-* [`tsdb_wal_compression`](#tsdb_wal_compression)
-* [`alertmanagers_url`](#alertmanagers_url)
-* [`alertmanagers_send_timeout`](#alertmanagers_send_timeout)
-* [`alertmanagers_config_file`](#alertmanagers_config_file)
-* [`alertmanagers_sd_dns_interval`](#alertmanagers_sd_dns_interval)
-* [`alert_query_url`](#alert_query_url)
-* [`alert_label_drop`](#alert_label_drop)
-* [`web_route_prefix`](#web_route_prefix)
-* [`web_external_prefix`](#web_external_prefix)
-* [`web_prefix_header`](#web_prefix_header)
-* [`log_request_decision`](#log_request_decision)
-* [`objstore_config_file`](#objstore_config_file)
-* [`queries`](#queries)
-* [`query_config_file`](#query_config_file)
-* [`query_sd_files`](#query_sd_files)
-* [`query_sd_interval`](#query_sd_interval)
-* [`query_sd_dns_interval`](#query_sd_dns_interval)
-* [`max_open_files`](#max_open_files)
-* [`extra_params`](#extra_params)
+* [`ensure`](#-thanos--rule--ensure)
+* [`user`](#-thanos--rule--user)
+* [`group`](#-thanos--rule--group)
+* [`bin_path`](#-thanos--rule--bin_path)
+* [`log_level`](#-thanos--rule--log_level)
+* [`log_format`](#-thanos--rule--log_format)
+* [`tracing_config_file`](#-thanos--rule--tracing_config_file)
+* [`http_address`](#-thanos--rule--http_address)
+* [`http_grace_period`](#-thanos--rule--http_grace_period)
+* [`grpc_address`](#-thanos--rule--grpc_address)
+* [`grpc_grace_period`](#-thanos--rule--grpc_grace_period)
+* [`grpc_server_tls_cert`](#-thanos--rule--grpc_server_tls_cert)
+* [`grpc_server_tls_key`](#-thanos--rule--grpc_server_tls_key)
+* [`grpc_server_tls_client_ca`](#-thanos--rule--grpc_server_tls_client_ca)
+* [`labels`](#-thanos--rule--labels)
+* [`data_dir`](#-thanos--rule--data_dir)
+* [`rule_files`](#-thanos--rule--rule_files)
+* [`resend_delay`](#-thanos--rule--resend_delay)
+* [`eval_interval`](#-thanos--rule--eval_interval)
+* [`tsdb_block_duration`](#-thanos--rule--tsdb_block_duration)
+* [`tsdb_retention`](#-thanos--rule--tsdb_retention)
+* [`tsdb_no_lockfile`](#-thanos--rule--tsdb_no_lockfile)
+* [`tsdb_wal_compression`](#-thanos--rule--tsdb_wal_compression)
+* [`alertmanagers_url`](#-thanos--rule--alertmanagers_url)
+* [`alertmanagers_send_timeout`](#-thanos--rule--alertmanagers_send_timeout)
+* [`alertmanagers_config_file`](#-thanos--rule--alertmanagers_config_file)
+* [`alertmanagers_sd_dns_interval`](#-thanos--rule--alertmanagers_sd_dns_interval)
+* [`alert_query_url`](#-thanos--rule--alert_query_url)
+* [`alert_label_drop`](#-thanos--rule--alert_label_drop)
+* [`web_route_prefix`](#-thanos--rule--web_route_prefix)
+* [`web_external_prefix`](#-thanos--rule--web_external_prefix)
+* [`web_prefix_header`](#-thanos--rule--web_prefix_header)
+* [`log_request_decision`](#-thanos--rule--log_request_decision)
+* [`objstore_config_file`](#-thanos--rule--objstore_config_file)
+* [`queries`](#-thanos--rule--queries)
+* [`query_config_file`](#-thanos--rule--query_config_file)
+* [`query_sd_files`](#-thanos--rule--query_sd_files)
+* [`query_sd_interval`](#-thanos--rule--query_sd_interval)
+* [`query_sd_dns_interval`](#-thanos--rule--query_sd_dns_interval)
+* [`max_open_files`](#-thanos--rule--max_open_files)
+* [`extra_params`](#-thanos--rule--extra_params)
+* [`env_vars`](#-thanos--rule--env_vars)
 
-##### <a name="ensure"></a>`ensure`
+##### <a name="-thanos--rule--ensure"></a>`ensure`
 
 Data type: `Enum['present', 'absent']`
 
@@ -2002,7 +2039,7 @@ State ensured from compact service.
 
 Default value: `'present'`
 
-##### <a name="user"></a>`user`
+##### <a name="-thanos--rule--user"></a>`user`
 
 Data type: `String`
 
@@ -2010,7 +2047,7 @@ User running thanos.
 
 Default value: `$thanos::user`
 
-##### <a name="group"></a>`group`
+##### <a name="-thanos--rule--group"></a>`group`
 
 Data type: `String`
 
@@ -2018,7 +2055,7 @@ Group under which thanos is running.
 
 Default value: `$thanos::group`
 
-##### <a name="bin_path"></a>`bin_path`
+##### <a name="-thanos--rule--bin_path"></a>`bin_path`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -2026,7 +2063,7 @@ Path where binary is located.
 
 Default value: `$thanos::bin_path`
 
-##### <a name="log_level"></a>`log_level`
+##### <a name="-thanos--rule--log_level"></a>`log_level`
 
 Data type: `Thanos::Log_level`
 
@@ -2034,7 +2071,7 @@ Only log messages with the given severity or above. One of: [debug, info, warn, 
 
 Default value: `'info'`
 
-##### <a name="log_format"></a>`log_format`
+##### <a name="-thanos--rule--log_format"></a>`log_format`
 
 Data type: `Enum['logfmt', 'json']`
 
@@ -2042,7 +2079,7 @@ Output format of log messages. One of: [logfmt, json]
 
 Default value: `'logfmt'`
 
-##### <a name="tracing_config_file"></a>`tracing_config_file`
+##### <a name="-thanos--rule--tracing_config_file"></a>`tracing_config_file`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
@@ -2050,7 +2087,7 @@ Path to YAML file with tracing configuration. See format details: https://thanos
 
 Default value: `$thanos::tracing_config_file`
 
-##### <a name="http_address"></a>`http_address`
+##### <a name="-thanos--rule--http_address"></a>`http_address`
 
 Data type: `String`
 
@@ -2058,7 +2095,7 @@ Listen host:port for HTTP endpoints.
 
 Default value: `'0.0.0.0:10902'`
 
-##### <a name="http_grace_period"></a>`http_grace_period`
+##### <a name="-thanos--rule--http_grace_period"></a>`http_grace_period`
 
 Data type: `String`
 
@@ -2066,7 +2103,7 @@ Time to wait after an interrupt received for HTTP Server.
 
 Default value: `'2m'`
 
-##### <a name="grpc_address"></a>`grpc_address`
+##### <a name="-thanos--rule--grpc_address"></a>`grpc_address`
 
 Data type: `String`
 
@@ -2074,7 +2111,7 @@ Listen ip:port address for gRPC endpoints (StoreAPI). Make sure this address is 
 
 Default value: `'0.0.0.0:10901'`
 
-##### <a name="grpc_grace_period"></a>`grpc_grace_period`
+##### <a name="-thanos--rule--grpc_grace_period"></a>`grpc_grace_period`
 
 Data type: `String`
 
@@ -2082,32 +2119,32 @@ Time to wait after an interrupt received for GRPC Server.
 
 Default value: `'2m'`
 
-##### <a name="grpc_server_tls_cert"></a>`grpc_server_tls_cert`
+##### <a name="-thanos--rule--grpc_server_tls_cert"></a>`grpc_server_tls_cert`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 TLS Certificate for gRPC server, leave blank to disable TLS
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="grpc_server_tls_key"></a>`grpc_server_tls_key`
+##### <a name="-thanos--rule--grpc_server_tls_key"></a>`grpc_server_tls_key`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 TLS Key for the gRPC server, leave blank to disable TLS
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="grpc_server_tls_client_ca"></a>`grpc_server_tls_client_ca`
+##### <a name="-thanos--rule--grpc_server_tls_client_ca"></a>`grpc_server_tls_client_ca`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 TLS CA to verify clients against. If no client CA is specified,
   there is no client verification on server side. (tls.NoClientCert)
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="labels"></a>`labels`
+##### <a name="-thanos--rule--labels"></a>`labels`
 
 Data type: `Array[String]`
 
@@ -2116,15 +2153,15 @@ Labels to be applied to all generated metrics. Similar to external labels for Pr
 
 Default value: `[]`
 
-##### <a name="data_dir"></a>`data_dir`
+##### <a name="-thanos--rule--data_dir"></a>`data_dir`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 Data directory.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="rule_files"></a>`rule_files`
+##### <a name="-thanos--rule--rule_files"></a>`rule_files`
 
 Data type: `Array[Stdlib::Absolutepath]`
 
@@ -2132,7 +2169,7 @@ Rule files that should be used by rule manager. Can be in glob format.
 
 Default value: `[]`
 
-##### <a name="resend_delay"></a>`resend_delay`
+##### <a name="-thanos--rule--resend_delay"></a>`resend_delay`
 
 Data type: `String`
 
@@ -2140,7 +2177,7 @@ Minimum amount of time to wait before resending an alert to Alertmanager.
 
 Default value: `'1m'`
 
-##### <a name="eval_interval"></a>`eval_interval`
+##### <a name="-thanos--rule--eval_interval"></a>`eval_interval`
 
 Data type: `String`
 
@@ -2148,7 +2185,7 @@ The default evaluation interval to use.
 
 Default value: `'30s'`
 
-##### <a name="tsdb_block_duration"></a>`tsdb_block_duration`
+##### <a name="-thanos--rule--tsdb_block_duration"></a>`tsdb_block_duration`
 
 Data type: `String`
 
@@ -2156,7 +2193,7 @@ Block duration for TSDB block.
 
 Default value: `'2h'`
 
-##### <a name="tsdb_retention"></a>`tsdb_retention`
+##### <a name="-thanos--rule--tsdb_retention"></a>`tsdb_retention`
 
 Data type: `String`
 
@@ -2164,23 +2201,23 @@ Block retention time on local disk.
 
 Default value: `'48h'`
 
-##### <a name="tsdb_no_lockfile"></a>`tsdb_no_lockfile`
+##### <a name="-thanos--rule--tsdb_no_lockfile"></a>`tsdb_no_lockfile`
 
 Data type: `Boolean`
 
 Do not create lockfile in TSDB data directory. In any case, the lockfiles will be deleted on next startup.
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="tsdb_wal_compression"></a>`tsdb_wal_compression`
+##### <a name="-thanos--rule--tsdb_wal_compression"></a>`tsdb_wal_compression`
 
 Data type: `Boolean`
 
 Compress the tsdb WAL.
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="alertmanagers_url"></a>`alertmanagers_url`
+##### <a name="-thanos--rule--alertmanagers_url"></a>`alertmanagers_url`
 
 Data type: `Array[Stdlib::HTTPUrl]`
 
@@ -2192,7 +2229,7 @@ Alertmanager replica URLs to push firing alerts.
 
 Default value: `[]`
 
-##### <a name="alertmanagers_send_timeout"></a>`alertmanagers_send_timeout`
+##### <a name="-thanos--rule--alertmanagers_send_timeout"></a>`alertmanagers_send_timeout`
 
 Data type: `String`
 
@@ -2200,7 +2237,7 @@ Timeout for sending alerts to alertmanager
 
 Default value: `'10s'`
 
-##### <a name="alertmanagers_config_file"></a>`alertmanagers_config_file`
+##### <a name="-thanos--rule--alertmanagers_config_file"></a>`alertmanagers_config_file`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
@@ -2208,9 +2245,9 @@ Path to YAML file that contains alerting configuration.
 See format details: https://thanos.io/components/rule.md/#configuration.
 If defined, it takes precedence over the alertmanagers_url and alertmanagers_send_timeout options.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="alertmanagers_sd_dns_interval"></a>`alertmanagers_sd_dns_interval`
+##### <a name="-thanos--rule--alertmanagers_sd_dns_interval"></a>`alertmanagers_sd_dns_interval`
 
 Data type: `String`
 
@@ -2218,15 +2255,15 @@ Interval between DNS resolutions of Alertmanager hosts.
 
 Default value: `'30s'`
 
-##### <a name="alert_query_url"></a>`alert_query_url`
+##### <a name="-thanos--rule--alert_query_url"></a>`alert_query_url`
 
 Data type: `Optional[Stdlib::HTTPUrl]`
 
 The external Thanos Query URL that would be set in all alerts 'Source' field
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="alert_label_drop"></a>`alert_label_drop`
+##### <a name="-thanos--rule--alert_label_drop"></a>`alert_label_drop`
 
 Data type: `Array[String]`
 
@@ -2235,16 +2272,16 @@ Labels by name to drop before sending to alertmanager. This allows alert to be d
 
 Default value: `[]`
 
-##### <a name="web_route_prefix"></a>`web_route_prefix`
+##### <a name="-thanos--rule--web_route_prefix"></a>`web_route_prefix`
 
 Data type: `Optional[String]`
 
 Prefix for API and UI endpoints. This allows thanos UI to be served on a sub-path.
   This option is analogous to --web.route-prefix of Prometheus.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="web_external_prefix"></a>`web_external_prefix`
+##### <a name="-thanos--rule--web_external_prefix"></a>`web_external_prefix`
 
 Data type: `Optional[String]`
 
@@ -2252,9 +2289,9 @@ Static prefix for all HTML links and redirect URLs in the UI query web interface
   Actual endpoints are still served on / or the web.route-prefix.
   This allows thanos UI to be served behind a reverse proxy that strips a URL sub-path.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="web_prefix_header"></a>`web_prefix_header`
+##### <a name="-thanos--rule--web_prefix_header"></a>`web_prefix_header`
 
 Data type: `Optional[String]`
 
@@ -2265,9 +2302,9 @@ Name of HTTP request header used for dynamic prefixing of UI links and redirects
   if Thanos UI is served via Traefik reverse proxy with PathPrefixStrip option enabled, hich sends the stripped
   prefix value in  X-Forwarded-Prefix header. This allows thanos UI to be served on a sub-path.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="log_request_decision"></a>`log_request_decision`
+##### <a name="-thanos--rule--log_request_decision"></a>`log_request_decision`
 
 Data type: `Optional[String]`
 
@@ -2276,18 +2313,18 @@ Request Logging for logging the start and end of requests. LogFinishCall is enab
   LogStartAndFinishCall : Logs the start and finish call of the requests.
   NoLogCall : Disable request logging.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="objstore_config_file"></a>`objstore_config_file`
+##### <a name="-thanos--rule--objstore_config_file"></a>`objstore_config_file`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 Path to YAML file that contains object store configuration. See format details:
   https://thanos.io/storage.md/#configuration
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="queries"></a>`queries`
+##### <a name="-thanos--rule--queries"></a>`queries`
 
 Data type: `Array[String]`
 
@@ -2296,7 +2333,7 @@ Addresses of statically configured query API servers. The scheme may be prefixed
 
 Default value: `[]`
 
-##### <a name="query_config_file"></a>`query_config_file`
+##### <a name="-thanos--rule--query_config_file"></a>`query_config_file`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
@@ -2304,9 +2341,9 @@ Path to YAML file that contains query API servers configuration.
 See format details: https://thanos.io/components/rule.md/#configuration.
 If defined, it takes precedence over the queries and query.sd-files options.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="query_sd_files"></a>`query_sd_files`
+##### <a name="-thanos--rule--query_sd_files"></a>`query_sd_files`
 
 Data type: `Array[Stdlib::Absolutepath]`
 
@@ -2314,7 +2351,7 @@ Path to file that contain addresses of query peers. The path can be a glob patte
 
 Default value: `[]`
 
-##### <a name="query_sd_interval"></a>`query_sd_interval`
+##### <a name="-thanos--rule--query_sd_interval"></a>`query_sd_interval`
 
 Data type: `String`
 
@@ -2322,7 +2359,7 @@ Refresh interval to re-read file SD files. (used as a fallback)
 
 Default value: `'5m'`
 
-##### <a name="query_sd_dns_interval"></a>`query_sd_dns_interval`
+##### <a name="-thanos--rule--query_sd_dns_interval"></a>`query_sd_dns_interval`
 
 Data type: `String`
 
@@ -2330,16 +2367,16 @@ Interval between DNS resolutions.
 
 Default value: `'30s'`
 
-##### <a name="max_open_files"></a>`max_open_files`
+##### <a name="-thanos--rule--max_open_files"></a>`max_open_files`
 
 Data type: `Optional[Integer]`
 
 Define how many open files the service is able to use
 In some cases, the default value (1024) needs to be increased
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="extra_params"></a>`extra_params`
+##### <a name="-thanos--rule--extra_params"></a>`extra_params`
 
 Data type: `Hash`
 
@@ -2347,13 +2384,21 @@ Parameters passed to the binary, ressently released in latest version of Thanos.
 
 Default value: `{}`
 
-### <a name="thanossidecar"></a>`thanos::sidecar`
+##### <a name="-thanos--rule--env_vars"></a>`env_vars`
+
+Data type: `Array`
+
+Environment variables passed during startup. Useful for example for ELASTIC_APM tracing integration.
+
+Default value: `[]`
+
+### <a name="thanos--sidecar"></a>`thanos::sidecar`
 
 This class install Sidecar as service sidecar for Prometheus server.
 
 #### Examples
 
-#####
+##### 
 
 ```puppet
 include thanos::sidecar
@@ -2363,35 +2408,36 @@ include thanos::sidecar
 
 The following parameters are available in the `thanos::sidecar` class:
 
-* [`ensure`](#ensure)
-* [`user`](#user)
-* [`group`](#group)
-* [`bin_path`](#bin_path)
-* [`log_level`](#log_level)
-* [`log_format`](#log_format)
-* [`tracing_config_file`](#tracing_config_file)
-* [`http_address`](#http_address)
-* [`http_grace_period`](#http_grace_period)
-* [`grpc_address`](#grpc_address)
-* [`grpc_grace_period`](#grpc_grace_period)
-* [`grpc_server_tls_cert`](#grpc_server_tls_cert)
-* [`grpc_server_tls_key`](#grpc_server_tls_key)
-* [`grpc_server_tls_client_ca`](#grpc_server_tls_client_ca)
-* [`prometheus_url`](#prometheus_url)
-* [`prometheus_ready_timeout`](#prometheus_ready_timeout)
-* [`tsdb_path`](#tsdb_path)
-* [`reloader_config_file`](#reloader_config_file)
-* [`reloader_config_envsubst_file`](#reloader_config_envsubst_file)
-* [`reloader_rule_dirs`](#reloader_rule_dirs)
-* [`reloader_watch_interval`](#reloader_watch_interval)
-* [`reloader_retry_interval`](#reloader_retry_interval)
-* [`objstore_config_file`](#objstore_config_file)
-* [`shipper_upload_compacted`](#shipper_upload_compacted)
-* [`min_time`](#min_time)
-* [`max_open_files`](#max_open_files)
-* [`extra_params`](#extra_params)
+* [`ensure`](#-thanos--sidecar--ensure)
+* [`user`](#-thanos--sidecar--user)
+* [`group`](#-thanos--sidecar--group)
+* [`bin_path`](#-thanos--sidecar--bin_path)
+* [`log_level`](#-thanos--sidecar--log_level)
+* [`log_format`](#-thanos--sidecar--log_format)
+* [`tracing_config_file`](#-thanos--sidecar--tracing_config_file)
+* [`http_address`](#-thanos--sidecar--http_address)
+* [`http_grace_period`](#-thanos--sidecar--http_grace_period)
+* [`grpc_address`](#-thanos--sidecar--grpc_address)
+* [`grpc_grace_period`](#-thanos--sidecar--grpc_grace_period)
+* [`grpc_server_tls_cert`](#-thanos--sidecar--grpc_server_tls_cert)
+* [`grpc_server_tls_key`](#-thanos--sidecar--grpc_server_tls_key)
+* [`grpc_server_tls_client_ca`](#-thanos--sidecar--grpc_server_tls_client_ca)
+* [`prometheus_url`](#-thanos--sidecar--prometheus_url)
+* [`prometheus_ready_timeout`](#-thanos--sidecar--prometheus_ready_timeout)
+* [`tsdb_path`](#-thanos--sidecar--tsdb_path)
+* [`reloader_config_file`](#-thanos--sidecar--reloader_config_file)
+* [`reloader_config_envsubst_file`](#-thanos--sidecar--reloader_config_envsubst_file)
+* [`reloader_rule_dirs`](#-thanos--sidecar--reloader_rule_dirs)
+* [`reloader_watch_interval`](#-thanos--sidecar--reloader_watch_interval)
+* [`reloader_retry_interval`](#-thanos--sidecar--reloader_retry_interval)
+* [`objstore_config_file`](#-thanos--sidecar--objstore_config_file)
+* [`shipper_upload_compacted`](#-thanos--sidecar--shipper_upload_compacted)
+* [`min_time`](#-thanos--sidecar--min_time)
+* [`max_open_files`](#-thanos--sidecar--max_open_files)
+* [`extra_params`](#-thanos--sidecar--extra_params)
+* [`env_vars`](#-thanos--sidecar--env_vars)
 
-##### <a name="ensure"></a>`ensure`
+##### <a name="-thanos--sidecar--ensure"></a>`ensure`
 
 Data type: `Enum['present', 'absent']`
 
@@ -2399,7 +2445,7 @@ State ensured from compact service.
 
 Default value: `'present'`
 
-##### <a name="user"></a>`user`
+##### <a name="-thanos--sidecar--user"></a>`user`
 
 Data type: `String`
 
@@ -2407,7 +2453,7 @@ User running thanos.
 
 Default value: `$thanos::user`
 
-##### <a name="group"></a>`group`
+##### <a name="-thanos--sidecar--group"></a>`group`
 
 Data type: `String`
 
@@ -2415,7 +2461,7 @@ Group under which thanos is running.
 
 Default value: `$thanos::group`
 
-##### <a name="bin_path"></a>`bin_path`
+##### <a name="-thanos--sidecar--bin_path"></a>`bin_path`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -2423,7 +2469,7 @@ Path where binary is located.
 
 Default value: `$thanos::bin_path`
 
-##### <a name="log_level"></a>`log_level`
+##### <a name="-thanos--sidecar--log_level"></a>`log_level`
 
 Data type: `Thanos::Log_level`
 
@@ -2431,7 +2477,7 @@ Only log messages with the given severity or above. One of: [debug, info, warn, 
 
 Default value: `'info'`
 
-##### <a name="log_format"></a>`log_format`
+##### <a name="-thanos--sidecar--log_format"></a>`log_format`
 
 Data type: `Enum['logfmt', 'json']`
 
@@ -2439,7 +2485,7 @@ Output format of log messages. One of: [logfmt, json]
 
 Default value: `'logfmt'`
 
-##### <a name="tracing_config_file"></a>`tracing_config_file`
+##### <a name="-thanos--sidecar--tracing_config_file"></a>`tracing_config_file`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
@@ -2447,7 +2493,7 @@ Path to YAML file with tracing configuration. See format details: https://thanos
 
 Default value: `$thanos::tracing_config_file`
 
-##### <a name="http_address"></a>`http_address`
+##### <a name="-thanos--sidecar--http_address"></a>`http_address`
 
 Data type: `String`
 
@@ -2455,7 +2501,7 @@ Listen host:port for HTTP endpoints.
 
 Default value: `'0.0.0.0:10902'`
 
-##### <a name="http_grace_period"></a>`http_grace_period`
+##### <a name="-thanos--sidecar--http_grace_period"></a>`http_grace_period`
 
 Data type: `String`
 
@@ -2463,7 +2509,7 @@ Time to wait after an interrupt received for HTTP Server.
 
 Default value: `'2m'`
 
-##### <a name="grpc_address"></a>`grpc_address`
+##### <a name="-thanos--sidecar--grpc_address"></a>`grpc_address`
 
 Data type: `String`
 
@@ -2471,7 +2517,7 @@ Listen ip:port address for gRPC endpoints (StoreAPI). Make sure this address is 
 
 Default value: `'0.0.0.0:10901'`
 
-##### <a name="grpc_grace_period"></a>`grpc_grace_period`
+##### <a name="-thanos--sidecar--grpc_grace_period"></a>`grpc_grace_period`
 
 Data type: `String`
 
@@ -2479,31 +2525,31 @@ Time to wait after an interrupt received for GRPC Server.
 
 Default value: `'2m'`
 
-##### <a name="grpc_server_tls_cert"></a>`grpc_server_tls_cert`
+##### <a name="-thanos--sidecar--grpc_server_tls_cert"></a>`grpc_server_tls_cert`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 TLS Certificate for gRPC server, leave blank to disable TLS
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="grpc_server_tls_key"></a>`grpc_server_tls_key`
+##### <a name="-thanos--sidecar--grpc_server_tls_key"></a>`grpc_server_tls_key`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 TLS Key for the gRPC server, leave blank to disable TLS
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="grpc_server_tls_client_ca"></a>`grpc_server_tls_client_ca`
+##### <a name="-thanos--sidecar--grpc_server_tls_client_ca"></a>`grpc_server_tls_client_ca`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 TLS CA to verify clients against. If no client CA is specified, there is no client verification on server side. (tls.NoClientCert)
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="prometheus_url"></a>`prometheus_url`
+##### <a name="-thanos--sidecar--prometheus_url"></a>`prometheus_url`
 
 Data type: `Stdlib::HTTPUrl`
 
@@ -2511,7 +2557,7 @@ URL at which to reach Prometheus's API. For better performance use local network
 
 Default value: `'http://localhost:9090'`
 
-##### <a name="prometheus_ready_timeout"></a>`prometheus_ready_timeout`
+##### <a name="-thanos--sidecar--prometheus_ready_timeout"></a>`prometheus_ready_timeout`
 
 Data type: `String`
 
@@ -2519,7 +2565,7 @@ Maximum time to wait for the Prometheus instance to start up
 
 Default value: `'10m'`
 
-##### <a name="tsdb_path"></a>`tsdb_path`
+##### <a name="-thanos--sidecar--tsdb_path"></a>`tsdb_path`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -2527,23 +2573,23 @@ Data directory of TSDB.
 
 Default value: `$thanos::tsdb_path`
 
-##### <a name="reloader_config_file"></a>`reloader_config_file`
+##### <a name="-thanos--sidecar--reloader_config_file"></a>`reloader_config_file`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 Config file watched by the reloader.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="reloader_config_envsubst_file"></a>`reloader_config_envsubst_file`
+##### <a name="-thanos--sidecar--reloader_config_envsubst_file"></a>`reloader_config_envsubst_file`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 Output file for environment variable substituted config file.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="reloader_rule_dirs"></a>`reloader_rule_dirs`
+##### <a name="-thanos--sidecar--reloader_rule_dirs"></a>`reloader_rule_dirs`
 
 Data type: `Array[Stdlib::Absolutepath]`
 
@@ -2551,7 +2597,7 @@ Rule directories for the reloader to refresh.
 
 Default value: `[]`
 
-##### <a name="reloader_watch_interval"></a>`reloader_watch_interval`
+##### <a name="-thanos--sidecar--reloader_watch_interval"></a>`reloader_watch_interval`
 
 Data type: `String`
 
@@ -2559,7 +2605,7 @@ Controls how often reloader re-reads config and rules.
 
 Default value: `'3m'`
 
-##### <a name="reloader_retry_interval"></a>`reloader_retry_interval`
+##### <a name="-thanos--sidecar--reloader_retry_interval"></a>`reloader_retry_interval`
 
 Data type: `String`
 
@@ -2567,7 +2613,7 @@ Controls how often reloader retries config reload in case of error.
 
 Default value: `'5s'`
 
-##### <a name="objstore_config_file"></a>`objstore_config_file`
+##### <a name="-thanos--sidecar--objstore_config_file"></a>`objstore_config_file`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
@@ -2575,16 +2621,16 @@ Path to YAML file that contains object store configuration. See format details: 
 
 Default value: `$thanos::storage_config_file`
 
-##### <a name="shipper_upload_compacted"></a>`shipper_upload_compacted`
+##### <a name="-thanos--sidecar--shipper_upload_compacted"></a>`shipper_upload_compacted`
 
 Data type: `Boolean`
 
 If true sidecar will try to upload compacted blocks as well. Useful for migration purposes.
 Works only if compaction is disabled on Prometheus. Do it once and then disable the flag when done.
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="min_time"></a>`min_time`
+##### <a name="-thanos--sidecar--min_time"></a>`min_time`
 
 Data type: `Optional[String]`
 
@@ -2592,18 +2638,18 @@ Start of time range limit to serve. Thanos sidecar will serve only metrics, whic
   Option can be a constant time in RFC3339 format or time duration relative to current time, such as -1d or 2h45m.
   Valid duration units are ms, s, m, h, d, w, y.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="max_open_files"></a>`max_open_files`
+##### <a name="-thanos--sidecar--max_open_files"></a>`max_open_files`
 
 Data type: `Optional[Integer]`
 
 Define how many open files the service is able to use
 In some cases, the default value (1024) needs to be increased
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="extra_params"></a>`extra_params`
+##### <a name="-thanos--sidecar--extra_params"></a>`extra_params`
 
 Data type: `Hash`
 
@@ -2611,14 +2657,22 @@ Parameters passed to the binary, ressently released in latest version of Thanos.
 
 Default value: `{}`
 
-### <a name="thanosstore"></a>`thanos::store`
+##### <a name="-thanos--sidecar--env_vars"></a>`env_vars`
+
+Data type: `Array`
+
+Environment variables passed during startup. Useful for example for ELASTIC_APM tracing integration.
+
+Default value: `[]`
+
+### <a name="thanos--store"></a>`thanos::store`
 
 This class install Store as service store node giving access to blocks in a bucket provider.
    Now supported GCS, S3, Azure, Swift and Tencent COS..
 
 #### Examples
 
-#####
+##### 
 
 ```puppet
 include thanos::store
@@ -2628,40 +2682,41 @@ include thanos::store
 
 The following parameters are available in the `thanos::store` class:
 
-* [`ensure`](#ensure)
-* [`user`](#user)
-* [`group`](#group)
-* [`bin_path`](#bin_path)
-* [`log_level`](#log_level)
-* [`log_format`](#log_format)
-* [`tracing_config_file`](#tracing_config_file)
-* [`http_address`](#http_address)
-* [`http_grace_period`](#http_grace_period)
-* [`grpc_address`](#grpc_address)
-* [`grpc_grace_period`](#grpc_grace_period)
-* [`grpc_server_tls_cert`](#grpc_server_tls_cert)
-* [`grpc_server_tls_key`](#grpc_server_tls_key)
-* [`grpc_server_tls_client_ca`](#grpc_server_tls_client_ca)
-* [`data_dir`](#data_dir)
-* [`index_cache_config_file`](#index_cache_config_file)
-* [`index_cache_size`](#index_cache_size)
-* [`chunck_pool_size`](#chunck_pool_size)
-* [`store_grpc_series_sample_limit`](#store_grpc_series_sample_limit)
-* [`store_grpc_series_max_concurrency`](#store_grpc_series_max_concurrency)
-* [`objstore_config_file`](#objstore_config_file)
-* [`sync_block_duration`](#sync_block_duration)
-* [`block_sync_concurrency`](#block_sync_concurrency)
-* [`min_time`](#min_time)
-* [`max_time`](#max_time)
-* [`selector_relabel_config_file`](#selector_relabel_config_file)
-* [`consistency_delay`](#consistency_delay)
-* [`ignore_deletion_marks_delay`](#ignore_deletion_marks_delay)
-* [`web_external_prefix`](#web_external_prefix)
-* [`web_prefix_header`](#web_prefix_header)
-* [`max_open_files`](#max_open_files)
-* [`extra_params`](#extra_params)
+* [`ensure`](#-thanos--store--ensure)
+* [`user`](#-thanos--store--user)
+* [`group`](#-thanos--store--group)
+* [`bin_path`](#-thanos--store--bin_path)
+* [`log_level`](#-thanos--store--log_level)
+* [`log_format`](#-thanos--store--log_format)
+* [`tracing_config_file`](#-thanos--store--tracing_config_file)
+* [`http_address`](#-thanos--store--http_address)
+* [`http_grace_period`](#-thanos--store--http_grace_period)
+* [`grpc_address`](#-thanos--store--grpc_address)
+* [`grpc_grace_period`](#-thanos--store--grpc_grace_period)
+* [`grpc_server_tls_cert`](#-thanos--store--grpc_server_tls_cert)
+* [`grpc_server_tls_key`](#-thanos--store--grpc_server_tls_key)
+* [`grpc_server_tls_client_ca`](#-thanos--store--grpc_server_tls_client_ca)
+* [`data_dir`](#-thanos--store--data_dir)
+* [`index_cache_config_file`](#-thanos--store--index_cache_config_file)
+* [`index_cache_size`](#-thanos--store--index_cache_size)
+* [`chunck_pool_size`](#-thanos--store--chunck_pool_size)
+* [`store_grpc_series_sample_limit`](#-thanos--store--store_grpc_series_sample_limit)
+* [`store_grpc_series_max_concurrency`](#-thanos--store--store_grpc_series_max_concurrency)
+* [`objstore_config_file`](#-thanos--store--objstore_config_file)
+* [`sync_block_duration`](#-thanos--store--sync_block_duration)
+* [`block_sync_concurrency`](#-thanos--store--block_sync_concurrency)
+* [`min_time`](#-thanos--store--min_time)
+* [`max_time`](#-thanos--store--max_time)
+* [`selector_relabel_config_file`](#-thanos--store--selector_relabel_config_file)
+* [`consistency_delay`](#-thanos--store--consistency_delay)
+* [`ignore_deletion_marks_delay`](#-thanos--store--ignore_deletion_marks_delay)
+* [`web_external_prefix`](#-thanos--store--web_external_prefix)
+* [`web_prefix_header`](#-thanos--store--web_prefix_header)
+* [`max_open_files`](#-thanos--store--max_open_files)
+* [`extra_params`](#-thanos--store--extra_params)
+* [`env_vars`](#-thanos--store--env_vars)
 
-##### <a name="ensure"></a>`ensure`
+##### <a name="-thanos--store--ensure"></a>`ensure`
 
 Data type: `Enum['present', 'absent']`
 
@@ -2669,7 +2724,7 @@ State ensured from compact service.
 
 Default value: `'present'`
 
-##### <a name="user"></a>`user`
+##### <a name="-thanos--store--user"></a>`user`
 
 Data type: `String`
 
@@ -2677,7 +2732,7 @@ User running thanos.
 
 Default value: `$thanos::user`
 
-##### <a name="group"></a>`group`
+##### <a name="-thanos--store--group"></a>`group`
 
 Data type: `String`
 
@@ -2685,7 +2740,7 @@ Group under which thanos is running.
 
 Default value: `$thanos::group`
 
-##### <a name="bin_path"></a>`bin_path`
+##### <a name="-thanos--store--bin_path"></a>`bin_path`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -2693,7 +2748,7 @@ Path where binary is located.
 
 Default value: `$thanos::bin_path`
 
-##### <a name="log_level"></a>`log_level`
+##### <a name="-thanos--store--log_level"></a>`log_level`
 
 Data type: `Thanos::Log_level`
 
@@ -2701,7 +2756,7 @@ Only log messages with the given severity or above. One of: [debug, info, warn, 
 
 Default value: `'info'`
 
-##### <a name="log_format"></a>`log_format`
+##### <a name="-thanos--store--log_format"></a>`log_format`
 
 Data type: `Enum['logfmt', 'json']`
 
@@ -2709,7 +2764,7 @@ Output format of log messages. One of: [logfmt, json]
 
 Default value: `'logfmt'`
 
-##### <a name="tracing_config_file"></a>`tracing_config_file`
+##### <a name="-thanos--store--tracing_config_file"></a>`tracing_config_file`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
@@ -2717,7 +2772,7 @@ Path to YAML file with tracing configuration. See format details: https://thanos
 
 Default value: `$thanos::tracing_config_file`
 
-##### <a name="http_address"></a>`http_address`
+##### <a name="-thanos--store--http_address"></a>`http_address`
 
 Data type: `String`
 
@@ -2725,7 +2780,7 @@ Listen host:port for HTTP endpoints.
 
 Default value: `'0.0.0.0:10902'`
 
-##### <a name="http_grace_period"></a>`http_grace_period`
+##### <a name="-thanos--store--http_grace_period"></a>`http_grace_period`
 
 Data type: `String`
 
@@ -2733,7 +2788,7 @@ Time to wait after an interrupt received for HTTP Server.
 
 Default value: `'2m'`
 
-##### <a name="grpc_address"></a>`grpc_address`
+##### <a name="-thanos--store--grpc_address"></a>`grpc_address`
 
 Data type: `String`
 
@@ -2741,7 +2796,7 @@ Listen ip:port address for gRPC endpoints (StoreAPI). Make sure this address is 
 
 Default value: `'0.0.0.0:10901'`
 
-##### <a name="grpc_grace_period"></a>`grpc_grace_period`
+##### <a name="-thanos--store--grpc_grace_period"></a>`grpc_grace_period`
 
 Data type: `String`
 
@@ -2749,48 +2804,48 @@ Time to wait after an interrupt received for GRPC Server.
 
 Default value: `'2m'`
 
-##### <a name="grpc_server_tls_cert"></a>`grpc_server_tls_cert`
+##### <a name="-thanos--store--grpc_server_tls_cert"></a>`grpc_server_tls_cert`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 TLS Certificate for gRPC server, leave blank to disable TLS
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="grpc_server_tls_key"></a>`grpc_server_tls_key`
+##### <a name="-thanos--store--grpc_server_tls_key"></a>`grpc_server_tls_key`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 TLS Key for the gRPC server, leave blank to disable TLS
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="grpc_server_tls_client_ca"></a>`grpc_server_tls_client_ca`
+##### <a name="-thanos--store--grpc_server_tls_client_ca"></a>`grpc_server_tls_client_ca`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 TLS CA to verify clients against. If no client CA is specified, there is no client verification on server side. (tls.NoClientCert)
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="data_dir"></a>`data_dir`
+##### <a name="-thanos--store--data_dir"></a>`data_dir`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 Data directory in which to cache remote blocks.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="index_cache_config_file"></a>`index_cache_config_file`
+##### <a name="-thanos--store--index_cache_config_file"></a>`index_cache_config_file`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 Path to YAML file that contains index cache configuration.
   See format details: https://thanos.io/components/store.md/#index-cache
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="index_cache_size"></a>`index_cache_size`
+##### <a name="-thanos--store--index_cache_size"></a>`index_cache_size`
 
 Data type: `String`
 
@@ -2798,7 +2853,7 @@ Maximum size of items held in the index cache.
 
 Default value: `'250MB'`
 
-##### <a name="chunck_pool_size"></a>`chunck_pool_size`
+##### <a name="-thanos--store--chunck_pool_size"></a>`chunck_pool_size`
 
 Data type: `String`
 
@@ -2806,7 +2861,7 @@ Maximum size of concurrently allocatable bytes for chunks.
 
 Default value: `'2GB'`
 
-##### <a name="store_grpc_series_sample_limit"></a>`store_grpc_series_sample_limit`
+##### <a name="-thanos--store--store_grpc_series_sample_limit"></a>`store_grpc_series_sample_limit`
 
 Data type: `Integer`
 
@@ -2817,7 +2872,7 @@ Maximum amount of samples returned via a single Series call. 0 means no limit.
 
 Default value: `0`
 
-##### <a name="store_grpc_series_max_concurrency"></a>`store_grpc_series_max_concurrency`
+##### <a name="-thanos--store--store_grpc_series_max_concurrency"></a>`store_grpc_series_max_concurrency`
 
 Data type: `Integer`
 
@@ -2825,7 +2880,7 @@ Maximum number of concurrent Series calls.
 
 Default value: `20`
 
-##### <a name="objstore_config_file"></a>`objstore_config_file`
+##### <a name="-thanos--store--objstore_config_file"></a>`objstore_config_file`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
@@ -2833,7 +2888,7 @@ Path to YAML file that contains object store configuration. See format details: 
 
 Default value: `$thanos::storage_config_file`
 
-##### <a name="sync_block_duration"></a>`sync_block_duration`
+##### <a name="-thanos--store--sync_block_duration"></a>`sync_block_duration`
 
 Data type: `String`
 
@@ -2841,7 +2896,7 @@ Repeat interval for syncing the blocks between local and remote view.
 
 Default value: `'3m'`
 
-##### <a name="block_sync_concurrency"></a>`block_sync_concurrency`
+##### <a name="-thanos--store--block_sync_concurrency"></a>`block_sync_concurrency`
 
 Data type: `Integer`
 
@@ -2849,7 +2904,7 @@ Number of goroutines to use when syncing blocks from object storage.
 
 Default value: `20`
 
-##### <a name="min_time"></a>`min_time`
+##### <a name="-thanos--store--min_time"></a>`min_time`
 
 Data type: `Optional[String]`
 
@@ -2857,9 +2912,9 @@ Start of time range limit to serve. Thanos Store will serve only metrics, which 
   Option can be a constant time in RFC3339 format or time duration relative to current time, such as -1d or 2h45m. Valid
   duration units are ms, s, m, h, d, w, y.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="max_time"></a>`max_time`
+##### <a name="-thanos--store--max_time"></a>`max_time`
 
 Data type: `Optional[String]`
 
@@ -2867,9 +2922,9 @@ End of time range limit to serve. Thanos Store will serve only blocks, which hap
   Option can be a constant time in RFC3339 format or time duration relative to current time, such as -1d or 2h45m. Valid
   duration units are ms, s, m, h, d, w, y.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="selector_relabel_config_file"></a>`selector_relabel_config_file`
+##### <a name="-thanos--store--selector_relabel_config_file"></a>`selector_relabel_config_file`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
@@ -2877,9 +2932,9 @@ Path to YAML file that contains relabeling configuration that allows selecting b
   It follows native Prometheus relabel-config syntax.
   See format details: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="consistency_delay"></a>`consistency_delay`
+##### <a name="-thanos--store--consistency_delay"></a>`consistency_delay`
 
 Data type: `String`
 
@@ -2887,7 +2942,7 @@ Minimum age of all blocks before they are being read.
 
 Default value: `'30m'`
 
-##### <a name="ignore_deletion_marks_delay"></a>`ignore_deletion_marks_delay`
+##### <a name="-thanos--store--ignore_deletion_marks_delay"></a>`ignore_deletion_marks_delay`
 
 Data type: `String`
 
@@ -2902,7 +2957,7 @@ Duration after which the blocks marked for deletion will be filtered out while f
 
 Default value: `'24h'`
 
-##### <a name="web_external_prefix"></a>`web_external_prefix`
+##### <a name="-thanos--store--web_external_prefix"></a>`web_external_prefix`
 
 Data type: `Optional[String]`
 
@@ -2910,9 +2965,9 @@ Static prefix for all HTML links and redirect URLs in the UI query web interface
   Actual endpoints are still served on / or the web.route-prefix.
   This allows thanos UI to be served behind a reverse proxy that strips a URL sub-path.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="web_prefix_header"></a>`web_prefix_header`
+##### <a name="-thanos--store--web_prefix_header"></a>`web_prefix_header`
 
 Data type: `Optional[String]`
 
@@ -2923,18 +2978,18 @@ Name of HTTP request header used for dynamic prefixing of UI links and redirects
   if Thanos UI is served via Traefik reverse proxy with PathPrefixStrip option enabled, which sends the stripped
   prefix value in X-Forwarded-Prefix header. This allows thanos UI to be served on a sub-path.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="max_open_files"></a>`max_open_files`
+##### <a name="-thanos--store--max_open_files"></a>`max_open_files`
 
 Data type: `Optional[Integer]`
 
 Define how many open files the service is able to use
 In some cases, the default value (1024) needs to be increased
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="extra_params"></a>`extra_params`
+##### <a name="-thanos--store--extra_params"></a>`extra_params`
 
 Data type: `Hash`
 
@@ -2942,13 +2997,21 @@ Parameters passed to the binary, ressently released in latest version of Thanos.
 
 Default value: `{}`
 
-### <a name="thanostoolsbucket_web"></a>`thanos::tools::bucket_web`
+##### <a name="-thanos--store--env_vars"></a>`env_vars`
+
+Data type: `Array`
+
+Environment variables passed during startup. Useful for example for ELASTIC_APM tracing integration.
+
+Default value: `[]`
+
+### <a name="thanos--tools--bucket_web"></a>`thanos::tools::bucket_web`
 
 This class install Web interface for remote storage bucket.
 
 #### Examples
 
-#####
+##### 
 
 ```puppet
 include thanos::bucket_web
@@ -2958,25 +3021,26 @@ include thanos::bucket_web
 
 The following parameters are available in the `thanos::tools::bucket_web` class:
 
-* [`ensure`](#ensure)
-* [`user`](#user)
-* [`group`](#group)
-* [`bin_path`](#bin_path)
-* [`log_level`](#log_level)
-* [`log_format`](#log_format)
-* [`tracing_config_file`](#tracing_config_file)
-* [`objstore_config_file`](#objstore_config_file)
-* [`http_address`](#http_address)
-* [`http_grace_period`](#http_grace_period)
-* [`web_external_prefix`](#web_external_prefix)
-* [`web_prefix_header`](#web_prefix_header)
-* [`refresh`](#refresh)
-* [`timeout`](#timeout)
-* [`label`](#label)
-* [`max_open_files`](#max_open_files)
-* [`extra_params`](#extra_params)
+* [`ensure`](#-thanos--tools--bucket_web--ensure)
+* [`user`](#-thanos--tools--bucket_web--user)
+* [`group`](#-thanos--tools--bucket_web--group)
+* [`bin_path`](#-thanos--tools--bucket_web--bin_path)
+* [`log_level`](#-thanos--tools--bucket_web--log_level)
+* [`log_format`](#-thanos--tools--bucket_web--log_format)
+* [`tracing_config_file`](#-thanos--tools--bucket_web--tracing_config_file)
+* [`objstore_config_file`](#-thanos--tools--bucket_web--objstore_config_file)
+* [`http_address`](#-thanos--tools--bucket_web--http_address)
+* [`http_grace_period`](#-thanos--tools--bucket_web--http_grace_period)
+* [`web_external_prefix`](#-thanos--tools--bucket_web--web_external_prefix)
+* [`web_prefix_header`](#-thanos--tools--bucket_web--web_prefix_header)
+* [`refresh`](#-thanos--tools--bucket_web--refresh)
+* [`timeout`](#-thanos--tools--bucket_web--timeout)
+* [`label`](#-thanos--tools--bucket_web--label)
+* [`max_open_files`](#-thanos--tools--bucket_web--max_open_files)
+* [`extra_params`](#-thanos--tools--bucket_web--extra_params)
+* [`env_vars`](#-thanos--tools--bucket_web--env_vars)
 
-##### <a name="ensure"></a>`ensure`
+##### <a name="-thanos--tools--bucket_web--ensure"></a>`ensure`
 
 Data type: `Enum['present', 'absent']`
 
@@ -2984,7 +3048,7 @@ State ensured from compact service.
 
 Default value: `'present'`
 
-##### <a name="user"></a>`user`
+##### <a name="-thanos--tools--bucket_web--user"></a>`user`
 
 Data type: `String`
 
@@ -2992,7 +3056,7 @@ User running thanos.
 
 Default value: `$thanos::user`
 
-##### <a name="group"></a>`group`
+##### <a name="-thanos--tools--bucket_web--group"></a>`group`
 
 Data type: `String`
 
@@ -3000,7 +3064,7 @@ Group under which thanos is running.
 
 Default value: `$thanos::group`
 
-##### <a name="bin_path"></a>`bin_path`
+##### <a name="-thanos--tools--bucket_web--bin_path"></a>`bin_path`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -3008,7 +3072,7 @@ Path where binary is located.
 
 Default value: `$thanos::bin_path`
 
-##### <a name="log_level"></a>`log_level`
+##### <a name="-thanos--tools--bucket_web--log_level"></a>`log_level`
 
 Data type: `Thanos::Log_level`
 
@@ -3016,7 +3080,7 @@ Only log messages with the given severity or above. One of: [debug, info, warn, 
 
 Default value: `'info'`
 
-##### <a name="log_format"></a>`log_format`
+##### <a name="-thanos--tools--bucket_web--log_format"></a>`log_format`
 
 Data type: `Enum['logfmt', 'json']`
 
@@ -3024,7 +3088,7 @@ Output format of log messages. One of: [logfmt, json]
 
 Default value: `'logfmt'`
 
-##### <a name="tracing_config_file"></a>`tracing_config_file`
+##### <a name="-thanos--tools--bucket_web--tracing_config_file"></a>`tracing_config_file`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
@@ -3032,7 +3096,7 @@ Path to YAML file with tracing configuration. See format details: https://thanos
 
 Default value: `$thanos::tracing_config_file`
 
-##### <a name="objstore_config_file"></a>`objstore_config_file`
+##### <a name="-thanos--tools--bucket_web--objstore_config_file"></a>`objstore_config_file`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
@@ -3040,7 +3104,7 @@ Path to YAML file that contains object store configuration. See format details: 
 
 Default value: `$thanos::storage_config_file`
 
-##### <a name="http_address"></a>`http_address`
+##### <a name="-thanos--tools--bucket_web--http_address"></a>`http_address`
 
 Data type: `String`
 
@@ -3048,7 +3112,7 @@ Listen host:port for HTTP endpoints.
 
 Default value: `'0.0.0.0:10902'`
 
-##### <a name="http_grace_period"></a>`http_grace_period`
+##### <a name="-thanos--tools--bucket_web--http_grace_period"></a>`http_grace_period`
 
 Data type: `String`
 
@@ -3056,7 +3120,7 @@ Time to wait after an interrupt received for HTTP Server.
 
 Default value: `'2m'`
 
-##### <a name="web_external_prefix"></a>`web_external_prefix`
+##### <a name="-thanos--tools--bucket_web--web_external_prefix"></a>`web_external_prefix`
 
 Data type: `Optional[String]`
 
@@ -3064,9 +3128,9 @@ Static prefix for all HTML links and redirect URLs in the bucket web UI interfac
 Actual endpoints are still served on / or the web.route-prefix.
 This allows thanos bucket web UI to be served behind a reverse proxy that strips a URL sub-path.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="web_prefix_header"></a>`web_prefix_header`
+##### <a name="-thanos--tools--bucket_web--web_prefix_header"></a>`web_prefix_header`
 
 Data type: `Optional[String]`
 
@@ -3077,9 +3141,9 @@ The --web.prefix-header=X-Forwarded-Prefix option can be useful, for example, if
   reverse proxy with PathPrefixStrip option enabled, which sends the stripped prefix value in X-Forwarded-Prefix header.
 This allows thanos UI to be served on a sub-path.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="refresh"></a>`refresh`
+##### <a name="-thanos--tools--bucket_web--refresh"></a>`refresh`
 
 Data type: `String`
 
@@ -3087,7 +3151,7 @@ Refresh interval to download metadata from remote storage
 
 Default value: `'30m'`
 
-##### <a name="timeout"></a>`timeout`
+##### <a name="-thanos--tools--bucket_web--timeout"></a>`timeout`
 
 Data type: `String`
 
@@ -3095,24 +3159,24 @@ Timeout to download metadata from remote storage
 
 Default value: `'5m'`
 
-##### <a name="label"></a>`label`
+##### <a name="-thanos--tools--bucket_web--label"></a>`label`
 
 Data type: `Optional[String]`
 
 Prometheus label to use as timeline title
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="max_open_files"></a>`max_open_files`
+##### <a name="-thanos--tools--bucket_web--max_open_files"></a>`max_open_files`
 
 Data type: `Optional[Integer]`
 
 Define how many open files the service is able to use
 In some cases, the default value (1024) needs to be increased
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="extra_params"></a>`extra_params`
+##### <a name="-thanos--tools--bucket_web--extra_params"></a>`extra_params`
 
 Data type: `Hash`
 
@@ -3120,15 +3184,23 @@ Parameters passed to the binary, ressently released in latest version of Thanos.
 
 Default value: `{}`
 
+##### <a name="-thanos--tools--bucket_web--env_vars"></a>`env_vars`
+
+Data type: `Array`
+
+Environment variables passed during startup. Useful for example for ELASTIC_APM tracing integration.
+
+Default value: `[]`
+
 ## Defined types
 
-### <a name="thanosconfigindex_cache"></a>`thanos::config::index_cache`
+### <a name="thanos--config--index_cache"></a>`thanos::config::index_cache`
 
 Manage Index cache configuration file.
 
 #### Examples
 
-#####
+##### 
 
 ```puppet
 thanos::config::index_cache { '/etc/thanos/index_cache.yaml':
@@ -3145,36 +3217,36 @@ thanos::config::index_cache { '/etc/thanos/index_cache.yaml':
 
 The following parameters are available in the `thanos::config::index_cache` defined type:
 
-* [`ensure`](#ensure)
-* [`type`](#type)
-* [`config`](#config)
+* [`ensure`](#-thanos--config--index_cache--ensure)
+* [`type`](#-thanos--config--index_cache--type)
+* [`config`](#-thanos--config--index_cache--config)
 
-##### <a name="ensure"></a>`ensure`
+##### <a name="-thanos--config--index_cache--ensure"></a>`ensure`
 
 Data type: `Enum['present', 'absent']`
 
 State ensured from configuration file.
 
-##### <a name="type"></a>`type`
+##### <a name="-thanos--config--index_cache--type"></a>`type`
 
 Data type: `Thanos::Index_cache_type`
 
 Type of Index cache.
   One of ['IN-MEMORY', 'MEMCACHED']
 
-##### <a name="config"></a>`config`
+##### <a name="-thanos--config--index_cache--config"></a>`config`
 
 Data type: `Hash[String, Data]`
 
 Configuration to typed index cache.
 
-### <a name="thanosconfigstorage"></a>`thanos::config::storage`
+### <a name="thanos--config--storage"></a>`thanos::config::storage`
 
 Manage Storage configuration file.
 
 #### Examples
 
-#####
+##### 
 
 ```puppet
 thanos::config::storage { '/etc/thanos/storage.yaml':
@@ -3190,31 +3262,31 @@ thanos::config::storage { '/etc/thanos/storage.yaml':
 
 The following parameters are available in the `thanos::config::storage` defined type:
 
-* [`ensure`](#ensure)
-* [`type`](#type)
-* [`config`](#config)
-* [`prefix`](#prefix)
+* [`ensure`](#-thanos--config--storage--ensure)
+* [`type`](#-thanos--config--storage--type)
+* [`config`](#-thanos--config--storage--config)
+* [`prefix`](#-thanos--config--storage--prefix)
 
-##### <a name="ensure"></a>`ensure`
+##### <a name="-thanos--config--storage--ensure"></a>`ensure`
 
 Data type: `Enum['present', 'absent']`
 
 State ensured from configuration file.
 
-##### <a name="type"></a>`type`
+##### <a name="-thanos--config--storage--type"></a>`type`
 
 Data type: `Thanos::Storage_type`
 
 Type of Storage configurarion.
   One of ['S3', 'GCS', 'AZURE', 'SWIFT', 'COS', 'ALIYUNOSS', 'FILESYSTEM']
 
-##### <a name="config"></a>`config`
+##### <a name="-thanos--config--storage--config"></a>`config`
 
 Data type: `Hash[String, Data]`
 
 Configuration to typed storage.
 
-##### <a name="prefix"></a>`prefix`
+##### <a name="-thanos--config--storage--prefix"></a>`prefix`
 
 Data type: `String`
 
@@ -3222,13 +3294,13 @@ Set the prefix for to be used on the storage
 
 Default value: `''`
 
-### <a name="thanosconfigtracing"></a>`thanos::config::tracing`
+### <a name="thanos--config--tracing"></a>`thanos::config::tracing`
 
 Manage Tracing configuration file
 
 #### Examples
 
-#####
+##### 
 
 ```puppet
 thanos::config::tracing { '/etc/thanos/tracing.yaml':
@@ -3242,36 +3314,36 @@ thanos::config::tracing { '/etc/thanos/tracing.yaml':
 
 The following parameters are available in the `thanos::config::tracing` defined type:
 
-* [`ensure`](#ensure)
-* [`type`](#type)
-* [`config`](#config)
+* [`ensure`](#-thanos--config--tracing--ensure)
+* [`type`](#-thanos--config--tracing--type)
+* [`config`](#-thanos--config--tracing--config)
 
-##### <a name="ensure"></a>`ensure`
+##### <a name="-thanos--config--tracing--ensure"></a>`ensure`
 
 Data type: `Enum['present', 'absent']`
 
 State ensured from configuration file.
 
-##### <a name="type"></a>`type`
+##### <a name="-thanos--config--tracing--type"></a>`type`
 
 Data type: `Thanos::Tracing_type`
 
 Type of Tracing configurarion.
   One of ['JAEGER', 'STACKDRIVER', 'ELASTIC_APM', 'LIGHTSTEP']
 
-##### <a name="config"></a>`config`
+##### <a name="-thanos--config--tracing--config"></a>`config`
 
 Data type: `Hash[String, Data]`
 
 Configuration to typed tracing.
 
-### <a name="thanosresourcesservice"></a>`thanos::resources::service`
+### <a name="thanos--resources--service"></a>`thanos::resources::service`
 
 This defined type create component's service.
 
 #### Examples
 
-#####
+##### 
 
 ```puppet
 thanos::resources::service { 'component_name':
@@ -3284,47 +3356,48 @@ thanos::resources::service { 'component_name':
 
 The following parameters are available in the `thanos::resources::service` defined type:
 
-* [`ensure`](#ensure)
-* [`bin_path`](#bin_path)
-* [`user`](#user)
-* [`group`](#group)
-* [`max_open_files`](#max_open_files)
-* [`params`](#params)
-* [`extra_params`](#extra_params)
+* [`ensure`](#-thanos--resources--service--ensure)
+* [`bin_path`](#-thanos--resources--service--bin_path)
+* [`user`](#-thanos--resources--service--user)
+* [`group`](#-thanos--resources--service--group)
+* [`max_open_files`](#-thanos--resources--service--max_open_files)
+* [`params`](#-thanos--resources--service--params)
+* [`extra_params`](#-thanos--resources--service--extra_params)
+* [`env_vars`](#-thanos--resources--service--env_vars)
 
-##### <a name="ensure"></a>`ensure`
+##### <a name="-thanos--resources--service--ensure"></a>`ensure`
 
 Data type: `Variant[Stdlib::Ensure::Service, Enum['absent']]`
 
 State ensured from component service.
 
-##### <a name="bin_path"></a>`bin_path`
+##### <a name="-thanos--resources--service--bin_path"></a>`bin_path`
 
 Data type: `Stdlib::Absolutepath`
 
 Path where binary is located.
 
-##### <a name="user"></a>`user`
+##### <a name="-thanos--resources--service--user"></a>`user`
 
 Data type: `String`
 
 User running thanos.
 
-##### <a name="group"></a>`group`
+##### <a name="-thanos--resources--service--group"></a>`group`
 
 Data type: `String`
 
 Group under which thanos is running.
 
-##### <a name="max_open_files"></a>`max_open_files`
+##### <a name="-thanos--resources--service--max_open_files"></a>`max_open_files`
 
 Data type: `Optional[Integer]`
 
 Define the maximum open files the service is allowed to use
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="params"></a>`params`
+##### <a name="-thanos--resources--service--params"></a>`params`
 
 Data type: `Hash`
 
@@ -3332,7 +3405,7 @@ Parameters passed to the binary.
 
 Default value: `{}`
 
-##### <a name="extra_params"></a>`extra_params`
+##### <a name="-thanos--resources--service--extra_params"></a>`extra_params`
 
 Data type: `Hash`
 
@@ -3340,45 +3413,37 @@ Parameters passed to the binary, ressently released in latest version of Thanos.
 
 Default value: `{}`
 
+##### <a name="-thanos--resources--service--env_vars"></a>`env_vars`
+
+Data type: `Array`
+
+
+
+Default value: `[]`
+
 ## Data types
 
-### <a name="thanosindex_cache_type"></a>`Thanos::Index_cache_type`
+### <a name="Thanos--Index_cache_type"></a>`Thanos::Index_cache_type`
 
 Thanos index cache type
 
-Alias of
+Alias of `Enum['IN-MEMORY', 'MEMCACHED']`
 
-```puppet
-Enum['IN-MEMORY', 'MEMCACHED']
-```
-
-### <a name="thanoslog_level"></a>`Thanos::Log_level`
+### <a name="Thanos--Log_level"></a>`Thanos::Log_level`
 
 Thanos Log Level type
 
-Alias of
+Alias of `Enum['debug', 'info', 'warn', 'error', 'fatal']`
 
-```puppet
-Enum['debug', 'info', 'warn', 'error', 'fatal']
-```
-
-### <a name="thanosstorage_type"></a>`Thanos::Storage_type`
+### <a name="Thanos--Storage_type"></a>`Thanos::Storage_type`
 
 Thanos Storage type
 
-Alias of
+Alias of `Enum['S3', 'GCS', 'AZURE', 'SWIFT', 'COS', 'ALIYUNOSS', 'FILESYSTEM']`
 
-```puppet
-Enum['S3', 'GCS', 'AZURE', 'SWIFT', 'COS', 'ALIYUNOSS', 'FILESYSTEM']
-```
-
-### <a name="thanostracing_type"></a>`Thanos::Tracing_type`
+### <a name="Thanos--Tracing_type"></a>`Thanos::Tracing_type`
 
 Thanos Tracing type
 
-Alias of
-
-```puppet
-Enum['JAEGER', 'STACKDRIVER', 'ELASTIC_APM', 'LIGHTSTEP']
-```
+Alias of `Enum['JAEGER', 'STACKDRIVER', 'ELASTIC_APM', 'LIGHTSTEP']`
 

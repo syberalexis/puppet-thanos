@@ -27,8 +27,9 @@ define thanos::resources::service (
   String                                           $user,
   String                                           $group,
   Optional[Integer]                                $max_open_files = undef,
-  Hash                                             $params       = {},
-  Hash                                             $extra_params = {},
+  Hash                                             $params         = {},
+  Hash                                             $extra_params   = {},
+  Array                                            $env_vars       = [],
 ) {
   $_service_name   = "thanos-${title}"
   $_service_ensure = $ensure ? {

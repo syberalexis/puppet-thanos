@@ -70,6 +70,8 @@
 #  Prometheus label to use as timeline title in the bucket web UI
 # @param extra_params
 #  Parameters passed to the binary, ressently released in latest version of Thanos.
+# @param env_vars
+#  Environment variables passed during startup. Useful for example for ELASTIC_APM tracing integration.
 # @example
 #   include thanos::compact
 class thanos::compact (
@@ -101,6 +103,7 @@ class thanos::compact (
   Optional[String]               $bucket_web_label                        = undef,
   # Extra parametes
   Hash                           $extra_params                            = {},
+  Array                          $env_vars                                = [],
 ) {
   $_service_ensure = $ensure ? {
     'present' => 'running',
@@ -136,5 +139,6 @@ class thanos::compact (
       'bucket-web-label'                        => $bucket_web_label,
     },
     extra_params => $extra_params,
+    env_vars     => $env_vars,
   }
 }

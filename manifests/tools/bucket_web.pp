@@ -44,6 +44,8 @@
 #  In some cases, the default value (1024) needs to be increased
 # @param extra_params
 #  Parameters passed to the binary, ressently released in latest version of Thanos.
+# @param env_vars
+#  Environment variables passed during startup. Useful for example for ELASTIC_APM tracing integration.
 # @example
 #   include thanos::bucket_web
 class thanos::tools::bucket_web (
@@ -66,6 +68,7 @@ class thanos::tools::bucket_web (
   Optional[Integer]              $max_open_files       = undef,
   # Extra parametes
   Hash                           $extra_params         = {},
+  Array                          $env_vars             = [],
 ) {
   $_service_ensure = $ensure ? {
     'present' => 'running',
@@ -93,5 +96,6 @@ class thanos::tools::bucket_web (
       'label'                => $label,
     },
     extra_params   => $extra_params,
+    env_vars       => $env_vars,
   }
 }
