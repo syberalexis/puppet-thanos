@@ -73,7 +73,7 @@ class thanos::query_frontend (
   String                         $http_grace_period                        = '2m',
   Stdlib::HTTPUrl                $query_frontend_downstream_url            = 'http://localhost:9090',
   Boolean                        $query_frontend_compress_responses        = false,
-  String                         $query_frontend_log_queries_longer_than   = "0",
+  String                         $query_frontend_log_queries_longer_than   = '0',
   Optional[String]               $log_request_decision                     = undef,
   # Extra parametes
   Hash                           $extra_params                             = {},

@@ -38,7 +38,7 @@ describe 'thanos::query_frontend' do
             'http-grace-period'                        => '2m',
             'query-frontend.downstream-url'            => 'http://localhost:9090',
             'query-frontend.compress-responses'        => false,
-            'query-frontend.log-queries-longer-than'   => "0",
+            'query-frontend.log-queries-longer-than'   => '0',
             'log.request.decision'                     => nil,
           },
         )
