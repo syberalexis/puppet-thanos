@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## Release 1.5.1
+
+**Features**
+
+- #47 : add env vars
+- #46 : change query_frontend_log_queries_longer_than to String
+
 ## Release 1.5.0
 
 **Features**
