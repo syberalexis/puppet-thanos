@@ -196,11 +196,11 @@ thanos::download_url: 'http://my_private_dropbox/thanos/thanos-0.10.1.tar.gz'
 It's not a very good idea to deploy like this in Production. But it's possible to test it on the same machine.
 
 ```yaml
-thanos:manage_sidecar: true
-thanos:manage_query: true
-thanos:manage_rule: true
-thanos:manage_store: true
-thanos:manage_compact: true
+thanos::manage_sidecar: true
+thanos::manage_query: true
+thanos::manage_rule: true
+thanos::manage_store: true
+thanos::manage_compact: true
 
 thanos::sidecar::http_address: '0.0.0.0:10902'
 thanos::sidecar::grpc_address: '0.0.0.0:10901'
