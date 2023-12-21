@@ -89,7 +89,7 @@ class thanos::sidecar (
   Array[Stdlib::Absolutepath]    $reloader_rule_dirs                    = [],
   String                         $reloader_watch_interval               = '3m',
   String                         $reloader_retry_interval               = '5s',
-  Optional[Stdlib::Absolutepath] $objstore_config_file                  = $thanos::storage_config_file,
+  Optional[Stdlib::Absolutepath] $objstore_config_file                  = undef,
   Boolean                        $shipper_upload_compacted              = false,
   Optional[String]               $min_time                              = undef,
   # Extra parametes
