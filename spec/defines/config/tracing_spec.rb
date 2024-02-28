@@ -10,6 +10,8 @@ describe 'thanos::config::tracing' do
       config: {
         test: 'test',
       },
+      user: 'thanos',
+      group: 'thanos',
     },
     {
       ensure: 'present',
@@ -17,6 +19,8 @@ describe 'thanos::config::tracing' do
       config: {
         test: 'test',
       },
+      user: 'thanos',
+      group: 'thanos',
     },
     {
       ensure: 'present',
@@ -24,6 +28,8 @@ describe 'thanos::config::tracing' do
       config: {
         test: 'test',
       },
+      user: 'thanos',
+      group: 'thanos',
     },
     {
       ensure: 'present',
@@ -31,6 +37,8 @@ describe 'thanos::config::tracing' do
       config: {
         test: 'test',
       },
+      user: 'thanos',
+      group: 'thanos',
     },
   ].each do |parameters|
     context "with parameters #{parameters}" do

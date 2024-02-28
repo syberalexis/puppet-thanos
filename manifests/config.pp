@@ -43,13 +43,22 @@ class thanos::config (
 
   if $manage_storage_config {
     thanos::config::storage { $storage_config_file:
-      * => $storage_config,
+      ensure => $storage_config['ensure'],
+      type   => $storage_config['type'],
+      config => $storage_config['config'],
+      user   => $thanos::user,
+      group  => $thanos::group,
+      prefix => $storage_config['prefix'],
     }
   }
 
   if $manage_tracing_config {
     thanos::config::tracing { $tracing_config_file:
-      * => $tracing_config,
+      ensure => $tracing_config['ensure'],
+      type   => $tracing_config['type'],
+      config => $tracing_config['config'],
+      user   => $thanos::user,
+      group  => $thanos::group,
     }
   }
 
