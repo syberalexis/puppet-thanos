@@ -23,7 +23,7 @@ define thanos::config::storage (
   Enum['present', 'absent'] $ensure,
   Thanos::Storage_type      $type,
   Hash[String, Data]        $config,
-  String                    $prefix = '',
+  String                    $prefix = '', # lint:ignore:params_empty_string_assignment
 ) {
   $_ensure = $ensure ? {
     'present' => 'file',

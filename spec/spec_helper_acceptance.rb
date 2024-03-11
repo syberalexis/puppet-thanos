@@ -1,5 +1,5 @@
 ENV['PUPPET_INSTALL_TYPE'] ||= 'agent'
-ENV['BEAKER_PUPPET_COLLECTION'] ||= 'puppet6'
+ENV['BEAKER_PUPPET_COLLECTION'] ||= 'puppet8'
 ENV['BEAKER_debug'] ||= 'true'
 
 require 'beaker-rspec'

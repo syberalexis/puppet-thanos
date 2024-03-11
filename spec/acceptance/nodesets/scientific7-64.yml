@@ -16,4 +16,4 @@ CONFIG:
   nfs_server: none
   consoleport: 443
   type: aio
-  BEAKER_PUPPET_COLLECTION: puppet6
+  BEAKER_PUPPET_COLLECTION: puppet8

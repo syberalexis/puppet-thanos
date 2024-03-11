@@ -1,6 +1,6 @@
 ---
 HOSTS:
-  ubuntu1804-64-1:
+  ubuntu2004-64-1:
     pe_dir: 
     pe_ver: 
     pe_upgrade_dir: 
@@ -16,4 +16,4 @@ CONFIG:
   nfs_server: none
   consoleport: 443
   type: aio
-  BEAKER_PUPPET_COLLECTION: puppet6
+  BEAKER_PUPPET_COLLECTION: puppet8
