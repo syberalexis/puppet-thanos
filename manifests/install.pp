@@ -127,7 +127,7 @@ class thanos::install (
 
   file { $config_dir:
     ensure  => 'directory',
-    owner   => 'root',
+    owner   => $user,
     group   => $group,
     mode    => '0750',
     purge   => $purge_config_dir,
