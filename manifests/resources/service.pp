@@ -46,7 +46,7 @@ define thanos::resources::service (
     default   => absent,
   }
 
-  $parameters = merge($params, $extra_params).filter |String $key, Data $value| {
+  $parameters = stdlib::merge($params, $extra_params).filter |String $key, Data $value| {
     !!$value
   }.map |String $key, Data $value| {
     if $value.is_a(Array) {
