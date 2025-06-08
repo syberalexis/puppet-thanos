@@ -19,6 +19,8 @@ define thanos::config::tracing (
   Enum['present', 'absent'] $ensure,
   Thanos::Tracing_type      $type,
   Hash[String, Data]        $config,
+  String                    $user,
+  String                    $group,
 ) {
   $_ensure = $ensure ? {
     'present' => 'file',
@@ -33,5 +35,8 @@ define thanos::config::tracing (
   file { $title:
     ensure  => $_ensure,
     content => $configs.to_yaml(),
+    owner   => $user,
+    group   => $group,
+    mode    => '0600',
   }
 }
