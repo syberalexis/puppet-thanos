@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## Release 1.7.0
+
+**Features**
+
+- #53 : Support configuration directory for thanos::user (or other)
+- #55 : update dependencies
+
+## Release 1.6.0
+
+**Features**
+
+- #41 : Support running sidecar without object store
+
 ## Release 1.5.1
 
 **Features**
